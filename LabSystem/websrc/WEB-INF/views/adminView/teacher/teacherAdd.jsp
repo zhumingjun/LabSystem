@@ -39,16 +39,8 @@
 
 <form id="teacherFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/teacher/save" method="post">
 	<input type="hidden" id="jobTitleId" name="jobTitle" value=""/>
-	<table>
+	<table>	
 		<tr>
-			<td class="lesta-150">工号：</td>
-			<td class="lestb">
-				<input type="text" id="workCode" name="workCode" class="input_text_a" placeholder="请输入工号">
-			</td>
-		</tr>
-
-	
-<%-- 		<tr>
 			<td class="lesta-150">工号：</td>
 			<td class="lestb">
 				<input type="text" id="workCode" name="workCode" class="input_text_a" placeholder="请输入工号">
@@ -121,7 +113,7 @@
 			<td class="lestb">
 				<input type="text" id="entryYear" name="entryYear" class="input_text_a" placeholder="请输入入职年份" />
 			</td>
-		</tr> --%>
+		</tr> 
 		
 	</table>
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="确定"/>
@@ -129,7 +121,7 @@
 
 <script>
 
-/* 	$("#saveButton").click(function(){
+ 	$("#saveButton").click(function(){
 		
 		
 		var form = $("#teacherFormId");
@@ -150,10 +142,10 @@
 			}
 		});
 	
-	}); */
+	});
 
 
-	//表单验证
+/*	//表单验证
 	$.Tipmsg.r=null;
 	
 	var showmsg=function(msg,obj){
@@ -168,7 +160,7 @@
 		}
 	});
 
-	
+*/
 	//下拉框选择后给隐藏域赋值
 	$("#jobTitle_select_add_id").change(function(){
 		var jobTitle_id=$(this).children('option:selected').val();

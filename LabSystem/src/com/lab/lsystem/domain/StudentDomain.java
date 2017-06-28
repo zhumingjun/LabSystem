@@ -11,22 +11,22 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
-@Table(name="TEACHER")
-public class TeacherDomain {
+@Table(name="STUDENT")
+public class StudentDomain {
 	private String id; //id
-	private String name;//教师姓名
-	private String workCode;//教师工号
-	private int sex;//教师性别
-	private String finAccount;//财务账号
+	private String name;//学生姓名
+	private String stuCode;//学生学号
+	private int sex;//学生性别
+	private String bankCard;//学生账号
 	private String idNumber;//身份证号
-	private int jobTitle;//职称
+	private int grade;//年级
 	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date birthday;//生日
 	private String phoneNumber;//手机号
 	private String email;//邮箱
 	private String homeAddress;//家庭住址
-	private String entryYear;//入职年份
-	public TeacherDomain() {
+	private String entryYear;//入学年份
+	public StudentDomain() {
 		super();
 	}
 	@Id
@@ -46,12 +46,12 @@ public class TeacherDomain {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name = "WORKCODE",unique = true, nullable = false, length = 100)
-	public String getWorkCode() {
-		return workCode;
+	@Column(name = "STUCODE",unique = true, nullable = false, length = 100)
+	public String getStuCode() {
+		return stuCode;
 	}
-	public void setWorkCode(String workCode) {
-		this.workCode = workCode;
+	public void setStuCode(String stuCode) {
+		this.stuCode = stuCode;
 	}
 	@Column(name = "SEX",unique = true, nullable = false, length =11)
 	public int getSex() {
@@ -60,12 +60,12 @@ public class TeacherDomain {
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
-	@Column(name = "FINACCOUNT",unique = true, nullable = false, length = 100)
-	public String getFinAccount() {
-		return finAccount;
+	@Column(name = "BANKCARD",unique = true, nullable = false, length = 100)
+	public String getBankCard() {
+		return bankCard;
 	}
-	public void setFinAccount(String finAccount) {
-		this.finAccount = finAccount;
+	public void setBankCard(String bankCard) {
+		this.bankCard = bankCard;
 	}
 	@Column(name = "IDNUMBER",unique = true, nullable = false, length = 100)
 	public String getIdNumber() {
@@ -74,12 +74,12 @@ public class TeacherDomain {
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
-	@Column(name = "JOBTITLE",unique = true, nullable = false, length = 11)
-	public int getJobTitle() {
-		return jobTitle;
+	@Column(name = "GRADE",unique = true, nullable = false, length = 11)
+	public int getGrade() {
+		return grade;
 	}
-	public void setJobTitle(int jobTitle) {
-		this.jobTitle = jobTitle;
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 	@Column(name = "BIRTHDAY",unique = true, nullable = false, length = 100)
 	public Date getBirthday() {

@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.lab.lsystem.domain.CodeBookDomain;
+import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.domain.TeacherDomain;
+import com.lab.lsystem.service.IStudentService;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
 
@@ -28,8 +31,8 @@ import com.lab.system.util.PageInfo;
  * 教师管理
  */
 @Controller
-@RequestMapping("/admin/teacher")
-public class TeacherController {
+@RequestMapping("/admin/student")
+public class StudentController {
 	/**
 	 * 账户列表页面
 	 * @param model
@@ -37,6 +40,7 @@ public class TeacherController {
 	 * @throws Exception
 	 */
 	@Resource private ITeacherService teacherService;
+	@Resource private IStudentService studentService;
 	
 	
 	@Value("#{envProperties['csystemupload']}") private String shareupload;
@@ -60,15 +64,15 @@ public class TeacherController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/teacherList")
+	@RequestMapping("/studentList")
 	public String getUserList(@ModelAttribute("pageInfo") PageInfo pageInfo
 			,BindingResult bindingResult,Model model) throws Exception{
 		//采用分页方式获取
-		List<TeacherDomain> teacherList=teacherService.doGetPageList(pageInfo);
+		List<StudentDomain> studentList=studentService.doGetPageList(pageInfo);
 		
-		model.addAttribute("teacherList", teacherList);
+		model.addAttribute("studentList", studentList);
 		
-		return "/adminView/teacher/teacherList";
+		return "/adminView/student/studentList";
 	}
 	/**
 	 * 学生详情页面

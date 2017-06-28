@@ -12,12 +12,7 @@
 
 <div>
 <form id="formId" action="${pageContext.request.contextPath}/admin/student/studentSearchList" method="post">
-	<input type="hidden" id="gradeId" name="gradeId" value="${gradeId }" />
-	<input type="hidden" id="majorId" name="majorId" value="${majorId }" />
-	<input type="hidden" id="collegeId" name="collegeId" value="${collegeId }" />
-	<input type="hidden" id="classId" name="classId" value="${classId }" />
-	<input type="hidden" id="sortMode" name="sortMode" value="${sortMode }" />
-	<input type="hidden" id="sortValue" name="sortValue" value="${sortValue }" />
+	
 	<div class="breadcrumbs" id="studentListToolbar">
 	
 		<span class="input-icon" style="margin: 5px;">
@@ -31,43 +26,7 @@
 	</div>
 	<div class="breadcrumbs">
 	
-		<label style="margin-left: 20px;">年级：</label>
-		<select id="grade_select_id" style="width: 100px;">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${gradeList }" var="gradeDomain">
-				<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
-			</c:forEach>
-		</select>
-	
-		<label style="margin-left: 20px;">学院：</label>
-		<select id="college_select_id" style="width: 100px;" onchange="getMajor(this.value)">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${collegeList }" var="collegeDomain">
-				<option value="${collegeDomain.id }">${collegeDomain.name}</option>
-			</c:forEach>
-		</select>
 		
-		<label style="margin-left: 20px;">专业：</label>
-		<select id="major_select_id" style="width: 100px;" onchange="getClass(this.value)">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${majorList }" var="majorItem">
-				<option value="${majorItem.selectText }">${majorItem.selectValue}</option>
-			</c:forEach>
-		</select>
-	
-		<label style="margin-left: 20px;">班级：</label>
-		<select id="class_select_id" style="width: 100px;">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${classList }" var="classItem">
-				<option value="${classItem.selectText }">${classItem.selectValue}</option>
-			</c:forEach>
-		</select>
-		
-	</div>
-	<div class="breadcrumbs">
-		<input id="studentExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="从excel中导入数据"/>
-		<input id="studentDBToExcelButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导出数据"/>
-	
 	</div>
 	<div class="table-responsive">
 		<table id="sample-table-2" class="table table-striped table-bordered table-hover" style="table-layout:fixed;">
@@ -76,49 +35,11 @@
 					<th class="center" style="width: 60px;">
 						<label> <input id="theadCheckbox" type="checkbox" class="ace" /> <span class="lbl"></span></label>
 					</th>
-					<th style="width: 120px;">学号
-						<span>
-							<c:choose>
-								<c:when test="${sortMode=='asc'&&sortValue=='stuId' }">
-									<img id="img_stuId_asc" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_up_24.png">
-								</c:when>
-								<c:when test="${sortMode=='desc'&&sortValue=='stuId' }">
-									<img id="img_stuId_desc" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_down_24.png">
-								</c:when>
-								<c:otherwise>
-									<img id="img_stuId" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_24.png">
-								</c:otherwise>
-							</c:choose>
-						</span>
-					</th>
-					<th style="width: 80px;">姓名</th>
-					<th style="width: 50px;">性别</th>
-<%-- 					<th>出生日期
-						<span>
-							<c:choose>
-								<c:when test="${sortMode=='asc'&&sortValue=='birthday' }">
-									<img id="img_birthday_asc" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_up_24.png">
-								</c:when>
-								<c:when test="${sortMode=='desc'&&sortValue=='birthday' }">
-									<img id="img_birthday_desc" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_down_24.png">
-								</c:when>
-								<c:otherwise>
-									<img id="img_birthday" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_24.png">
-								</c:otherwise>
-							</c:choose>
-						</span>
-					</th> --%>
-					<th>政治面貌</th>
-					<!-- <th>身份证号</th> -->
-					<th>籍贯</th>
-					<th style="width: 90px;">宿舍</th>
-					<th style="width: 90px;">年级</th>
-<!-- 					<th>院系</th>
-					<th>专业</th> -->
-					<th>班级</th>
-					<!-- <th>QQ</th> -->
-					<th>教学班级</th>
-					<!-- <th>手机</th> -->
+					<th >学号</th>
+					<th >姓名</th>
+					<th >性别</th>
+					<th>年级</th>
+					<th >入学年份</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -129,25 +50,12 @@
 						<td class="center">
 						<label> <input type="checkbox" class="ace" value="${studentDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${studentDomain.stuId }</a></td>
-						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${studentDomain.name }</a></td>
+						<td>${studentDomain.stuCode }</td>
+						<td>${studentDomain.name }</td>
 						<td>${cusfun:getNameByValueAndType(studentDomain.sex,"8002")}</td>
-						<%-- <td><fmt:formatDate value="${studentDomain.birthday }" type="date"/></td> --%>
-						<td>${cusfun:getNameByValueAndType(studentDomain.politicalStatus,"8001")}</td>
-						<%-- <td>${studentDomain.IDnumber }</td> --%>
-						<td>${studentDomain.nativePlace }</td>
-						<td>${studentDomain.dormitory }</td>
-						<td>${studentDomain.classDomain.grade.grade }</td>
-<%-- 						<td>${studentDomain.classDomain.major.college.name }</td>
-						<td>${studentDomain.classDomain.major.name }</td> --%>
-						<td>${studentDomain.classDomain.name }</td>
-						<%-- <td style="overflow:hidden;text-overflow:ellipsis;">${studentDomain.email }</td> --%>
-						<td>${studentDomain.teachClass }</td> 
-						<%-- <td>${studentDomain.cellphone }</td> --%>
+						<td>${cusfun:getNameByValueAndType(studentDomain.grade,"8100")}</td>
+						<td>${studentDomain.entryYear }</td>	
 						<td>
-<%-- 							<a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">
-								<input type="button" class="btn_list_view" value="详细"/>
-							</a> --%>
 							<input type="button" class="btn_list_view" value="查看" onclick="viewstudent('${studentDomain.id }')"/> 
 							<input type="button" class="btn_list_update" value="修改" onclick="updatestudent('${studentDomain.id }')"/>  
 							<input type="button" class="btn_list_delete" value="删除" onclick="deletestudent('${studentDomain.id }')"/>
@@ -163,49 +71,6 @@
 
 <script type="text/javascript">
 
-	$("#sample-table-2 thead tr th img").click(function(){
-		
-		var sortValueVal=$(this)[0].id.split("_")[1];
-		var sortModeVal=$(this)[0].id.split("_")[2];
-		$("#sortValue").val(sortValueVal);
-		if(sortModeVal=='asc'){
-			$("#sortMode").val('desc');
-		}else{
-			$("#sortMode").val('asc');
-		}
-		
- 		//默认加载学生列表
-		$("#formId").ajaxSubmit(function(data){
-    	 	$("#content_page").html(data);
-		}); 
-	});
-
-	//使下拉框默认选择
-	$(function(){
-		$("#grade_select_id option[value='${gradeId}']").attr("selected",true);
-		$("#college_select_id option[value='${collegeId}']").attr("selected",true);
-		$("#major_select_id option[value='${majorId}']").attr("selected",true);
-		$("#class_select_id option[value='${classId}']").attr("selected",true);
-	});
-	
- 	//下拉框选择后给隐藏域赋值
- 	$("#class_select_id").change(function(){
-		var classIdVal=$(this).children('option:selected').val();
-		$("#classId").val(classIdVal);
-	});
-	$("#major_select_id").change(function(){
-		var majorIdVal=$(this).children('option:selected').val();
-		$("#majorId").val(majorIdVal);
-	});
-	$("#college_select_id").change(function(){
-		var collegeIdVal=$(this).children('option:selected').val();
-		$("#collegeId").val(collegeIdVal);
-	});
-	$("#grade_select_id").change(function(){
-		var gradeIdVal=$(this).children('option:selected').val();
-		$("#gradeId").val(gradeIdVal);
-	});
-	
 	//查询
 	$("#studentQueryButton").click(function(){
 		$("#formId").ajaxSubmit(function(data){
@@ -217,13 +82,13 @@
 	$("#studentAddButton").click(function(){
 	    parent.layer.open({
 	        type: 2,
-	        title: '新增学生',
+	        title: '新增教师',
 	        shadeClose: true, //点击遮罩关闭层
 	        area : ['700px' , '560px'],
 	        offset: ['60px'],
 	        content: '${pageContext.request.contextPath}/admin/student/studentAdd',
 	        end: function(){
-				//默认加载学生列表
+				//默认加载教师列表
 	    		$("#formId").ajaxSubmit(function(data){
 	        	 	$("#content_page").html(data);
 	    		});
@@ -231,12 +96,12 @@
 	    });
 	});
 	
-	//list中查看学生按钮
+	//list中查看教师按钮
 	function viewstudent(studentId)
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '查看学生',
+	        title: '查看教师',
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],
@@ -249,7 +114,7 @@
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '修改学生',
+	        title: '修改教师',
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],
@@ -317,7 +182,7 @@
 		    btn: ['确定','取消'] //按钮
 		}, function(){
 			$.ajax({
-				url : "${pageContext.request.contextPath}/admin/student/deleteStudents",
+				url : "${pageContext.request.contextPath}/admin/student/deletestudents",
 				async: false,
 				data : {
 					"studentIds" : studentIds
@@ -351,35 +216,6 @@
 		});
 	});
 	
-	//excel导入
-	$("#studentExcelToDBButton").click(function(){
-	    parent.layer.open({
-	        type: 2,
-	        title: '从excel中导入学生信息',
-	        shadeClose: true,
-	        area : ['700px' , '500px'],
-	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentExcelView',
-	        end: function(){
-	        	//默认加载用户列表
-	        	$("#formId").ajaxSubmit(function(data){
-	        	 	$("#content_page").html(data);
-	    		});
-	        }
-	    });
-	});
-	
-	//导出信息
-	$("#studentDBToExcelButton").click(function(){
-	    parent.layer.open({
-	        type: 2,
-	        title: '导出学生信息',
-	        shadeClose: true,
-	        area : ['700px' , '500px'],
-	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentDBToExcelView'
-	    });
-	});
 	
 	//点击表格标题栏，选中所有checkbox框
 	$('table th input:checkbox').on('click' , function(){
@@ -391,43 +227,5 @@
 		});
 	});
 
-	//选择学院，得到专业
-	function getMajor(college_id)
-	{
-    	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/major/getMajorByCollege?college_id='+college_id,
-			type:"post",
-			error:function(e){
-			},
-			success:function(data){
-				var json = new Function("return" + data)();
- 				var major_select=$("#major_select_id");
-				major_select.empty();
-				major_select.append('<option value="">'+"全部"+'</option>');
-				for(var i=0;i<json.length;i++){
-					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
-				} 
-			}
-		});
-	}
 	
-	//选择专业，得到班级
-	function getClass(major_id)
-	{
-    	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/class/getClassByMajor?major_id='+major_id,
-			type:"post",
-			error:function(e){
-			},
-			success:function(data){
-				var json = new Function("return" + data)();
- 				var class_select=$("#class_select_id");
-				class_select.empty();
-				class_select.append('<option value="">'+"全部"+'</option>');
-				for(var i=0;i<json.length;i++){
-					class_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
-				} 
-			}
-		});
-	}
 </script>

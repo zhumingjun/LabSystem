@@ -71,51 +71,8 @@
 
 <script type="text/javascript">
 
-	$("#sample-table-2 thead tr th img").click(function(){
-		
-		var sortValueVal=$(this)[0].id.split("_")[1];
-		var sortModeVal=$(this)[0].id.split("_")[2];
-		$("#sortValue").val(sortValueVal);
-		if(sortModeVal=='asc'){
-			$("#sortMode").val('desc');
-		}else{
-			$("#sortMode").val('asc');
-		}
-		
- 		//默认加载学生列表
-		$("#formId").ajaxSubmit(function(data){
-    	 	$("#content_page").html(data);
-		}); 
-	});
-
-	//使下拉框默认选择
-	$(function(){
-		$("#grade_select_id option[value='${gradeId}']").attr("selected",true);
-		$("#college_select_id option[value='${collegeId}']").attr("selected",true);
-		$("#major_select_id option[value='${majorId}']").attr("selected",true);
-		$("#class_select_id option[value='${classId}']").attr("selected",true);
-	});
-	
- 	//下拉框选择后给隐藏域赋值
- 	$("#class_select_id").change(function(){
-		var classIdVal=$(this).children('option:selected').val();
-		$("#classId").val(classIdVal);
-	});
-	$("#major_select_id").change(function(){
-		var majorIdVal=$(this).children('option:selected').val();
-		$("#majorId").val(majorIdVal);
-	});
-	$("#college_select_id").change(function(){
-		var collegeIdVal=$(this).children('option:selected').val();
-		$("#collegeId").val(collegeIdVal);
-	});
-	$("#grade_select_id").change(function(){
-		var gradeIdVal=$(this).children('option:selected').val();
-		$("#gradeId").val(gradeIdVal);
-	});
-	
 	//查询
-	$("#studentQueryButton").click(function(){
+	$("#teacherQueryButton").click(function(){
 		$("#formId").ajaxSubmit(function(data){
 		 	$("#content_page").html(data);
 		});
@@ -127,7 +84,7 @@
 	        type: 2,
 	        title: '新增教师',
 	        shadeClose: true, //点击遮罩关闭层
-	        area : ['1000px' , '560px'],
+	        area : ['700px' , '560px'],
 	        offset: ['60px'],
 	        content: '${pageContext.request.contextPath}/admin/teacher/teacherAdd',
 	        end: function(){
@@ -153,15 +110,15 @@
 	}
 
 	//list中修改用户按钮
-	function updatestudent(studentId)
+	function updateteacher(teacherId)
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '修改学生',
+	        title: '修改教师',
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentEdit/'+studentId,
+	        content: '${pageContext.request.contextPath}/admin/teacher/teacherEdit/'+teacherId,
 	        end: function(){
 	        	//默认加载用户列表
 	        	$("#formId").ajaxSubmit(function(data){
@@ -172,7 +129,7 @@
 	}
 	
 	//删除
-	function deletestudent(studentId)
+	function deleteteacher(teacherId)
 	{
 		//询问框
 		layer.confirm('是否确定删除？', {
@@ -180,7 +137,7 @@
 		    btn: ['确定','取消'] //按钮
 		}, function(){
 	 		//默认加载学生列表
-			$.post("${pageContext.request.contextPath}/admin/student/delete/"+studentId, function(result){
+			$.post("${pageContext.request.contextPath}/admin/teacher/delete/"+teacherId, function(result){
 				if(result=='success'){
 					//默认加载学生列表
 		        	$("#formId").ajaxSubmit(function(data){
@@ -202,17 +159,17 @@
 	
 	
 	//多选删除
-	$("#studentDeleteButton").click(function(){
+	$("#teacherDeleteButton").click(function(){
 		var checkBoxs=$("table tbody input:checkbox");
-		var studentIds=new Array();
+		var teacherIds=new Array();
 		for(var i=0;i<checkBoxs.length;i++)
 		{
 			var checkBox=checkBoxs[i];
 			if(checkBox.checked){
-				studentIds.push(checkBox.value);
+				teacherIds.push(checkBox.value);
 			}
 		}
-		if(studentIds.length=='0'){
+		if(teacherIds.length=='0'){
 			layer.msg('请至少选择一个',{
 				offset: ['260px']
 			});
@@ -225,10 +182,10 @@
 		    btn: ['确定','取消'] //按钮
 		}, function(){
 			$.ajax({
-				url : "${pageContext.request.contextPath}/admin/student/deleteStudents",
+				url : "${pageContext.request.contextPath}/admin/teacher/deleteTeachers",
 				async: false,
 				data : {
-					"studentIds" : studentIds
+					"teacherIds" : teacherIds
 				},
 				dataType : "text",
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -259,35 +216,6 @@
 		});
 	});
 	
-	//excel导入
-	$("#studentExcelToDBButton").click(function(){
-	    parent.layer.open({
-	        type: 2,
-	        title: '从excel中导入学生信息',
-	        shadeClose: true,
-	        area : ['700px' , '500px'],
-	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentExcelView',
-	        end: function(){
-	        	//默认加载用户列表
-	        	$("#formId").ajaxSubmit(function(data){
-	        	 	$("#content_page").html(data);
-	    		});
-	        }
-	    });
-	});
-	
-	//导出信息
-	$("#studentDBToExcelButton").click(function(){
-	    parent.layer.open({
-	        type: 2,
-	        title: '导出学生信息',
-	        shadeClose: true,
-	        area : ['700px' , '500px'],
-	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentDBToExcelView'
-	    });
-	});
 	
 	//点击表格标题栏，选中所有checkbox框
 	$('table th input:checkbox').on('click' , function(){
@@ -299,43 +227,5 @@
 		});
 	});
 
-	//选择学院，得到专业
-	function getMajor(college_id)
-	{
-    	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/major/getMajorByCollege?college_id='+college_id,
-			type:"post",
-			error:function(e){
-			},
-			success:function(data){
-				var json = new Function("return" + data)();
- 				var major_select=$("#major_select_id");
-				major_select.empty();
-				major_select.append('<option value="">'+"全部"+'</option>');
-				for(var i=0;i<json.length;i++){
-					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
-				} 
-			}
-		});
-	}
 	
-	//选择专业，得到班级
-	function getClass(major_id)
-	{
-    	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/class/getClassByMajor?major_id='+major_id,
-			type:"post",
-			error:function(e){
-			},
-			success:function(data){
-				var json = new Function("return" + data)();
- 				var class_select=$("#class_select_id");
-				class_select.empty();
-				class_select.append('<option value="">'+"全部"+'</option>');
-				for(var i=0;i<json.length;i++){
-					class_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
-				} 
-			}
-		});
-	}
 </script>
