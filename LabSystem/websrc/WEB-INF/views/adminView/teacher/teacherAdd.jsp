@@ -168,11 +168,7 @@
 		}
 	});
 
-	//下拉框选择后给隐藏域赋值
-	$("#politicalStatus_select_add_id").change(function(){
-		var politicalStatus_id=$(this).children('option:selected').val();
-		$("#politicalStatusId").val(politicalStatus_id);
-	});
+	
 	//下拉框选择后给隐藏域赋值
 	$("#jobTitle_select_add_id").change(function(){
 		var jobTitle_id=$(this).children('option:selected').val();
