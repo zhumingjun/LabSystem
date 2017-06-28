@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>		
 
-<!-- 修改学生界面 -->
+<!-- 修改教师界面 -->
 
 <script>
 	var BASE_URL='${pageContext.request.contextPath}/admin/';
@@ -39,33 +39,26 @@
 
 <form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/student/save" method="post">
 	<input type="hidden" id="id" name="id" value="${studentDomain.id }"/>
-	<input type="hidden" id="stuId" name="stuId" value="${studentDomain.stuId }"/>
-	<input type="hidden" id="politicalStatusId" name="politicalStatus" value="${studentDomain.politicalStatus }"/>
-	<input type="hidden" id="classId" name="classDomain.id" value="${studentDomain.classDomain.id }"/>
-	<input type="hidden" id="isMonitor" name="isMonitor" value="${studentDomain.isMonitor }"/>
+	<input type="hidden" id="stuCode" name="stuCode" value="${studentDomain.stuCode }"/>
+	<input type="hidden" id="gradeId" name="grade" value="${studentDomain.grade }"/>
 	<table>
 		<tr>
 			<td class="lesta-150">学号：</td>
 			<td class="lestb">
-				${studentDomain.stuId }
+				${studentDomain.stuCode }
 			</td>
 			<td rowspan="4" colspan="2">
-				<input type="hidden" id="headImg" name="headImg" value="${studentDomain.headImg }"/>
+				<input type="hidden" id="headImg" name="headImg" />
 				<div id="filePicker" class="filePicker">选择图片</div>
 				<div class="add_pic" id="add_pic">
-					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
-					<c:if test="${studentDomain.headImg!=null&&studentDomain.headImg!='' }">
-						<img id="head_img" src="${headImgPath}/${studentDomain.stuId }/${studentDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
 				</div>
 			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">姓名：</td>
 			<td class="lestb">
-				<input type="text" id="stuname" name="name" class="input_text_a" placeholder="请输入姓名" value="${studentDomain.name }">
+				<input type="text" id="studentname" name="name" class="input_text_a" placeholder="请输入姓名" value="${studentDomain.name }">
 			</td>
 		</tr>
 		<tr>
@@ -88,90 +81,46 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">政治面貌：</td>
+			<td class="lesta-150">教师职称：</td>
 			<td class="lestb">
-				<select id="politicalStatus_select_edit_id" class="select_style">
+				<select id="jobTitle_select_edit_id" class="select_style">
 					<option value="" selected="selected">选择</option>
-					<c:forEach items="${politicalStatusList }" var="politicalStatusDomain">
-						<option value="${politicalStatusDomain.id }">${politicalStatusDomain.name}</option>
+					<c:forEach items="${grade }" var="grade">
+						<option value="${grade.id }">${grade.name}</option>
 					</c:forEach>
 				</select>
 			</td>
 			<td class="lesta-150">手机号码：</td>
 			<td class="lestb">
-				<input type="text" id="stuCellphone" name="cellphone" class="input_text_a" ignore="ignore" placeholder="请输入手机号码" value="${studentDomain.cellphone }"/>
+				<input type="text" id="studentphoneNumber" name="phoneNumber" class="input_text_a" ignore="ignore" placeholder="请输入手机号码" value="${studentDomain.phoneNumber }"/>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">年级：</td>
+			<td class="lesta-150">银行卡号：</td>
 			<td class="lestb">
-				<select id="grade_select_edit_id" class="select_style">
-					<option value="" selected="selected">选择</option>
-					<c:forEach items="${gradeList }" var="gradeDomain">
-						<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
-					</c:forEach>
-				</select>
+				<input type="text" id="bankCard" name="bankCard" class="input_text_a" ignore="ignore" placeholder="请输入银行卡号" value="${studentDomain.bankCard }"/>
 			</td>
-			<td class="lesta-150">QQ：</td>
+			<td class="lesta-150">邮箱：</td>
 			<td class="lestb">
-				<input type="text" id="stuemail" name="email" class="input_text_a" ignore="ignore" placeholder="请输入邮箱" value="${studentDomain.email }"/>
+				<input type="text" id="studentemail" name="email" class="input_text_a" ignore="ignore" placeholder="请输入邮箱" value="${studentDomain.email }"/>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">学院：</td>
+			<td class="lesta-150">身份证：</td>
 			<td class="lestb">
-				<select id="college_select_edit_id" class="select_style" onchange="getMajor(this.value)">
-					<option value="" selected="selected">选择</option>
-					<c:forEach items="${collegeList }" var="collegeDomain">
-						<option value="${collegeDomain.id }">${collegeDomain.name}</option>
-					</c:forEach>
-				</select>
-			</td> 
-			<td class="lesta-150">宿舍号：</td>
-			<td class="lestb">
-				<input type="text" id="stuDormitory" name="dormitory" class="input_text_a" placeholder="请输入宿舍号" value="${studentDomain.dormitory }"/>
+				<input type="text" id="studentidNumber" name="idNumber" class="input_text_a" placeholder="请输入身份证号" value="${studentDomain.idNumber }"/>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">专业：</td>
+			<td class="lesta-150">家庭住址：</td>
 			<td class="lestb">
-				<select id="major_select_edit_id" class="select_style" onchange="getClass(this.value)">
-					<option value="" selected="selected">选择</option>
-					<c:forEach items="${majorList }" var="majorDomain">
-						<option value="${majorDomain.id }">${majorDomain.name}</option>
-					</c:forEach>
-				</select>
+				<input type="text" id="studenthomeAddress" name="homeAddress" class="input_text_a" placeholder="请输入家庭住址" value="${studentDomain.homeAddress }"/>
 			</td>
-			<td class="lesta-150">民族：</td>
+			<td class="lesta-150">入学年份：</td>
 			<td class="lestb">
-				<input type="text" id="nationality" name="nationality" class="input_text_a" ignore="ignore" placeholder="请输入民族" value="${studentDomain.nationality }"/>
+				<input type="text" id="entryYear" name="entryYear" class="input_text_a" placeholder="请输入入学年份" value="${studentDomain.entryYear }"/>
 			</td>
-		</tr>
-		<tr>
- 			<td class="lesta-150">班级：</td>
-			<td class="lestb">
-				<select id="class_select_edit_id" class="select_style">
-					<option value="" selected="selected">选择</option>
-					<c:forEach items="${classList }" var="classDomain">
-						<option value="${classDomain.id }">${classDomain.name}</option>
-					</c:forEach>
-				</select>
-			</td>
-			<td class="lesta-150">身份证号：</td>
-			<td class="lestb">
-				<input type="text" id="stuIDnumber" name="IDnumber" class="input_text_a" placeholder="请输入身份证号" value="${studentDomain.IDnumber }"/>
-			</td>
-		</tr>
-		<tr>
- 			<td class="lesta-150">教学班级：</td>
-			<td class="lestb">
-				<input type="text" id="stuteachClass" name="teachClass" class="input_text_a" placeholder="请输入教学班级" value="${studentDomain.teachClass }"/>
-			</td> 
-			<td class="lesta-150">籍贯：</td>
-			<td class="lestb">
-				<input type="text" id="stuNativePlace" name="nativePlace" class="input_text_a" placeholder="请输入籍贯" value="${studentDomain.nativePlace }"/>
-			</td>
-		</tr>
+		</tr> 
 	</table>
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="确定"/>
 </form>
@@ -179,51 +128,16 @@
 <script>
 
 	$(function(){
-		$("#politicalStatus_select_edit_id option[value='${studentDomain.politicalStatus}']").attr("selected",true);
-		$("#class_select_edit_id option[value='${studentDomain.classDomain.id}']").attr("selected",true);
-		$("#college_select_edit_id option[value='${studentDomain.classDomain.major.college.id}']").attr("selected",true);
-		$("#major_select_edit_id option[value='${studentDomain.classDomain.major.id}']").attr("selected",true);
-		$("#grade_select_edit_id option[value='${studentDomain.classDomain.grade.id}']").attr("selected",true);
+		$("#grade_select_edit_id option[value='${studentDomain.grade}']").attr("selected",true);
 	});
 
-	//表单验证
-	$.Tipmsg.r=null;
-	
-	var showmsg=function(msg,obj){
-		layer.tips(msg, obj);
-	};
-	
-	$("#studentFormId").Validform({
-		tiptype:function(msg,o){
-			showmsg(msg,o.obj[0]);
-		}
-	});
-	
 	//下拉框选择后给隐藏域赋值
-	$("#politicalStatus_select_edit_id").change(function(){
-		var politicalStatus_id=$(this).children('option:selected').val();
-		$("#politicalStatusId").val(politicalStatus_id);
+	$("#grade_select_edit_id").change(function(){
+		var grade_id=$(this).children('option:selected').val();
+		$("#gradeId").val(grade_id);
 	});
 	
-	//下拉框选择后给隐藏域赋值
-	$("#class_select_edit_id").change(function(){
-		var class_id=$(this).children('option:selected').val();
-		$("#classId").val(class_id);
-	});
-	
-/* 	$("#saveButton").click(function(){
-		
-		var stunameVal=$("#stuname").val();	//姓名
-		var classIdVal=$("#classId").val();	//班级
-		
-		if(stunameVal==null||stunameVal==''){
-			layer.tips('姓名不能为空', '#stuname');
-			return;
-		}
-		if(classIdVal==null||classIdVal==''){
-			layer.tips('班级不能为空', '#class_select_edit_id');
-			return;
-		}
+	$("#saveButton").click(function(){
 		
 		var form = $("#studentFormId");
 		form.ajaxSubmit(function(result){
@@ -244,46 +158,6 @@
 			}
 		});
 		
-	}); */
+	}); 
 
-	//选择学院，得到专业
-	function getMajor(college_id)
-	{
-    	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/major/getMajorByCollege?college_id='+college_id,
-			type:"post",
-			error:function(e){
-			},
-			success:function(data){
-				var json = new Function("return" + data)();
- 				var major_select=$("#major_select_edit_id");
-				major_select.empty();
-				major_select.append('<option value="">'+"选择"+'</option>');
-				for(var i=0;i<json.length;i++){
-					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
-				} 
-			}
-		});
-	}
-	
-	//选择专业，得到班级
-	function getClass(major_id)
-	{
-    	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/class/getClassByMajor?major_id='+major_id,
-			type:"post",
-			error:function(e){
-			},
-			success:function(data){
-				var json = new Function("return" + data)();
- 				var class_select=$("#class_select_edit_id");
-				class_select.empty();
-				class_select.append('<option value="">'+"选择"+'</option>');
-				for(var i=0;i<json.length;i++){
-					class_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
-				} 
-			}
-		});
-	}
-	
 </script>

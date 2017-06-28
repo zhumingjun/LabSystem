@@ -39,7 +39,6 @@ public class StudentController {
 	 * @return
 	 * @throws Exception
 	 */
-	@Resource private ITeacherService teacherService;
 	@Resource private IStudentService studentService;
 	
 	
@@ -81,18 +80,18 @@ public class StudentController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/teacherView/{id}")
+	@RequestMapping("/studentView/{id}")
 	public String dostudentView(Model model,@PathVariable String id) throws Exception{
 		
 		//获取student信息
-		TeacherDomain teacherDomain=teacherService.doGetById(id);
-		model.addAttribute("teacherDomain", teacherDomain);
+		StudentDomain studentDomain=studentService.doGetById(id);
+		model.addAttribute("studentDomain", studentDomain);
 		
 		//头像路径
 		String headImgPath=shareupload+headImageDir;
 		model.addAttribute("headImgPath", headImgPath);
 		
-		return "/adminView/teacher/teacherView";
+		return "/adminView/student/studentView";
 	}
 	/**
 	 * 新增教师页面
@@ -100,13 +99,13 @@ public class StudentController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/teacherAdd")
+	@RequestMapping("/studentAdd")
 	public String doteacherAdd(Model model)throws Exception{
 		
-		List<CodeBookDomain> jobTitleList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOBTITLE_TYPE);	
-		model.addAttribute("jobTitleList", jobTitleList);
+		List<CodeBookDomain> grade=CodeBookHelper.getCodeBookByType(CodeBookConstsType.GRADE_TYPE);	
+		model.addAttribute("grade", grade);
 		
-		return "/adminView/teacher/teacherAdd";
+		return "/adminView/student/studentAdd";
 	}
 	
 	/**
@@ -116,22 +115,22 @@ public class StudentController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/teacherEdit/{id}")
+	@RequestMapping("/studentEdit/{id}")
 	public String dostudentEdit(Model model,@PathVariable String id)throws Exception{
 		
 		//获取student信息
-		TeacherDomain teacherDomain=teacherService.doGetById(id);
+		StudentDomain studentDomain=studentService.doGetById(id);
 		
-		List<CodeBookDomain> jobTitle=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOBTITLE_TYPE);
+		List<CodeBookDomain> grade=CodeBookHelper.getCodeBookByType(CodeBookConstsType.GRADE_TYPE);
 		
-		model.addAttribute("jobTitle", jobTitle);
-		model.addAttribute("teacherDomain", teacherDomain);
+		model.addAttribute("grade", grade);
+		model.addAttribute("studentDomain", studentDomain);
 		
 		//头像路径
 		String headImgPath=shareupload+headImageDir;
 		model.addAttribute("headImgPath", headImgPath);
 		
-		return "/adminView/teacher/teacherEdit";
+		return "/adminView/student/studentEdit";
 	}
 	
 	/**
@@ -143,13 +142,13 @@ public class StudentController {
 	 */
 	@RequestMapping("/save")
 	@ResponseBody
-	public String doSave(@Valid @ModelAttribute("domain") TeacherDomain domain,
+	public String doSave(@Valid @ModelAttribute("domain") StudentDomain domain,
 			BindingResult result)throws Exception{
 		if (result.hasErrors()) {// 如果校验失败,则返回
 			System.out.println(result);
 			return Consts.ERROR;
 		} else {
-			if(teacherService.doSave(domain)){
+			if(studentService.doSave(domain)){
 				return Consts.SUCCESS;
 			}
 		}
@@ -166,7 +165,7 @@ public class StudentController {
 	@ResponseBody
 	public String doDelete(@PathVariable String id)throws Exception{
 		
-		if(teacherService.doDeleteById(id)){
+		if(studentService.doDeleteById(id)){
 			return Consts.SUCCESS;
 		}
 		
@@ -179,11 +178,11 @@ public class StudentController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/deleteTeachers")
+	@RequestMapping("/deleteStudents")
 	@ResponseBody
-	public String doDeleteStudents(@RequestParam(value = "teacherIds[]") String[] teacherIds)throws Exception{
+	public String doDeleteStudents(@RequestParam(value = "studentIds[]") String[] teacherIds)throws Exception{
 		
-		if(teacherService.doDeleteByIds(teacherIds)){
+		if(studentService.doDeleteByIds(teacherIds)){
 			return Consts.SUCCESS;
 		}
 		
@@ -198,12 +197,12 @@ public class StudentController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/teacherSearchList")
+	@RequestMapping("/studentSearchList")
 	public String dostudentSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
 			,BindingResult bindingResult,Model model,String searchText)throws Exception{
 		
-		List<TeacherDomain> teacherList=teacherService.doSearchteacherPageList(pageInfo,searchText);
-		model.addAttribute("teacherList", teacherList);
-		return "/adminView/teacher/teacherList";
+		List<StudentDomain> studentList=studentService.doSearchteacherPageList(pageInfo,searchText);
+		model.addAttribute("studentList", studentList);
+		return "/adminView/student/studentList";
 	}
 }

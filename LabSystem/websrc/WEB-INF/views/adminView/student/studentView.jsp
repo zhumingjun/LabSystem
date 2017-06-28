@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>	
-<%@ page language="java" import="com.cb.csystem.util.*" %>	
+<%@ page language="java" import="com.lab.lsystem.util.*" %>	
 
 <!-- 增加学生界面 -->
 
@@ -33,16 +33,11 @@
 		<tr>
 			<td class="lesta-150">学号：</td>
 			<td class="lestb" style="width:150px;">
-				${studentDomain.stuId }
+				${studentDomain.stuCode }
 			</td>
 			<td rowspan="4" colspan="2">
 				<div class="add_pic" id="add_pic">
-					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
-					<c:if test="${studentDomain.headImg!=null&&studentDomain.headImg!='' }">
-						<img id="head_img" src="${headImgPath}/${studentDomain.stuId }/${studentDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
 				</div>
 			</td>
 		</tr>
@@ -65,65 +60,39 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">政治面貌：</td>
+			<td class="lesta-150">研究生年级：</td>
 			<td class="lestb" style="width:150px;">
-				${cusfun:getNameByValueAndType(studentDomain.politicalStatus,"8001")}
+				${cusfun:getNameByValueAndType(studentDomain.grade,"8100")}
 			</td>
 			<td class="lesta-150">手机号码：</td>
 			<td class="lestb" style="width:150px;">
-				${studentDomain.cellphone }
+				${studentDomain.phoneNumber }
 			</td>
 		</tr>
 		<tr>
- 			<td class="lesta-150">年级：</td>
+ 			<td class="lesta-150">银行卡号：</td>
 			<td class="lestb" style="width:150px;">
-				${studentDomain.classDomain.grade.grade }
+				${studentDomain.bankCard }
 			</td>
-			<td class="lesta-150">QQ：</td>
+			<td class="lesta-150">邮箱：</td>
 			<td class="lestb" style="width:150px;">
 				${studentDomain.email }
 			</td>
 		</tr>
+			<tr>
+			<td class="lesta-150">身份证：</td>
+			<td class="lestb" style="width:150px;">
+				${studentDomain.idNumber }
+			</td>
 		<tr>
-			<td class="lesta-150">学院：</td>
+			<td class="lesta-150">家庭住址：</td>
 			<td class="lestb" style="width:150px;">
-				${studentDomain.classDomain.major.college.name }
+				${studentDomain.homeAddress }
 			</td>
-			<td class="lesta-150">宿舍号：</td>
+			<td class="lesta-150">入学年份：</td>
 			<td class="lestb" style="width:150px;">
-				${studentDomain.dormitory }
+				${studentDomain.entryYear }
 			</td>
-		</tr>
-		<tr>
- 			<td class="lesta-150">专业：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.classDomain.major.name }
-			</td>
-			<td class="lesta-150">民族：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.nationality }
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">班级：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.classDomain.name }
-			</td>
-			<td class="lesta-150">身份证号：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.IDnumber }
-			</td>
-		</tr>
-		<tr>
- 			<td class="lesta-150">教学班级：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.teachClass }
-			</td> 
-			<td class="lesta-150">籍贯：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.nativePlace }
-			</td>
-
 		</tr>
 	</table>
 

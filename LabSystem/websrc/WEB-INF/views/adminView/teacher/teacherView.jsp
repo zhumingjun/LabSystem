@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>	
 <%@ page language="java" import="com.lab.lsystem.util.*" %>	
 
-<!-- 增加学生界面 -->
+<!-- 增加教师界面 -->
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
