@@ -94,6 +94,16 @@
 				${studentDomain.entryYear }
 			</td>
 		</tr>
+		<tr>
+			<td class="lesta-150">家庭联系人：</td>
+			<td class="lestb" style="width:150px;">
+				${studentDomain.contactPerson }
+			</td>
+			<td class="lesta-150">家庭联系方式：</td>
+			<td class="lestb" style="width:150px;">
+				${studentDomain.familyContact }
+			</td>
+		</tr>
 	</table>
 
 	<input id="closeButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="关闭"/>

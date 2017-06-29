@@ -38,7 +38,7 @@
 					<th >学号</th>
 					<th >姓名</th>
 					<th >性别</th>
-					<th>年级</th>
+					<th>学生年级</th>
 					<th >入学年份</th>
 					<th>操作</th>
 				</tr>
@@ -101,7 +101,7 @@
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '查看教师',
+	        title: '查看学生',
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],

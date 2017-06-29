@@ -110,10 +110,10 @@ public class StudentService implements IStudentService{
 	 * @see ITeacherService#doSearchteacherPageList(PageInfo pageInfo,String searchText);
 	 */
 	@Override
-	public List<StudentDomain> doSearchteacherPageList(PageInfo pageInfo,
+	public List<StudentDomain> doSearchstudentPageList(PageInfo pageInfo,
 			String searchText) throws Exception {
 		// TODO Auto-generated method stub
-		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(TeacherDomain.class);
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
 		if(ValidateUtil.notEmpty(searchText)){
 			//多条件过滤，此处名字，宿舍，籍贯
 			Disjunction disjunction = Restrictions.disjunction();  

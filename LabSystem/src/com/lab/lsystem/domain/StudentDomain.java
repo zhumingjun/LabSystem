@@ -26,6 +26,8 @@ public class StudentDomain {
 	private String email;//邮箱
 	private String homeAddress;//家庭住址
 	private String entryYear;//入学年份
+	private String contactPerson;//联系人
+	private String familyContact;//家庭联系方式
 	public StudentDomain() {
 		super();
 	}
@@ -115,6 +117,20 @@ public class StudentDomain {
 	}
 	public void setEntryYear(String entryYear) {
 		this.entryYear = entryYear;
+	}
+	@Column(name = "CONTACTPERSON",unique = true, nullable = false, length = 100)
+	public String getContactPerson() {
+		return contactPerson;
+	}
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
+	}
+	@Column(name = "FAMILYCONTACT",unique = true, nullable = false, length = 100)
+	public String getFamilyContact() {
+		return familyContact;
+	}
+	public void setFamilyContact(String familyContact) {
+		this.familyContact = familyContact;
 	}
 	
 }

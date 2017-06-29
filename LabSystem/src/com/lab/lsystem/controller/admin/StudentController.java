@@ -22,9 +22,7 @@ import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
-import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.service.IStudentService;
-import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
 
 /*
@@ -102,8 +100,8 @@ public class StudentController {
 	@RequestMapping("/studentAdd")
 	public String doteacherAdd(Model model)throws Exception{
 		
-		List<CodeBookDomain> grade=CodeBookHelper.getCodeBookByType(CodeBookConstsType.GRADE_TYPE);	
-		model.addAttribute("grade", grade);
+		List<CodeBookDomain> gradeItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.GRADE_TYPE);	
+		model.addAttribute("gradeItem", gradeItem);
 		
 		return "/adminView/student/studentAdd";
 	}
@@ -180,9 +178,9 @@ public class StudentController {
 	 */
 	@RequestMapping("/deleteStudents")
 	@ResponseBody
-	public String doDeleteStudents(@RequestParam(value = "studentIds[]") String[] teacherIds)throws Exception{
+	public String doDeleteStudents(@RequestParam(value = "studentIds[]") String[] studentIds)throws Exception{
 		
-		if(studentService.doDeleteByIds(teacherIds)){
+		if(studentService.doDeleteByIds(studentIds)){
 			return Consts.SUCCESS;
 		}
 		
@@ -201,7 +199,7 @@ public class StudentController {
 	public String dostudentSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
 			,BindingResult bindingResult,Model model,String searchText)throws Exception{
 		
-		List<StudentDomain> studentList=studentService.doSearchteacherPageList(pageInfo,searchText);
+		List<StudentDomain> studentList=studentService.doSearchstudentPageList(pageInfo,searchText);
 		model.addAttribute("studentList", studentList);
 		return "/adminView/student/studentList";
 	}

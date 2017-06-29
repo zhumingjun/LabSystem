@@ -78,8 +78,8 @@
 			<td class="lestb">
 				<select id="grade_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>
-					<c:forEach items="${grade }" var="grade">
-						<option value="${grade.id }">${grade.name}</option>
+					<c:forEach items="${gradeItem }" var="gradedomain">
+						<option value="${gradedomain.value }">${gradedomain.name}</option>
 					</c:forEach>
 				</select>
 			</td>
@@ -91,7 +91,7 @@
 		<tr>
 			<td class="lesta-150">银行卡号：</td>
 			<td class="lestb">
-				<input type="text" id="finAccount" name="finAccount" class="input_text_a" ignore="ignore" placeholder="请输入财务账号"/>
+				<input type="text" id="bankCard" name="bankCard" class="input_text_a" ignore="ignore" placeholder="请输入财务账号"/>
 			</td>
 			<td class="lesta-150">邮箱：</td>
 			<td class="lestb">
@@ -114,7 +114,16 @@
 				<input type="text" id="entryYear" name="entryYear" class="input_text_a" placeholder="请输入入职年份" />
 			</td>
 		</tr> 
-		
+		<tr>
+			<td class="lesta-150">家庭联系人：</td>
+			<td class="lestb">
+				<input type="text" id="contactPerson" name="contactPerson" class="input_text_a" placeholder="请输入家庭联系人" />
+			</td>
+			<td class="lesta-150">家庭联系方式：</td>
+			<td class="lestb">
+				<input type="text" id="familyContact" name="familyContact" class="input_text_a" placeholder="请输入家庭联系方式" />
+			</td>
+		</tr> 
 	</table>
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="确定"/>
 </form>

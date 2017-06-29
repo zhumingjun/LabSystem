@@ -81,7 +81,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">教师职称：</td>
+			<td class="lesta-150">学生年级：</td>
 			<td class="lestb">
 				<select id="jobTitle_select_edit_id" class="select_style">
 					<option value="" selected="selected">选择</option>
@@ -119,6 +119,16 @@
 			<td class="lesta-150">入学年份：</td>
 			<td class="lestb">
 				<input type="text" id="entryYear" name="entryYear" class="input_text_a" placeholder="请输入入学年份" value="${studentDomain.entryYear }"/>
+			</td>
+		</tr> 
+		<tr>
+			<td class="lesta-150">家庭联系人：</td>
+			<td class="lestb">
+				<input type="text" id="contactPerson" name="contactPerson" class="input_text_a" placeholder="请输入家庭联系人" value="${studentDomain.contactPerson }"/>
+			</td>
+			<td class="lesta-150">家庭联系方式：</td>
+			<td class="lestb">
+				<input type="text" id="familyContact" name="familyContact" class="input_text_a" placeholder="请输入家庭联系方式" value="${studentDomain.familyContact }"/>
 			</td>
 		</tr> 
 	</table>

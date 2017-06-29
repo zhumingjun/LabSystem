@@ -60,7 +60,7 @@ public interface IStudentService{
 		 * @param searchText
 		 * @return
 		 */
-		public List<StudentDomain> doSearchteacherPageList(PageInfo pageInfo,
+		public List<StudentDomain> doSearchstudentPageList(PageInfo pageInfo,
 				String searchText)throws Exception;
 
 }

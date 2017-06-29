@@ -79,7 +79,7 @@
 				<select id="jobTitle_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>
 					<c:forEach items="${jobTitleList }" var="jobTitleDomain">
-						<option value="${jobTitleDomain.id }">${jobTitleDomain.name}</option>
+						<option value="${jobTitleDomain.value }">${jobTitleDomain.name}</option>
 					</c:forEach>
 				</select>
 			</td>

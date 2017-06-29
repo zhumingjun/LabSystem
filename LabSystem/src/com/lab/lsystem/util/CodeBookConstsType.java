@@ -17,7 +17,7 @@ public class CodeBookConstsType {
 	 */
 	public static final String SEX_TYPE="8002";
 	/**
-	 * 研究生年级：8100
+	 * 学生年级：8100
 	 */
 	public static final String GRADE_TYPE="8100";
 	
