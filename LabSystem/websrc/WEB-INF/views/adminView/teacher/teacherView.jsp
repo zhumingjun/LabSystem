@@ -36,9 +36,12 @@
 				${teacherDomain.workCode }
 			</td>
 			<td rowspan="4" colspan="2">
-				<div class="add_pic" id="add_pic">
+				    <c:if test="${teacherDomain.headImg==null||teacherDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
-				</div>
+					</c:if>
+					<c:if test="${teacherDomain.headImg!=null&&teacherDomain.headImg!='' }">
+						<img id="head_img" src="${headImgPath}/${teacherDomain.workCode}/${teacherDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
+					</c:if>
 			</td>
 		</tr>
 		<tr>

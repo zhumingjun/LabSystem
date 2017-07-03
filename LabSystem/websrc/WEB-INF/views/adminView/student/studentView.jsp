@@ -37,7 +37,12 @@
 			</td>
 			<td rowspan="4" colspan="2">
 				<div class="add_pic" id="add_pic">
+					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
+					</c:if>
+					<c:if test="${studentDomain.headImg!=null&&studentDomain.headImg!='' }">
+						<img id="head_img" src="${headImgPath}/${studentDomain.stuCode}/${studentDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
+					</c:if>
 				</div>
 			</td>
 		</tr>

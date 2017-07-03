@@ -82,7 +82,7 @@
 	$("#studentAddButton").click(function(){
 	    parent.layer.open({
 	        type: 2,
-	        title: '新增教师',
+	        title: '新增学生',
 	        shadeClose: true, //点击遮罩关闭层
 	        area : ['700px' , '560px'],
 	        offset: ['60px'],
@@ -96,7 +96,7 @@
 	    });
 	});
 	
-	//list中查看教师按钮
+	//list中查看学生按钮
 	function viewstudent(studentId)
 	{
 	    parent.layer.open({
@@ -114,7 +114,7 @@
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '修改教师',
+	        title: '修改学生',
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],

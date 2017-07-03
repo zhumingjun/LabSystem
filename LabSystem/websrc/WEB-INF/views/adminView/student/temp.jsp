@@ -17,8 +17,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/datePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/validform/Validform_v5.3.2_min.js"></script>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validform.js"></script>
+ --%>
  <script src="${pageContext.request.contextPath}/resources/plugins/webuploader/webuploader.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/webuploader/csystem/userInfoHeadUpload.js"></script>
 
@@ -47,15 +48,15 @@
 			<td class="lestb">
 				<input type="text" id="stuCode" name="stuCode" class="input_text_a" placeholder="请输入学号">
 			</td>
-			<td rowspan="4" colspan="2">
+<%-- 			<td rowspan="4" colspan="2">
 				<input type="hidden" id="headImg" name="headImg" value=""/>
 				<div id="filePicker" class="filePicker">选择图片</div>
 				<div class="add_pic" id="add_pic">
 					<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
 				</div>
-			</td>
+			</td> --%>
 		</tr>
-		<tr>
+<%-- 		<tr>
 			<td class="lesta-150">姓名：</td>
 			<td class="lestb">
 				<input type="text" id="stuname" name="name" class="input_text_a" placeholder="请输入姓名">
@@ -125,7 +126,7 @@
 			<td class="lestb">
 				<input type="text" id="familyContact" name="familyContact" class="input_text_a" placeholder="请输入家庭联系方式" />
 			</td>
-		</tr> 
+		</tr>  --%>
 	</table>
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="确定"/>
 </form>
@@ -159,7 +160,7 @@
 
 
 
-	//表单验证
+/* 	//表单验证
 	$.Tipmsg.r=null;
 	
 	var showmsg=function(msg,obj){
@@ -172,7 +173,7 @@
 			console.info(msg); 
 			showmsg(msg,o.obj[0]);
 		}
-	}); 
+	}); */
 
 
 	//下拉框选择后给隐藏域赋值

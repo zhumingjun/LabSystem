@@ -26,6 +26,7 @@ public class TeacherDomain {
 	private String email;//邮箱
 	private String homeAddress;//家庭住址
 	private String entryYear;//入职年份
+	private String headImg;//头像
 	public TeacherDomain() {
 		super();
 	}
@@ -115,6 +116,13 @@ public class TeacherDomain {
 	}
 	public void setEntryYear(String entryYear) {
 		this.entryYear = entryYear;
+	}
+	@Column(name = "HEADIMG",unique = true, nullable = false, length = 200)
+	public String getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 	
 }

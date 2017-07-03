@@ -28,6 +28,7 @@ public class StudentDomain {
 	private String entryYear;//入学年份
 	private String contactPerson;//联系人
 	private String familyContact;//家庭联系方式
+	private String headImg;//头像
 	public StudentDomain() {
 		super();
 	}
@@ -131,6 +132,13 @@ public class StudentDomain {
 	}
 	public void setFamilyContact(String familyContact) {
 		this.familyContact = familyContact;
+	}
+	@Column(name = "HEADIMG",unique = true, nullable = false, length = 200)
+	public String getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 	
 }

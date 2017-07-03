@@ -1,5 +1,6 @@
 package com.lab.lsystem.controller.admin;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.StudentDomain;
@@ -23,6 +25,7 @@ import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.service.IStudentService;
+import com.lab.system.util.CompressPicUtil;
 import com.lab.system.util.PageInfo;
 
 /*
@@ -40,7 +43,7 @@ public class StudentController {
 	@Resource private IStudentService studentService;
 	
 	
-	@Value("#{envProperties['csystemupload']}") private String shareupload;
+	@Value("#{envProperties['labsystemupload']}") private String shareupload;
 	@Value("#{envProperties['uploadpath']}") private String uploadpath;
 	@Value("#{envProperties['headImageDir']}") private String headImageDir;
 	@Value("#{envProperties['midWidth']}") private String midWidth;
@@ -202,5 +205,42 @@ public class StudentController {
 		List<StudentDomain> studentList=studentService.doSearchstudentPageList(pageInfo,searchText);
 		model.addAttribute("studentList", studentList);
 		return "/adminView/student/studentList";
+	}
+	/**
+	 * 上传图片
+	 * <p>The uploaderImg</p>
+	 * @param file
+	 * @param adverType
+	 * @return
+	 * @throws Exception
+	 * @author:Administrator 2016-2-17
+	 * @update: [updatedate] [changer][change description]
+	 */
+	@RequestMapping("/uploaderImg")
+	@ResponseBody
+	public String uploaderImg(@RequestParam(value = "file", required = false) MultipartFile file, String stuCode)
+		throws Exception
+	{
+		String imgType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."),
+			file.getOriginalFilename().length());
+		String fileName = stuCode+"_"+System.currentTimeMillis() + imgType;
+		String path = uploadpath + headImageDir+ stuCode +File.separator;
+		
+		File targetFile = new File(path, fileName);
+		if(!targetFile.exists()){
+			targetFile.mkdirs();
+		}
+		// 保存
+		try{
+			//保存文件
+			file.transferTo(targetFile);
+			//切割尺寸
+			CompressPicUtil.compressPic(targetFile, path, fileName, Integer.parseInt(midWidth),
+					Integer.parseInt(midHeight), "");
+
+		}catch (Exception e){
+			//e.printStackTrace();
+		}
+		return fileName;
 	}
 }

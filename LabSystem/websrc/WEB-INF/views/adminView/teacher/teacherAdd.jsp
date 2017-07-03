@@ -19,7 +19,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validform.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/webuploader/webuploader.js"></script>
-<script src="${pageContext.request.contextPath}/resources/plugins/webuploader/csystem/userInfoHeadUpload.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/webuploader/csystem/teacherInfoHeadUpload.js"></script>
 
 <style>
 	.add_pic{
@@ -120,7 +120,7 @@
 </form>
 
 <script>
-
+/*
  	$("#saveButton").click(function(){
 		
 		
@@ -144,8 +144,8 @@
 	
 	});
 
-
-/*	//表单验证
+*/
+	//表单验证
 	$.Tipmsg.r=null;
 	
 	var showmsg=function(msg,obj){
@@ -160,7 +160,6 @@
 		}
 	});
 
-*/
 	//下拉框选择后给隐藏域赋值
 	$("#jobTitle_select_add_id").change(function(){
 		var jobTitle_id=$(this).children('option:selected').val();
