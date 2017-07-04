@@ -16,6 +16,7 @@ import com.lab.lsystem.dao.IStudentDao;
 import com.lab.lsystem.dao.ITeacherDao;
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
+import com.lab.lsystem.domain.UserDomain;
 import com.lab.lsystem.service.IStudentService;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
@@ -122,5 +123,22 @@ public class StudentService implements IStudentService{
 		}
 		
 		return studentDao.getPageList(detachedCriteria, pageInfo);
+	}
+
+	@Override
+	public StudentDomain doGetUserByUsername(String name) throws Exception {
+		// TODO Auto-generated method stub
+				DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
+				detachedCriteria.add(Restrictions.eq("name", name.trim()));
+				
+				List<StudentDomain> studentList=studentDao.getFilterList(detachedCriteria);
+				
+				//如果有结果，username是唯一的
+				if(studentList.size()==1){
+					StudentDomain student=studentList.get(0);
+					return student;
+				}
+				
+				return null;
 	}
 }

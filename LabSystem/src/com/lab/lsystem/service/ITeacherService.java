@@ -63,5 +63,11 @@ public interface ITeacherService{
 		 */
 		public List<TeacherDomain> doSearchteacherPageList(PageInfo pageInfo,
 				String searchText)throws Exception;
+		/**
+		 * 根据姓名查信息
+		 * @param name
+		 * @return
+		 */
+		public TeacherDomain doGetUserByUsername(String name);
 
 }

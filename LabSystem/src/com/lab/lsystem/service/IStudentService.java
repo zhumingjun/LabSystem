@@ -62,5 +62,9 @@ public interface IStudentService{
 		 */
 		public List<StudentDomain> doSearchstudentPageList(PageInfo pageInfo,
 				String searchText)throws Exception;
+		/*
+		 * 根据姓名查找学生信息
+		 */
+		public StudentDomain doGetUserByUsername(String name)throws Exception;
 
 }

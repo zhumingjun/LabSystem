@@ -21,7 +21,7 @@ import com.lab.lsystem.service.IUserService;
 import com.lab.lsystem.util.Consts;
 /**
  * 登录控制层
- * @author chen
+ * @author zhu
  *
  */
 @Controller
@@ -75,7 +75,7 @@ public class LoginController {
             		return "/teacherView/main";
             	}else if(authority==Consts.AUTHORITY_STUDENT){
             		//学生界面
-            		return "/monitorView/main";
+            		return "/studentView/main";
             	}
         	}
            // 验证通过

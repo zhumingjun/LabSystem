@@ -11,7 +11,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.lab.lsystem.dao.ITeacherDao;
+import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
@@ -118,5 +120,22 @@ public class TeacherService implements ITeacherService{
 		}
 		
 		return teacherDao.getPageList(detachedCriteria, pageInfo);
+	}
+
+	@Override
+	public TeacherDomain doGetUserByUsername(String name) {
+		// TODO Auto-generated method stub
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(TeacherDomain.class);
+		detachedCriteria.add(Restrictions.eq("name", name.trim()));
+		
+		List<TeacherDomain> teacherList=teacherDao.getFilterList(detachedCriteria);
+		
+		//如果有结果，username是唯一的
+		if(teacherList.size()==1){
+			TeacherDomain teacher=teacherList.get(0);
+			return teacher;
+		}
+		
+		return null;
 	}
 }

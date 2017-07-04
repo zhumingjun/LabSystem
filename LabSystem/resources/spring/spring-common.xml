@@ -125,6 +125,7 @@
                 /login=anon
                  /common/**=authc
                 /admin/**=authc,perms[0]
+
             </value>  
         </property>
     </bean>  
