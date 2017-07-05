@@ -3,6 +3,7 @@ package com.lab.lsystem.controller.admin;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import com.lab.lsystem.util.Consts;
+import com.lab.system.util.EndecryptUtils;
+import com.lab.system.util.ValidateUtil;
 import com.lab.lsystem.domain.RoleDomain;
 import com.lab.system.util.PageInfo;
 import com.lab.lsystem.domain.UserDomain;
@@ -86,6 +92,134 @@ public class UserController {
 		model.addAttribute("searchText", searchText);
 		
 		return "/adminView/user/userList";
+	}
+	/**
+	 * 用户详情页面
+	 * @param model
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/userView/{id}")
+	public String doUserView(Model model,@PathVariable String id) throws Exception{
+		
+		//获取User信息
+		UserDomain userDomain=userService.doGetById(id);
+		model.addAttribute("userDomain", userDomain);
+		
+		return "/adminView/user/userView";
+	}
+	
+	/**
+	 * 新增账户页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/userAdd")
+	public String doUserAdd(Model model)throws Exception{
+		
+		List<RoleDomain> roleList=roleService.doGetFilterList();
+		model.addAttribute("roleList", roleList);
+		return "/adminView/user/userAdd";
+	}
+	
+	/**
+	 * 修改用户
+	 * @param model
+	 * @param id 用户id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/userEdit/{id}")
+	public String doUserEdit(Model model,@PathVariable String id)throws Exception{
+
+		//获取单条Domain信息
+		UserDomain userDomain=userService.doGetById(id);
+		List<RoleDomain> roleList=roleService.doGetFilterList();
+		
+		model.addAttribute("roleList", roleList);
+		model.addAttribute("userDomain", userDomain);
+		return "/adminView/user/userEdit";
+	}
+	
+	/**
+	 * 保存
+	 * @param domain
+	 * @param result
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/save")
+	@ResponseBody
+	public String doSave(@Valid @ModelAttribute("domain") UserDomain domain,
+			BindingResult result)throws Exception{
+		if (result.hasErrors()) {// 如果校验失败,则返回
+			return Consts.ERROR;
+		} else {			
+			//设置md5加密
+			domain.setPassword(EndecryptUtils.md5(domain.getPassword()));
+			if(userService.doSave(domain)){
+				return Consts.SUCCESS;
+			}
+		}
+		return "error";
+	}
+	
+	/**
+	 * 保存
+	 * @param domain
+	 * @param result
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/editSave")
+	@ResponseBody
+	public String doEditSave(@Valid @ModelAttribute("domain") UserDomain domain,
+			BindingResult result)throws Exception{
+		if (result.hasErrors()) {// 如果校验失败,则返回
+			return Consts.ERROR;
+		} else {
+			
+			if(userService.doSave(domain)){
+				return Consts.SUCCESS;
+			}
+		}
+		return "error";
+	}
+	
+	/**
+	 * 删除单条数据
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/delete/{id}")
+	@ResponseBody
+	public String doDelete(@PathVariable String id)throws Exception{
+		
+		if(userService.doDeleteById(id)){
+			return Consts.SUCCESS;
+		}
+		
+		return Consts.ERROR;
+	}
+	
+	/**
+	 * 批量删除
+	 * @param userIds
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/deleteUsers")
+	@ResponseBody
+	public String doDeleteUsers(@RequestParam(value = "userIds[]") String[] userIds)throws Exception{
+		
+		if(userService.doDeleteByIds(userIds)){
+			return Consts.SUCCESS;
+		}
+		
+		return Consts.ERROR;
 	}
 
 }

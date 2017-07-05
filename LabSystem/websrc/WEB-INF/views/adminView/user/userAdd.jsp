@@ -32,44 +32,12 @@
 				<select id="role_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>
 					<c:forEach items="${roleList }" var="roleDomain">
-						<c:if test="${roleDomain.authority!=3 }">
 							<option value="${roleDomain.id }_${roleDomain.authority }">${roleDomain.name}</option>
-						</c:if>
 					</c:forEach>
 				</select>
 			</td>
 		</tr>
 	</table>
-	<div id="college_div" style="display: none">
-		<table>
-			<tr>
-				<td class="lesta-150">学院：</td>
-				<td class="lestb">
-					<select id="college_select_add_id" class="select_style">
-						<option value="" selected="selected">选择</option>
-						<c:forEach items="${collegeList }" var="collegeDomain">
-							<option value="${collegeDomain.id }">${collegeDomain.name}</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<div id="grade_div" style="display: none">
-		<table>
-			<tr>
-				<td class="lesta-150">年级：</td>
-				<td class="lestb">
-					<select id="grade_select_add_id" class="select_style">
-						<option value="" selected="selected">选择</option>
-						<c:forEach items="${gradeList }" var="gradeDomain">
-							<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-		</table>
-	</div>
 	
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 140px;" value="确定"/>
 </form>

@@ -28,28 +28,6 @@
 				${userDomain.role.name }
 			</td>
 		</tr>
-		<c:if test="${userDomain.role.authority==1||userDomain.role.authority==2 }">
-			<tr>
-				<td class="lesta-150">学院：</td>
-				<td>
-					${userDomain.college.name }
-				</td>
-			</tr>
-			<tr>
-				<td class="lesta-150">年级：</td>
-				<td>
-					${userDomain.grade.grade }
-				</td>
-			</tr>
-		</c:if>
-		<c:if test="${userDomain.role.authority==3 }">
-			<tr>
-				<td class="lesta-150">班级：</td>
-				<td>
-					${userDomain.classDomain.name }
-				</td>
-			</tr>
-		</c:if>
 	</table>
 	<input id="closeButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 140px;" value="关闭"/>
 
