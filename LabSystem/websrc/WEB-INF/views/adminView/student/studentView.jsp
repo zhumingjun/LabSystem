@@ -35,7 +35,7 @@
 			<td class="lestb" style="width:150px;">
 				${studentDomain.stuCode }
 			</td>
-			<td rowspan="4" colspan="2">
+			<td>
 				<div class="add_pic" id="add_pic">
 					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
@@ -56,6 +56,16 @@
 			<td class="lesta-150">性别：</td>
 			<td class="lestb" style="width:150px;">
 				${cusfun:getNameByValueAndType(studentDomain.sex,"8002")}
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">导师：</td>
+			<td class="lestb">
+				${studentDomain.tutorDomain.name }
+			</td>
+			<td class="lesta-150">责任导师：</td>
+			<td class="lestb">
+				${studentDomain.restutorDomain.name }
 			</td>
 		</tr>
 		<tr>

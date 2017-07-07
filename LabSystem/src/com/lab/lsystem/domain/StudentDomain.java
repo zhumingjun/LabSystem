@@ -2,10 +2,13 @@ package com.lab.lsystem.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -19,7 +22,7 @@ public class StudentDomain {
 	private int sex;//学生性别
 	private String bankCard;//学生账号
 	private String idNumber;//身份证号
-	private int grade;//年级
+	private Integer grade;//年级
 	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date birthday;//生日
 	private String phoneNumber;//手机号
@@ -29,6 +32,8 @@ public class StudentDomain {
 	private String contactPerson;//联系人
 	private String familyContact;//家庭联系方式
 	private String headImg;//头像
+	private TeacherDomain tutorDomain;//导师；
+	private TeacherDomain restutorDomain;//责任导师
 	public StudentDomain() {
 		super();
 	}
@@ -78,10 +83,10 @@ public class StudentDomain {
 		this.idNumber = idNumber;
 	}
 	@Column(name = "GRADE",unique = true, nullable = false, length = 11)
-	public int getGrade() {
+	public Integer getGrade() {
 		return grade;
 	}
-	public void setGrade(int grade) {
+	public void setGrade(Integer grade) {
 		this.grade = grade;
 	}
 	@Column(name = "BIRTHDAY",unique = true, nullable = false, length = 100)
@@ -139,6 +144,22 @@ public class StudentDomain {
 	}
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
+	}
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "TUTORID")
+	public TeacherDomain getTutorDomain() {
+		return tutorDomain;
+	}
+	public void setTutorDomain(TeacherDomain tutorDomain) {
+		this.tutorDomain = tutorDomain;
+	}
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "RESTUTOR")
+	public TeacherDomain getRestutorDomain() {
+		return restutorDomain;
+	}
+	public void setRestutorDomain(TeacherDomain restutorDomain) {
+		this.restutorDomain = restutorDomain;
 	}
 	
 }

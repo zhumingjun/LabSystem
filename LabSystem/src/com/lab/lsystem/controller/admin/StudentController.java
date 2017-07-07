@@ -21,10 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.StudentDomain;
+import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.service.IStudentService;
+import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.CompressPicUtil;
 import com.lab.system.util.PageInfo;
 
@@ -41,6 +43,7 @@ public class StudentController {
 	 * @throws Exception
 	 */
 	@Resource private IStudentService studentService;
+	@Resource private ITeacherService teacherService;
 	
 	
 	@Value("#{envProperties['labsystemupload']}") private String shareupload;
@@ -104,6 +107,8 @@ public class StudentController {
 	public String doteacherAdd(Model model)throws Exception{
 		
 		List<CodeBookDomain> gradeItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.GRADE_TYPE);	
+		List<TeacherDomain> teachers= teacherService.doGetFilterList();
+		model.addAttribute("teachers", teachers);
 		model.addAttribute("gradeItem", gradeItem);
 		
 		return "/adminView/student/studentAdd";
@@ -130,6 +135,9 @@ public class StudentController {
 		//头像路径
 		String headImgPath=shareupload+headImageDir;
 		model.addAttribute("headImgPath", headImgPath);
+		
+		List<TeacherDomain> teachers= teacherService.doGetFilterList();
+		model.addAttribute("teachers", teachers);
 		
 		return "/adminView/student/studentEdit";
 	}

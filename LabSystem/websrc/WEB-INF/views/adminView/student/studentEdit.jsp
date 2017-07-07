@@ -47,7 +47,7 @@
 			<td class="lestb">
 				${studentDomain.stuCode }
 			</td>
-			<td rowspan="4" colspan="2">
+			<td >
 				<input type="hidden" id="headImg" name="headImg" />
 				<div id="filePicker" class="filePicker">选择图片</div>
 				<div class="add_pic" id="add_pic">
@@ -75,6 +75,26 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="lesta-150">导师：</td>
+			<td class="lestb">
+				<select id="tutor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${teachers }" var="teachersDomain">
+						<option value="${teachersDomain.id }">${teachersDomain.name}</option>
+					</c:forEach>
+				</select>
+			</td>
+			<td class="lesta-150">责任导师：</td>
+			<td class="lestb">
+				<select id="restutor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${teachers }" var="teachersDomain">
+						<option value="${teachersDomain.id }">${teachersDomain.name}</option>
+					</c:forEach>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<td class="lesta-150">出生日期：</td>
 			<td class="lestb">
 				<input type="text" name="birthday" class="Wdate" readonly="readonly"  value="<fmt:formatDate value="${studentDomain.birthday }" type="date"/>" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/>
@@ -84,7 +104,7 @@
 			<td class="lesta-150">学生年级：</td>
 			<td class="lestb">
 				<select id="jobTitle_select_edit_id" class="select_style">
-					<option value="" selected="selected">选择</option>
+					<option value="${studentDomain.grade}" selected="selected">选择</option>
 					<c:forEach items="${grade }" var="grade">
 						<option value="${grade.id }">${grade.name}</option>
 					</c:forEach>
@@ -139,8 +159,9 @@
 
 	$(function(){
 		$("#grade_select_edit_id option[value='${studentDomain.grade}']").attr("selected",true);
+		$("#tutor_select_add_id option[value='${studentDomain.tutorDomain.id}']").attr("selected",true);
+		$("#tutor_select_add_id option[value='${studentDomain.restutorDomain.id}']").attr("selected",true);
 	});
-
 	//下拉框选择后给隐藏域赋值
 	$("#grade_select_edit_id").change(function(){
 		var grade_id=$(this).children('option:selected').val();

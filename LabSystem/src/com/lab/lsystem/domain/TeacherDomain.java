@@ -1,11 +1,16 @@
 package com.lab.lsystem.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -27,6 +32,8 @@ public class TeacherDomain {
 	private String homeAddress;//家庭住址
 	private String entryYear;//入职年份
 	private String headImg;//头像
+	private Set<StudentDomain> students=new HashSet<StudentDomain>();
+	private Set<StudentDomain> resStudents=new HashSet<StudentDomain>();
 	public TeacherDomain() {
 		super();
 	}
@@ -123,6 +130,20 @@ public class TeacherDomain {
 	}
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
+	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "tutorDomain", fetch = FetchType.LAZY)
+	public Set<StudentDomain> getStudents() {
+		return students;
+	}
+	public void setStudents(Set<StudentDomain> students) {
+		this.students = students;
+	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restutorDomain", fetch = FetchType.LAZY)
+	public Set<StudentDomain> getResStudents() {
+		return resStudents;
+	}
+	public void setResStudents(Set<StudentDomain> resStudents) {
+		this.resStudents = resStudents;
 	}
 	
 }

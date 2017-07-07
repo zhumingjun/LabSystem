@@ -84,7 +84,7 @@
 	        type: 2,
 	        title: '新增学生',
 	        shadeClose: true, //点击遮罩关闭层
-	        area : ['700px' , '560px'],
+	        area : ['900px' , '600px'],
 	        offset: ['60px'],
 	        content: '${pageContext.request.contextPath}/admin/student/studentAdd',
 	        end: function(){
