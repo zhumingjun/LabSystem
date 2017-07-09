@@ -51,6 +51,10 @@
 			<td class="lestb" style="width:150px;">
 				${studentDomain.name }
 			</td>
+			<td class="lesta-150">是否毕业：</td>
+			<td class="lestb" style="width:150px;">
+				${cusfun:getNameByValueAndType(studentDomain.isGraduate,"8101")}
+			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">性别：</td>

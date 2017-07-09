@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lab.lsystem.dao.IStudentDao;
 import com.lab.lsystem.dao.ITeacherDao;
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
@@ -24,6 +25,7 @@ import com.lab.system.util.ValidateUtil;
 public class TeacherService implements ITeacherService{
 
 	@Resource private ITeacherDao teacherDao;
+	@Resource private IStudentDao studentDao;
 	
 	/**
 	 * @see ITeacherService#doGetFilterList()
@@ -137,5 +139,16 @@ public class TeacherService implements ITeacherService{
 		}
 		
 		return null;
+	}
+
+	@Override
+	public List<StudentDomain> doGetStudentPagedListByTutorId(PageInfo pageInfo,String teacherId)
+			throws Exception {
+		// TODO Auto-generated method stub
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
+		detachedCriteria.add(Restrictions.eq("tutorDomain.id", teacherId.trim()));
+		
+		List<StudentDomain> studentList=studentDao.getPageList(detachedCriteria, pageInfo);
+		return studentList;
 	}
 }

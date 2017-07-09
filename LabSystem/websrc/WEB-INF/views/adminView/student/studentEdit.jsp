@@ -41,17 +41,24 @@
 	<input type="hidden" id="id" name="id" value="${studentDomain.id }"/>
 	<input type="hidden" id="stuCode" name="stuCode" value="${studentDomain.stuCode }"/>
 	<input type="hidden" id="gradeId" name="grade" value="${studentDomain.grade }"/>
+	<input type="hidden" id="tutorId" name="tutorDomain.id" value="${studentDomain.tutorDomain.id }"/>
+	<input type="hidden" id="resTutor" name="restutorDomain.id" value="${studentDomain.restutorDomain.id }"/>
 	<table>
 		<tr>
 			<td class="lesta-150">学号：</td>
 			<td class="lestb">
 				${studentDomain.stuCode }
 			</td>
-			<td >
-				<input type="hidden" id="headImg" name="headImg" />
+			<td>
+				<input type="hidden" id="headImg" name="headImg" value="${studentDomain.headImg }"/>
 				<div id="filePicker" class="filePicker">选择图片</div>
 				<div class="add_pic" id="add_pic">
+					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
+					</c:if>
+					<c:if test="${studentDomain.headImg!=null&&studentDomain.headImg!='' }">
+						<img id="head_img" src="${headImgPath}/${studentDomain.stuCode }/${studentDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
+					</c:if>
 				</div>
 			</td>
 		</tr>
@@ -59,6 +66,17 @@
 			<td class="lesta-150">姓名：</td>
 			<td class="lestb">
 				<input type="text" id="studentname" name="name" class="input_text_a" placeholder="请输入姓名" value="${studentDomain.name }">
+			</td>
+			<td class="lesta-150">是否毕业：</td>
+			<td class="lestb">
+				<c:if test="${studentDomain.isGraduate==0 }">
+					<input type="radio" name="isGraduate" value="0" checked="checked"/>未毕业
+					<input type="radio" name="isGraduate" value="1" />已毕业
+				</c:if>
+				<c:if test="${studentDomain.isGraduate==1 }">
+					<input type="radio" name="isGraduate" value="0" />未毕业
+					<input type="radio" name="isGraduate" value="1" checked="checked"/>已毕业
+				</c:if>
 			</td>
 		</tr>
 		<tr>
@@ -103,10 +121,10 @@
 		<tr>
 			<td class="lesta-150">学生年级：</td>
 			<td class="lestb">
-				<select id="jobTitle_select_edit_id" class="select_style">
-					<option value="${studentDomain.grade}" selected="selected">选择</option>
+				<select id="grade_select_edit_id" class="select_style">
+					<option value="" selected="selected">选择</option>
 					<c:forEach items="${grade }" var="grade">
-						<option value="${grade.id }">${grade.name}</option>
+						<option value="${grade.value }">${grade.name}</option>
 					</c:forEach>
 				</select>
 			</td>
@@ -160,12 +178,20 @@
 	$(function(){
 		$("#grade_select_edit_id option[value='${studentDomain.grade}']").attr("selected",true);
 		$("#tutor_select_add_id option[value='${studentDomain.tutorDomain.id}']").attr("selected",true);
-		$("#tutor_select_add_id option[value='${studentDomain.restutorDomain.id}']").attr("selected",true);
+		$("#restutor_select_add_id option[value='${studentDomain.restutorDomain.id}']").attr("selected",true);
 	});
 	//下拉框选择后给隐藏域赋值
 	$("#grade_select_edit_id").change(function(){
 		var grade_id=$(this).children('option:selected').val();
 		$("#gradeId").val(grade_id);
+	});
+	$("#tutor_select_add_id").change(function(){
+		var tutor_id=$(this).children('option:selected').val();
+		$("#tutorId").val(tutor_id);
+	});
+	$("#restutor_select_add_id").change(function(){
+		var resTutor_id=$(this).children('option:selected').val();
+		$("#resTutor").val(resTutor_id);
 	});
 	
 	$("#saveButton").click(function(){

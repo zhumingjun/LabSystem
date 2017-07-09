@@ -2,6 +2,7 @@ package com.lab.lsystem.service;
 
 import java.util.List;
 
+import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.domain.UserDomain;
 import com.lab.system.util.PageInfo;
@@ -68,6 +69,12 @@ public interface ITeacherService{
 		 * @param name
 		 * @return
 		 */
-		public TeacherDomain doGetUserByUsername(String name);
-
+		public TeacherDomain doGetUserByUsername(String name)throws Exception;
+		/**
+		 * 根据导师查找学生
+		 * @param teacherId
+		 * @return
+		 */
+		public List<StudentDomain> doGetStudentPagedListByTutorId(PageInfo pageInfo,
+				String teacherId)throws Exception;;
 }

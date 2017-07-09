@@ -116,7 +116,7 @@
 	        type: 2,
 	        title: '修改学生',
 	        shadeClose: true,
-	        area : ['700px' , '560px'],
+	        area : ['900px' , '560px'],
 	        offset: ['100px'],
 	        content: '${pageContext.request.contextPath}/admin/student/studentEdit/'+studentId,
 	        end: function(){

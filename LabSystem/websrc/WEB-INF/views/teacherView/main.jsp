@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 
-<!-- 学生系统主界面 -->
+<!-- 教师系统主界面 -->
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -15,7 +15,7 @@
 		<script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/ace/assets/js/ace-extra.min.js"></script>
 	
-		<title>学生信息</title>
+		<title>教师信息</title>
 	
 		<script type="text/javascript">
 			$(function(){
@@ -86,7 +86,13 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text"> 教师个人信息</span>
 							</a>
-						</li>					
+						</li>
+						<li id="student_manage" class="active">
+							<a href="javascript:void(0);">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text">学生管理</span>
+							</a>
+						</li>						
 					</ul>
 					<div class="sidebar-collapse" id="sidebar-collapse">
 						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
@@ -135,6 +141,14 @@
 			window.location.href="${pageContext.request.contextPath}/logout";
 		});
 
+		//教师管理
+		$("#student_manage").click(function(){
+			$.post("${pageContext.request.contextPath}/teacher/teacherinfo/studentManage", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
+		
 		//学生管理
 		$("#teacher_manage").click(function(){
 			$.post("${pageContext.request.contextPath}/teacher/teacherinfo/teacherIndex", function(result){
@@ -142,8 +156,6 @@
 				$("#content_page").html(result);
 			});
 		});
-		
-	
 	</script>
 	
 </html>

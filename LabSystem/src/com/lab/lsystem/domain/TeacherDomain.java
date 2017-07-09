@@ -34,6 +34,7 @@ public class TeacherDomain {
 	private String headImg;//头像
 	private Set<StudentDomain> students=new HashSet<StudentDomain>();
 	private Set<StudentDomain> resStudents=new HashSet<StudentDomain>();
+	private Set<PaperDomain> papers=new HashSet<PaperDomain>();
 	public TeacherDomain() {
 		super();
 	}
@@ -144,6 +145,13 @@ public class TeacherDomain {
 	}
 	public void setResStudents(Set<StudentDomain> resStudents) {
 		this.resStudents = resStudents;
+	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherAuthorDomain", fetch = FetchType.LAZY)
+	public Set<PaperDomain> getPapers() {
+		return papers;
+	}
+	public void setPapers(Set<PaperDomain> papers) {
+		this.papers = papers;
 	}
 	
 }

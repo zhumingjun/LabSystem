@@ -62,9 +62,14 @@
 			<td class="lestb">
 				<input type="text" id="stuname" name="name" class="input_text_a" placeholder="请输入姓名">
 			</td>
+			<td class="lesta-150">是否毕业：</td>
+			<td class="lestb">
+				<input type="radio" name="isGraduate" value="0" checked="checked"/>未毕业
+				<input type="radio" name="isGraduate" value="1" />已毕业
+			</td>
 		</tr>
 		<tr>
-		<td class="lesta-150">性别：</td>
+		    <td class="lesta-150">性别：</td>
 			<td class="lestb">
 				<input type="radio" name="sex" value="0" checked="checked"/>男
 				<input type="radio" name="sex" value="1" />女

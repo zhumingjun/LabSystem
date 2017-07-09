@@ -107,14 +107,19 @@
 								<span class="menu-text"> 学生管理 </span>
 							</a>
 						</li>
-<!-- 						<li id="linkNote_manage">
+					    <li id="paper_manage">
 							<a href="javascript:void(0);">
 								<i class="icon-dashboard"></i>
-								<span class="menu-text"> 联系笔记 </span>
+								<span class="menu-text"> 论文管理 </span>
 							</a>
-						</li> -->
+						</li>
 						
-					
+					   <li id="discussion_manage">
+							<a href="javascript:void(0);">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 研讨管理 </span>
+							</a>
+						</li>
 						
 						
 						
@@ -191,6 +196,21 @@
 			});
 		});
 		
+	    $("#paper_manage").click(function(){
+			
+			$.post("${pageContext.request.contextPath}/admin/paper/paperList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
+	    
+        $("#discussion_manage").click(function(){
+			
+			$.post("${pageContext.request.contextPath}/admin/discussion/discussionList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
 	
 		
 		

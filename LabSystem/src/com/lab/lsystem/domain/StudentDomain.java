@@ -1,14 +1,18 @@
 package com.lab.lsystem.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -32,8 +36,10 @@ public class StudentDomain {
 	private String contactPerson;//联系人
 	private String familyContact;//家庭联系方式
 	private String headImg;//头像
+	private Integer isGraduate;//是否毕业
 	private TeacherDomain tutorDomain;//导师；
 	private TeacherDomain restutorDomain;//责任导师
+	private Set<PaperDomain> papers=new HashSet<PaperDomain>();
 	public StudentDomain() {
 		super();
 	}
@@ -145,6 +151,13 @@ public class StudentDomain {
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
 	}
+	@Column(name = "ISGRADUATE",unique = true, nullable = false, length =11)
+	public Integer getIsGraduate() {
+		return isGraduate;
+	}
+	public void setIsGraduate(Integer isGraduate) {
+		this.isGraduate = isGraduate;
+	}
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "TUTORID")
 	public TeacherDomain getTutorDomain() {
@@ -160,6 +173,13 @@ public class StudentDomain {
 	}
 	public void setRestutorDomain(TeacherDomain restutorDomain) {
 		this.restutorDomain = restutorDomain;
+	}
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studentAuthorDomain", fetch = FetchType.LAZY)
+	public Set<PaperDomain> getPapers() {
+		return papers;
+	}
+	public void setPapers(Set<PaperDomain> papers) {
+		this.papers = papers;
 	}
 	
 }

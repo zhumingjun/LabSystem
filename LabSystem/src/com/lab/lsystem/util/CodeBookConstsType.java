@@ -20,6 +20,22 @@ public class CodeBookConstsType {
 	 * 学生年级：8100
 	 */
 	public static final String GRADE_TYPE="8100";
+	/**
+	 * 是否毕业：8101
+	 */
+	public static final String ISGRADUATE_TYPE="8101";
+	/**
+	 * 论文类型：8102
+	 */
+	public static final String PAPER_TYPE="8102";
+	/**
+	 * 刊物级别：8103
+	 */
+	public static final String JOURNAL_LEVEL="8103";
+	/**
+	 * 一级学科：8104
+	 */
+	public static final String DISCIPLINE_TYPE="8104";
 	
 
 }

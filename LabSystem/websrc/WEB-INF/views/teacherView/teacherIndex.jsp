@@ -6,44 +6,7 @@
 
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="renderer" content="webkit|ie-comp|ie-stand">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		
-		<title>学生个人信息</title>
-		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/ui/hui/static/h-ui/css/H-ui.min.css" />
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/ui/hui/lib/Hui-iconfont/1.0.7/iconfont.css" />
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/ui/hui/lib/icheck/icheck.css" />
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/ui/hui/static/h-ui/css/style.css" />
-
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/jquery/1.9.1/jquery.min.js"></script> 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/layer/2.1/layer.js"></script> 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/laypage/1.2/laypage.js"></script> 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/My97DatePicker/WdatePicker.js"></script> 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/icheck/jquery.icheck.min.js"></script> 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/bootstrap-Switch/bootstrapSwitch.js"></script> 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/Validform/5.3.2/Validform.min.js"></script> 
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/lib/Validform/5.3.2/passwordStrength-min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/static/h-ui/js/H-ui.js"></script>
-
-		<style>
-			.table-font th{font-size:16px;}
-			.table-font td{font-size:16px;}
-		</style>
-	</head>
 	<body>
-	<header class="navbar-wrapper">
-		<div class="navbar navbar-black navbar-fixed-top">
-			<div class="container cl">
-				<a class="logo navbar-logo hidden-xs" href="${pageContext.request.contextPath}/login">LabSystem教师系统</a>
-				<span class="logo navbar-slogan hidden-xs"> &middot;  教师详细信息</span>
-			</div>
-		</div>
-	</header>
 	<div style="width: 70%;margin: 0 auto;" >
 		<div class="codeView docs-example">
 			<span style="margin-bottom: 20px;font-size: 26px;">教师基本信息</span>
