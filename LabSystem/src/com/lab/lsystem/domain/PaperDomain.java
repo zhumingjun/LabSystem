@@ -36,8 +36,6 @@ public class PaperDomain {
 	private String projectSource;//项目来源
 	private String journalLevel;//刊物级别
 	private String discipline;//一级学科
-	private Set<StudentDomain> studentAuthors=new HashSet<StudentDomain>();//学生作者
-	private Set<TeacherDomain> teacherAuthors=new HashSet<TeacherDomain>();//教师作者
 	public PaperDomain() {
 		super();
 	}
@@ -127,22 +125,6 @@ public class PaperDomain {
 	}
 	public void setDiscipline(String discipline) {
 		this.discipline = discipline;
-	}
-	@ManyToMany(cascade=CascadeType.REFRESH)
-	@JoinTable(name="paper_student",inverseJoinColumns=@JoinColumn(name="studentId"),joinColumns=@JoinColumn(name="paperId"))
-	public Set<StudentDomain> getStudentAuthors() {
-		return studentAuthors;
-	}
-	public void setStudentAuthors(Set<StudentDomain> studentAuthors) {
-		this.studentAuthors = studentAuthors;
-	}
-	@ManyToMany(cascade=CascadeType.REFRESH)
-	@JoinTable(name="paper_teacher",inverseJoinColumns=@JoinColumn(name="teacherId"),joinColumns=@JoinColumn(name="paperId"))
-	public Set<TeacherDomain> getTeacherAuthors() {
-		return teacherAuthors;
-	}
-	public void setTeacherAuthors(Set<TeacherDomain> teacherAuthors) {
-		this.teacherAuthors = teacherAuthors;
 	}
 	@Column(name = "FIRSTIDENTITY",unique = true, nullable = true, length = 11)
 	public Integer getFirstIdentity() {

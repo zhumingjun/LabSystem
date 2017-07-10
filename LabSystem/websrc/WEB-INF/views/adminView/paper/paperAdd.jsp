@@ -39,186 +39,263 @@
 	
 </style>
 
-<form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/student/save" method="post">
-		<input type="hidden" id="gradeId" name="grade" value=""/>
-		<input type="hidden" id="tutorId" name="tutorDomain.id" value=""/>
-		<input type="hidden" id="restutorId" name="restutorDomain.id" value=""/>
+<form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/paper/save" method="post">
+		<input type="hidden" id="typeId" name="type" value=""/>
+		<input type="hidden" id="firstIdentityId" name="firstIdentity" value=""/>
+		<input type="hidden" id="firstAuthorId" name="firstAuthor" value=""/>
+		<input type="hidden" id="secondAuthorId" name="secondAuthor" value=""/>
+		<input type="hidden" id="secondIdentifyId" name="secondIdentify" value=""/>
+		<input type="hidden" id="corrspondAuthorId" name="corrspondAuthor" value=""/>
+		<input type="hidden" id="journalLevelId" name="journalLevel" value=""/>
+		<input type="hidden" id="disciplineId" name="discipline" value=""/>
 	<table>	
 		<tr>
 			<td class="lesta-150">论文题目：</td>
 			<td class="lestb">
 				<input type="text" id="title" name="title" class="input_text_a" placeholder="请输入论文标题">
 			</td>
-			<td>
 			<td class="lesta-150">论文类型：</td>
 			<td class="lestb">
-				<select id="type_select_add_id" class="select_style">
-					<option value="" selected="selected">选择</option>
+				 <select id="type_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
 					<c:forEach items="${typeItem }" var="typeDomain">
 						<option value="${typeDomain.value }">${typeDomain.name}</option>
 					</c:forEach>
-				</select>
+				  </select>
 			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">第一作者身份：</td>
 			<td class="lestb">
-				<input type="radio" name="firstIdentity" value="0" checked="checked"/>教师
-				<input type="radio" name="firstIdentity" value="1" />学生
+			    <select id="firstIdentity_select_add_id" class="select_style" onchange="getFirstIdentify(this.value)">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${authorItem }" var="authorDomain">
+						<option value="${authorDomain.value }">${authorDomain.name}</option>
+					</c:forEach>
+				</select>
 			</td>
 			<td class="lesta-150">第一作者：</td>
 			<td class="lestb">
-				<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
 				    <select id="firstAuthor_select_add_id" class="select_style">
-					<option value="" selected="selected">选择</option>
+					<option value="" selected="selected">选择</option>					
 					<c:forEach items="${teachers }" var="teacherDomain">
 						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
 					</c:forEach>
 				    </select>
-				</c:if>
-				<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
-					<select id="firstAuthor_select_add_id" class="select_style">
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">第二作者身份：</td>
+			<td class="lestb">
+			    <select id="secondIdentity_select_add_id" class="select_style" onchange="getSecondIdentify(this.value)">
 					<option value="" selected="selected">选择</option>
-					<c:forEach items="${students }" var="studentDomain">
-						<option value="${studentDomain.id }">${studentDomain.name}</option>
+					<c:forEach items="${authorItem }" var="authorDomain">
+						<option value="${authorDomain.value }">${authorDomain.name}</option>
+					</c:forEach>
+				</select>
+			</td>
+			<td class="lesta-150">第二作者：</td>
+			<td class="lestb">
+				    <select id="secondAuthor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${teachers }" var="teacherDomain">
+						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
 					</c:forEach>
 				    </select>
-				</c:if>
 			</td>
 		</tr>
 		<tr>
-		    <td class="lesta-150">性别：</td>
+			<td class="lesta-150">通信作者身份：</td>
 			<td class="lestb">
-				<input type="radio" name="sex" value="0" checked="checked"/>男
-				<input type="radio" name="sex" value="1" />女
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">导师：</td>
-			<td class="lestb">
-				<select id="tutor_select_add_id" class="select_style">
+			    <select id="correspondIdentity_select_add_id" class="select_style" onchange="getCorrespondIdentify(this.value)">
 					<option value="" selected="selected">选择</option>
-					<c:forEach items="${teachers }" var="teachersDomain">
-						<option value="${teachersDomain.id }">${teachersDomain.name}</option>
+					<c:forEach items="${authorItem }" var="authorDomain">
+						<option value="${authorDomain.value }">${authorDomain.name}</option>
 					</c:forEach>
 				</select>
 			</td>
-			<td class="lesta-150">责任导师：</td>
+			<td class="lesta-150">通信作者：</td>
 			<td class="lestb">
-				<select id="restutor_select_add_id" class="select_style">
-					<option value="" selected="selected">选择</option>
-					<c:forEach items="${teachers }" var="teachersDomain">
-						<option value="${teachersDomain.id }">${teachersDomain.name}</option>
+				    <select id="correspondAuthor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${teachers }" var="teacherDomain">
+						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
 					</c:forEach>
-				</select>
+				    </select>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">出生日期：</td>
+			<td class="lesta-150">其他作者：</td>
 			<td class="lestb">
-				<input type="text" name="birthday" class="Wdate" readonly="readonly" placeholder="出生日期" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
+				<input type="text" id="otherAuthors" name="otherAuthors" class="input_text_a" placeholder="请输入其他作者" />
 			</td>
-
-		</tr>
-		<tr>
-			<td class="lesta-150">研究生年级：</td>
+			<td class="lesta-150">发表日期：</td>
 			<td class="lestb">
-				<select id="grade_select_add_id" class="select_style">
-					<option value="" selected="selected">选择</option>
-					<c:forEach items="${gradeItem }" var="gradedomain">
-						<option value="${gradedomain.value }">${gradedomain.name}</option>
-					</c:forEach>
-				</select>
-			</td>
-			<td class="lesta-150">手机号码：</td>
-			<td class="lestb">
-				<input type="text" id="studentphoneNumber" name="phoneNumber" class="input_text_a" ignore="ignore" placeholder="请输入手机号码" />
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">银行卡号：</td>
-			<td class="lestb">
-				<input type="text" id="bankCard" name="bankCard" class="input_text_a" ignore="ignore" placeholder="请输入财务账号"/>
-			</td>
-			<td class="lesta-150">邮箱：</td>
-			<td class="lestb">
-				<input type="text" id="studentemail" name="email" class="input_text_a" ignore="ignore" placeholder="请输入邮箱"/>
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">身份证：</td>
-			<td class="lestb">
-				<input type="text" id="studentidNumber" name="idNumber" class="input_text_a" placeholder="请输入身份证号" />
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">家庭住址：</td>
-			<td class="lestb">
-				<input type="text" id="studenthomeAddress" name="homeAddress" class="input_text_a" placeholder="请输入家庭住址" />
-			</td>
-			<td class="lesta-150">入学年份：</td>
-			<td class="lestb">
-				<input type="text" id="entryYear" name="entryYear" class="input_text_a" placeholder="请输入入职年份" />
+				<input type="text" name="publishDate" class="Wdate" readonly="readonly" placeholder="发表日期" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
 			</td>
 		</tr> 
 		<tr>
-			<td class="lesta-150">家庭联系人：</td>
+			<td class="lesta-150">期刊名称：</td>
 			<td class="lestb">
-				<input type="text" id="contactPerson" name="contactPerson" class="input_text_a" placeholder="请输入家庭联系人" />
+				<input type="text" id="journalTitle" name="journalTitle" class="input_text_a" placeholder="请输入期刊名称" />
 			</td>
-			<td class="lesta-150">家庭联系方式：</td>
+			<td class="lesta-150">刊物级别：</td>
 			<td class="lestb">
-				<input type="text" id="familyContact" name="familyContact" class="input_text_a" placeholder="请输入家庭联系方式" />
+				 <select id="journalLevel_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${levelItem }" var="levelDomain">
+						<option value="${levelDomain.value }">${levelDomain.name}</option>
+					</c:forEach>
+				  </select>
 			</td>
 		</tr> 
-	</table>
+		<tr>
+			<td class="lesta-150">项目来源：</td>
+			<td class="lestb">
+				<input type="text" id="projectSource" name="projectSource" class="input_text_a" placeholder="请输入项目来源" />
+			</td>
+			<td class="lesta-150">一级学科：</td>
+			<td class="lestb">
+				 <select id="discipline_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${disciplineItem }" var="disciplineDomain">
+						<option value="${disciplineDomain.value }">${disciplineDomain.name}</option>
+					</c:forEach>
+				  </select>
+			</td>
+		</tr> 
+		</table>
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="确定"/>
 </form>
 
 <script>
 
 
+$("#saveButton").click(function(){
+	var form = $("#userAddFormId");
+	form.ajaxSubmit(function(result){
+		if(result=='success'){
 
-
-
-
-	//表单验证
-	$.Tipmsg.r=null;
-	
-	var showmsg=function(msg,obj){
-		console.info(msg); 
-		layer.tips(msg, obj);
-	};
-	
-	$("#studentFormId").Validform({
-		tiptype:function(msg,o){
-			console.info(msg); 
-			showmsg(msg,o.obj[0]);
+			parent.layer.msg('添加成功', {
+ 		        time: 1500//1.5s后自动关闭
+ 		    });
+			//关闭当前新增页面页
+			var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+			parent.layer.close(index); //再执行关闭    
+		}else{
+			layer.msg('新增失败');
 		}
-	}); 
-
+	});
+	
+});
 
 	//下拉框选择后给隐藏域赋值
-	$("#grade_select_add_id").change(function(){
-		var grade_id=$(this).children('option:selected').val();
-		$("#gradeId").val(grade_id);
+	$("#type_select_add_id").change(function(){
+		var type_id=$(this).children('option:selected').val();
+		$("#typeId").val(type_id);
 	});
 	
 
 	//下拉框选择后给隐藏域赋值
-	$("#tutor_select_add_id").change(function(){
-		var tutor_id=$(this).children('option:selected').val();
-		$("#tutorId").val(tutor_id);
+	$("#firstAuthor_select_add_id").change(function(){
+		var firstAuthor_id=$(this).children('option:selected').val();
+		$("#firstAuthorId").val(firstAuthor_id);
 	});
 	
 
 	//下拉框选择后给隐藏域赋值
-	$("#restutor_select_add_id").change(function(){
-		var restutor_id=$(this).children('option:selected').val();
-		$("#restutorId").val(restutor_id);
+	$("#firstIdentity_select_add_id").change(function(){
+		var firstIdentity_id=$(this).children('option:selected').val();
+		$("#firstIdentityId").val(firstIdentity_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#secondAuthor_select_add_id").change(function(){
+		var secondAuthor_id=$(this).children('option:selected').val();
+		$("#secondAuthorId").val(secondAuthor_id);
+	});
+	
+
+	//下拉框选择后给隐藏域赋值
+	$("#secondIdentity_select_add_id").change(function(){
+		var secondIdentity_id=$(this).children('option:selected').val();
+		$("#secondIdentityId").val(secondIdentity_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#correspondAuthor_select_add_id").change(function(){
+		var correspondAuthor_id=$(this).children('option:selected').val();
+		$("#correspondAuthorId").val(correspondAuthor_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#journalLevel_select_add_id").change(function(){
+		var journalLevel_id=$(this).children('option:selected').val();
+		$("#journalLevelId").val(journalLevel_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#discipline_select_add_id").change(function(){
+		var discipline_id=$(this).children('option:selected').val();
+		$("#disciplineId").val(discipline_id);
 	});
 	
 	
+	//选择第一作者身份，得到相应人选
+	function getFirstIdentify(identify_value)
+	{
+    	$.ajax({
+			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentify?identify_value='+identify_value,
+			type:"post",
+			error:function(e){
+			},
+			success:function(data){
+				var json = new Function("return" + data)();
+ 				var major_select=$("#firstAuthor_select_add_id");
+				major_select.empty();
+				major_select.append('<option value="">'+"选择"+'</option>');
+				for(var i=0;i<json.length;i++){
+					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
+				} 
+			}
+		});
+	}
+    	//选择第二作者身份，得到相应人选
+    	function getSecondIdentify(identify_value)
+    	{
+        	$.ajax({
+    			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentify?identify_value='+identify_value,
+    			type:"post",
+    			error:function(e){
+    			},
+    			success:function(data){
+    				var json = new Function("return" + data)();
+     				var major_select=$("#secondAuthor_select_add_id");
+    				major_select.empty();
+    				major_select.append('<option value="">'+"选择"+'</option>');
+    				for(var i=0;i<json.length;i++){
+    					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
+    				} 
+    			}
+    		});
+    	}
+        	//选择通信作者身份，得到相应人选
+        	function getCorrespondIdentify(identify_value)
+        	{
+            	$.ajax({
+        			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentify?identify_value='+identify_value,
+        			type:"post",
+        			error:function(e){
+        			},
+        			success:function(data){
+        				var json = new Function("return" + data)();
+         				var major_select=$("#correspondAuthor_select_add_id");
+        				major_select.empty();
+        				major_select.append('<option value="">'+"选择"+'</option>');
+        				for(var i=0;i<json.length;i++){
+        					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
+        				} 
+        			}
+        	});
+        	}
+
+    	
 	
 
 </script>

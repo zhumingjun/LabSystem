@@ -40,7 +40,6 @@ public class StudentDomain {
 	private Integer isGraduate;//是否毕业
 	private TeacherDomain tutorDomain;//导师；
 	private TeacherDomain restutorDomain;//责任导师
-	private Set<PaperDomain> papers=new HashSet<PaperDomain>();
 	public StudentDomain() {
 		super();
 	}
@@ -175,12 +174,4 @@ public class StudentDomain {
 	public void setRestutorDomain(TeacherDomain restutorDomain) {
 		this.restutorDomain = restutorDomain;
 	}
-	@ManyToMany(cascade=CascadeType.REFRESH,mappedBy="studentAuthors")
-	public Set<PaperDomain> getPapers() {
-		return papers;
-	}
-	public void setPapers(Set<PaperDomain> papers) {
-		this.papers = papers;
-	}
-	
 }

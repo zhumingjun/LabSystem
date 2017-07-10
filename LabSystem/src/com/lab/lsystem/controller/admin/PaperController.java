@@ -1,10 +1,13 @@
 package com.lab.lsystem.controller.admin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
+import net.sf.json.JSONArray;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,20 +20,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.PaperDomain;
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
+import com.lab.lsystem.util.CodeBookConsts;
 import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.service.IPaperService;
 import com.lab.lsystem.service.IStudentService;
 import com.lab.lsystem.service.ITeacherService;
-import com.lab.system.util.CompressPicUtil;
 import com.lab.system.util.PageInfo;
+import com.lab.system.util.SelectItem;
 
 /*
  * 教师管理
@@ -48,11 +51,6 @@ public class PaperController {
 	@Resource private ITeacherService teacherService;
 	@Resource private IStudentService studentService;
 	
-	@Value("#{envProperties['labsystemupload']}") private String shareupload;
-	@Value("#{envProperties['uploadpath']}") private String uploadpath;
-	@Value("#{envProperties['headImageDir']}") private String headImageDir;
-	@Value("#{envProperties['midWidth']}") private String midWidth;
-	@Value("#{envProperties['midHeight']}") private String midHeight;
 	
 	/**
 	 * 过滤起前台pageInfo
@@ -93,9 +91,6 @@ public class PaperController {
 		PaperDomain paperDomain=paperService.doGetById(id);
 		model.addAttribute("paperDomain", paperDomain);
 		
-		//头像路径
-		String headImgPath=shareupload+headImageDir;
-		model.addAttribute("headImgPath", headImgPath);
 		
 		return "/adminView/paper/paperList";
 	}
@@ -111,9 +106,11 @@ public class PaperController {
 		List<CodeBookDomain> disciplineItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.DISCIPLINE_TYPE);	
 		List<CodeBookDomain> levelItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOURNAL_LEVEL);
 		List<CodeBookDomain> typeItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PAPER_TYPE);
+		List<CodeBookDomain> authorItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.AUTHOR_TYPE);
 		model.addAttribute("disciplineItem", disciplineItem);
 		model.addAttribute("levelItem", levelItem);
 		model.addAttribute("typeItem", typeItem);
+		model.addAttribute("authorItem", authorItem);
 		List<TeacherDomain> teachers= teacherService.doGetFilterList();
 		List<StudentDomain> students= studentService.doGetFilterList();
 		model.addAttribute("teachers", teachers);
@@ -139,9 +136,7 @@ public class PaperController {
 		model.addAttribute("grade", grade);
 		model.addAttribute("paperDomain", paperDomain);
 		
-		//头像路径
-		String headImgPath=shareupload+headImageDir;
-		model.addAttribute("headImgPath", headImgPath);
+	
 		
 		List<TeacherDomain> teachers= teacherService.doGetFilterList();
 		model.addAttribute("teachers", teachers);
@@ -164,6 +159,18 @@ public class PaperController {
 			System.out.println(result);
 			return Consts.ERROR;
 		} else {
+			if(domain.getFirstIdentity().equals(CodeBookConsts.AUTHOR_TYPE_A)){
+				
+			}else{
+				
+			}
+			if(domain.getSecondIdentify().equals(CodeBookConsts.AUTHOR_TYPE_A)){
+				
+			}else{
+				
+			}
+			
+			
 			if(paperService.doSave(domain)){
 				return Consts.SUCCESS;
 			}
@@ -222,40 +229,30 @@ public class PaperController {
 		return "/adminView/paper/paperList";
 	}
 	/**
-	 * 上传图片
-	 * <p>The uploaderImg</p>
-	 * @param file
-	 * @param adverType
+	 * 根据第一作者身份获取人员
+	 * @param model
+	 * @param identify_value
 	 * @return
 	 * @throws Exception
-	 * @author:Administrator 2016-2-17
-	 * @update: [updatedate] [changer][change description]
 	 */
-	@RequestMapping("/uploaderImg")
+	@RequestMapping("/getFirstIdentify")
 	@ResponseBody
-	public String uploaderImg(@RequestParam(value = "file", required = false) MultipartFile file, String stuCode)
-		throws Exception
-	{
-		String imgType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."),
-			file.getOriginalFilename().length());
-		String fileName = stuCode+"_"+System.currentTimeMillis() + imgType;
-		String path = uploadpath + headImageDir+ stuCode +File.separator;
+	public String dogetFirstIdentify(Model model,String identify_value)throws Exception{
 		
-		File targetFile = new File(path, fileName);
-		if(!targetFile.exists()){
-			targetFile.mkdirs();
+		List<SelectItem> identifyItems=new ArrayList<SelectItem>();
+		List<TeacherDomain> teachers= teacherService.doGetFilterList();
+		List<StudentDomain> students= studentService.doGetFilterList();
+		if(identify_value.equals("0")){
+			for(TeacherDomain teacherDomain:teachers){
+				identifyItems.add(new SelectItem(teacherDomain.getId(),teacherDomain.getName()));
+			}
+		}else{
+			for(StudentDomain studentDomain:students){
+				identifyItems.add(new SelectItem(studentDomain.getId(),studentDomain.getName()));
+			}
 		}
-		// 保存
-		try{
-			//保存文件
-			file.transferTo(targetFile);
-			//切割尺寸
-			CompressPicUtil.compressPic(targetFile, path, fileName, Integer.parseInt(midWidth),
-					Integer.parseInt(midHeight), "");
-
-		}catch (Exception e){
-			//e.printStackTrace();
-		}
-		return fileName;
+		JSONArray jsonArray=JSONArray.fromObject(identifyItems);
+		return jsonArray.toString();
+		
 	}
 }
