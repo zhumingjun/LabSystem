@@ -39,7 +39,7 @@
 	
 </style>
 
-<form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/paper/save" method="post">
+<form id="paperFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/paper/save" method="post">
 		<input type="hidden" id="typeId" name="type" value=""/>
 		<input type="hidden" id="firstIdentityId" name="firstIdentity" value=""/>
 		<input type="hidden" id="firstAuthorId" name="firstAuthor" value=""/>
@@ -107,7 +107,7 @@
 		<tr>
 			<td class="lesta-150">通信作者身份：</td>
 			<td class="lestb">
-			    <select id="correspondIdentity_select_add_id" class="select_style" onchange="getCorrespondIdentify(this.value)">
+			    <select id="correspondIdentity_select_add_id" class="select_style" onchange="getCorrspondIdentify(this.value)">
 					<option value="" selected="selected">选择</option>
 					<c:forEach items="${authorItem }" var="authorDomain">
 						<option value="${authorDomain.value }">${authorDomain.name}</option>
@@ -116,7 +116,7 @@
 			</td>
 			<td class="lesta-150">通信作者：</td>
 			<td class="lestb">
-				    <select id="correspondAuthor_select_add_id" class="select_style">
+				    <select id="corrspondAuthor_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>					
 					<c:forEach items="${teachers }" var="teacherDomain">
 						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
@@ -172,7 +172,7 @@
 
 
 $("#saveButton").click(function(){
-	var form = $("#userAddFormId");
+	var form = $("#paperFormId");
 	form.ajaxSubmit(function(result){
 		if(result=='success'){
 
@@ -221,9 +221,9 @@ $("#saveButton").click(function(){
 		$("#secondIdentityId").val(secondIdentity_id);
 	});
 	//下拉框选择后给隐藏域赋值
-	$("#correspondAuthor_select_add_id").change(function(){
-		var correspondAuthor_id=$(this).children('option:selected').val();
-		$("#correspondAuthorId").val(correspondAuthor_id);
+	$("#corrspondAuthor_select_add_id").change(function(){
+		var corrspondAuthor_id=$(this).children('option:selected').val();
+		$("#corrspondAuthorId").val(corrspondAuthor_id);
 	});
 	//下拉框选择后给隐藏域赋值
 	$("#journalLevel_select_add_id").change(function(){
@@ -276,7 +276,7 @@ $("#saveButton").click(function(){
     		});
     	}
         	//选择通信作者身份，得到相应人选
-        	function getCorrespondIdentify(identify_value)
+        	function getCorrspondIdentify(identify_value)
         	{
             	$.ajax({
         			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentify?identify_value='+identify_value,

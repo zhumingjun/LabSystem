@@ -25,12 +25,15 @@ import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.PaperDomain;
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
+import com.lab.lsystem.domain.TeacherPaperDomain;
 import com.lab.lsystem.util.CodeBookConsts;
 import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.service.IPaperService;
+import com.lab.lsystem.service.IStudentPaperService;
 import com.lab.lsystem.service.IStudentService;
+import com.lab.lsystem.service.ITeacherPaperService;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
 import com.lab.system.util.SelectItem;
@@ -50,6 +53,8 @@ public class PaperController {
 	@Resource private IPaperService paperService;
 	@Resource private ITeacherService teacherService;
 	@Resource private IStudentService studentService;
+	@Resource private IStudentPaperService studentpaperService;
+	@Resource private ITeacherPaperService teacherpaperService;
 	
 	
 	/**
@@ -159,19 +164,9 @@ public class PaperController {
 			System.out.println(result);
 			return Consts.ERROR;
 		} else {
-			if(domain.getFirstIdentity().equals(CodeBookConsts.AUTHOR_TYPE_A)){
-				
-			}else{
-				
-			}
-			if(domain.getSecondIdentify().equals(CodeBookConsts.AUTHOR_TYPE_A)){
-				
-			}else{
-				
-			}
-			
-			
 			if(paperService.doSave(domain)){
+				String t=domain.getId();
+				System.out.println(t);
 				return Consts.SUCCESS;
 			}
 		}
