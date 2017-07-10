@@ -45,27 +45,45 @@
 		<input type="hidden" id="restutorId" name="restutorDomain.id" value=""/>
 	<table>	
 		<tr>
-			<td class="lesta-150">学号：</td>
+			<td class="lesta-150">论文题目：</td>
 			<td class="lestb">
-				<input type="text" id="stuCode" name="stuCode" class="input_text_a" placeholder="请输入学号">
+				<input type="text" id="title" name="title" class="input_text_a" placeholder="请输入论文标题">
 			</td>
 			<td>
-				<input type="hidden" id="headImg" name="headImg" value=""/>
-				<div id="filePicker" class="filePicker">选择图片</div>
-				<div class="add_pic" id="add_pic">
-					<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
-				</div>
+			<td class="lesta-150">论文类型：</td>
+			<td class="lestb">
+				<select id="type_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${typeItem }" var="typeDomain">
+						<option value="${typeDomain.value }">${typeDomain.name}</option>
+					</c:forEach>
+				</select>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">姓名：</td>
+			<td class="lesta-150">第一作者身份：</td>
 			<td class="lestb">
-				<input type="text" id="stuname" name="name" class="input_text_a" placeholder="请输入姓名">
+				<input type="radio" name="firstIdentity" value="0" checked="checked"/>教师
+				<input type="radio" name="firstIdentity" value="1" />学生
 			</td>
-			<td class="lesta-150">是否毕业：</td>
+			<td class="lesta-150">第一作者：</td>
 			<td class="lestb">
-				<input type="radio" name="isGraduate" value="0" checked="checked"/>未毕业
-				<input type="radio" name="isGraduate" value="1" />已毕业
+				<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
+				    <select id="firstAuthor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${teachers }" var="teacherDomain">
+						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
+					</c:forEach>
+				    </select>
+				</c:if>
+				<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
+					<select id="firstAuthor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${students }" var="studentDomain">
+						<option value="${studentDomain.id }">${studentDomain.name}</option>
+					</c:forEach>
+				    </select>
+				</c:if>
 			</td>
 		</tr>
 		<tr>

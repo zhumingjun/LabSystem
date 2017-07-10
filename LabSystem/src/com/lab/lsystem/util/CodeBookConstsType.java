@@ -36,6 +36,9 @@ public class CodeBookConstsType {
 	 * 一级学科：8104
 	 */
 	public static final String DISCIPLINE_TYPE="8104";
-	
+	/**
+	 * 作者身份：8105
+	 */
+	public static final String AUTHOR_TYPE="8105";
 
 }

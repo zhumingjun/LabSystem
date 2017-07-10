@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -174,7 +175,7 @@ public class StudentDomain {
 	public void setRestutorDomain(TeacherDomain restutorDomain) {
 		this.restutorDomain = restutorDomain;
 	}
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "studentAuthorDomain", fetch = FetchType.LAZY)
+	@ManyToMany(cascade=CascadeType.REFRESH,mappedBy="studentAuthors")
 	public Set<PaperDomain> getPapers() {
 		return papers;
 	}

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -146,7 +147,7 @@ public class TeacherDomain {
 	public void setResStudents(Set<StudentDomain> resStudents) {
 		this.resStudents = resStudents;
 	}
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "teacherAuthorDomain", fetch = FetchType.LAZY)
+	@ManyToMany(cascade=CascadeType.REFRESH,mappedBy="teacherAuthors")
 	public Set<PaperDomain> getPapers() {
 		return papers;
 	}

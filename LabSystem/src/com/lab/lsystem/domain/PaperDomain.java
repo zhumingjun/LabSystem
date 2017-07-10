@@ -1,6 +1,8 @@
 package com.lab.lsystem.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,6 +25,9 @@ public class PaperDomain {
 	private Integer type;//论文类型
 	private String tilte;//论文题目
 	private String firstAuthor;//第一作者
+	private Integer firstIdentity;//第一作者身份
+	private String secondAuthor;//第二作者
+	private Integer secondIdentify;//第二作者身份
 	private String corrspondAuthor;//通讯作者
 	private String otherAuthors;//其他作者
 	@DateTimeFormat( pattern = "yyyy-MM-dd" )
@@ -29,8 +36,8 @@ public class PaperDomain {
 	private String projectSource;//项目来源
 	private String journalLevel;//刊物级别
 	private String discipline;//一级学科
-	private StudentDomain studentAuthorDomain;//学生作者
-	private TeacherDomain teacherAuthorDomain;//教师作者
+	private Set<StudentDomain> studentAuthors=new HashSet<StudentDomain>();//学生作者
+	private Set<TeacherDomain> teacherAuthors=new HashSet<TeacherDomain>();//教师作者
 	public PaperDomain() {
 		super();
 	}
@@ -64,6 +71,13 @@ public class PaperDomain {
 	}
 	public void setFirstAuthor(String firstAuthor) {
 		this.firstAuthor = firstAuthor;
+	}
+	@Column(name = "SECONDAUTHOR",unique = true, nullable = true, length = 200)
+	public String getSecondAuthor() {
+		return secondAuthor;
+	}
+	public void setSecondAuthor(String secondAuthor) {
+		this.secondAuthor = secondAuthor;
 	}
 	@Column(name = "CORRSPONDAUTHOR",unique = true, nullable = true, length = 200)
 	public String getCorrspondAuthor() {
@@ -114,22 +128,36 @@ public class PaperDomain {
 	public void setDiscipline(String discipline) {
 		this.discipline = discipline;
 	}
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "STUDENTID")
-	public StudentDomain getStudentAuthorDomain() {
-		return studentAuthorDomain;
+	@ManyToMany(cascade=CascadeType.REFRESH)
+	@JoinTable(name="paper_student",inverseJoinColumns=@JoinColumn(name="studentId"),joinColumns=@JoinColumn(name="paperId"))
+	public Set<StudentDomain> getStudentAuthors() {
+		return studentAuthors;
 	}
-	public void setStudentAuthorDomain(StudentDomain studentAuthorDomain) {
-		this.studentAuthorDomain = studentAuthorDomain;
+	public void setStudentAuthors(Set<StudentDomain> studentAuthors) {
+		this.studentAuthors = studentAuthors;
 	}
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "TEACHERID")
-	public TeacherDomain getTeacherAuthorDomain() {
-		return teacherAuthorDomain;
+	@ManyToMany(cascade=CascadeType.REFRESH)
+	@JoinTable(name="paper_teacher",inverseJoinColumns=@JoinColumn(name="teacherId"),joinColumns=@JoinColumn(name="paperId"))
+	public Set<TeacherDomain> getTeacherAuthors() {
+		return teacherAuthors;
 	}
-	public void setTeacherAuthorDomain(TeacherDomain teacherAuthorDomain) {
-		this.teacherAuthorDomain = teacherAuthorDomain;
+	public void setTeacherAuthors(Set<TeacherDomain> teacherAuthors) {
+		this.teacherAuthors = teacherAuthors;
 	}
-	
+	@Column(name = "FIRSTIDENTITY",unique = true, nullable = true, length = 11)
+	public Integer getFirstIdentity() {
+		return firstIdentity;
+	}
+	public void setFirstIdentity(Integer firstIdentity) {
+		this.firstIdentity = firstIdentity;
+	}
+	@Column(name = "SECONDIDENTITY",unique = true, nullable = true, length = 11)
+	public Integer getSecondIdentify() {
+		return secondIdentify;
+	}
+	public void setSecondIdentify(Integer secondIdentify) {
+		this.secondIdentify = secondIdentify;
+	}
+
 	
 }

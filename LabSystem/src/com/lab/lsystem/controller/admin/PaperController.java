@@ -18,13 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.PaperDomain;
+import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.service.IPaperService;
+import com.lab.lsystem.service.IStudentService;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.CompressPicUtil;
 import com.lab.system.util.PageInfo;
@@ -43,7 +46,7 @@ public class PaperController {
 	 */
 	@Resource private IPaperService paperService;
 	@Resource private ITeacherService teacherService;
-	
+	@Resource private IStudentService studentService;
 	
 	@Value("#{envProperties['labsystemupload']}") private String shareupload;
 	@Value("#{envProperties['uploadpath']}") private String uploadpath;
@@ -105,11 +108,16 @@ public class PaperController {
 	@RequestMapping("/paperAdd")
 	public String doteacherAdd(Model model)throws Exception{
 		
-		List<CodeBookDomain> gradeItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.GRADE_TYPE);	
+		List<CodeBookDomain> disciplineItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.DISCIPLINE_TYPE);	
+		List<CodeBookDomain> levelItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOURNAL_LEVEL);
+		List<CodeBookDomain> typeItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PAPER_TYPE);
+		model.addAttribute("disciplineItem", disciplineItem);
+		model.addAttribute("levelItem", levelItem);
+		model.addAttribute("typeItem", typeItem);
 		List<TeacherDomain> teachers= teacherService.doGetFilterList();
+		List<StudentDomain> students= studentService.doGetFilterList();
 		model.addAttribute("teachers", teachers);
-		model.addAttribute("gradeItem", gradeItem);
-		
+		model.addAttribute("students", students);
 		return "/adminView/paper/paperAdd";
 	}
 	

@@ -101,5 +101,12 @@ public class CodeBookConsts {
 	 * 一级学科：8104   0-计算机  1-工程学 2-其他
 	 */
 	public static final String DISCIPLINE_TYPE_C="2";
-
+	/**
+	 * 作者身份：8105  0-教师  1-学生
+	 */
+	public static final String AUTHOR_TYPE_A="0";
+	/**
+	 * 作者身份：8105  0-教师  1-学生
+	 */
+	public static final String AUTHOR_TYPE_B="0";
 }
