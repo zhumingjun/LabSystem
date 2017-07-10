@@ -94,7 +94,7 @@ public class PaperController {
 		String headImgPath=shareupload+headImageDir;
 		model.addAttribute("headImgPath", headImgPath);
 		
-		return "/adminView/paper/paperView";
+		return "/adminView/paper/paperList";
 	}
 	/**
 	 * 新增教师页面
