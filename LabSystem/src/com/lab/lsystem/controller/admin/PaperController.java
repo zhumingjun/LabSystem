@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.PaperDomain;
 import com.lab.lsystem.domain.StudentDomain;
+import com.lab.lsystem.domain.StudentPaperDomain;
 import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.domain.TeacherPaperDomain;
 import com.lab.lsystem.util.CodeBookConsts;
@@ -165,8 +166,30 @@ public class PaperController {
 			return Consts.ERROR;
 		} else {
 			if(paperService.doSave(domain)){
-				String t=domain.getId();
-				System.out.println(t);
+				String paperId=domain.getId();
+				if(domain.getFirstIdentity().toString().equals(CodeBookConsts.AUTHOR_TYPE_A)){
+					TeacherPaperDomain teacherPaperDomain=new TeacherPaperDomain();
+					teacherPaperDomain.setPaperId(paperId);
+					teacherPaperDomain.setTeacherId(domain.getFirstAuthor());
+					teacherpaperService.doSave(teacherPaperDomain);
+				}else{
+					StudentPaperDomain studentPaperDomain=new StudentPaperDomain();
+					studentPaperDomain.setPaperId(paperId);
+					studentPaperDomain.setStuId(domain.getFirstAuthor());
+					studentpaperService.doSave(studentPaperDomain);
+				}
+				if(domain.getSecondIdentity().toString().equals(CodeBookConsts.AUTHOR_TYPE_A)){
+					TeacherPaperDomain teacherPaperDomain=new TeacherPaperDomain();
+					teacherPaperDomain.setPaperId(paperId);
+					teacherPaperDomain.setTeacherId(domain.getSecondAuthor());
+					teacherpaperService.doSave(teacherPaperDomain);
+				}else{
+					StudentPaperDomain studentPaperDomain=new StudentPaperDomain();
+					studentPaperDomain.setPaperId(paperId);
+					studentPaperDomain.setStuId(domain.getSecondAuthor());
+					studentpaperService.doSave(studentPaperDomain);
+				}
+		
 				return Consts.SUCCESS;
 			}
 		}
@@ -230,14 +253,14 @@ public class PaperController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/getFirstIdentify")
+	@RequestMapping("/getFirstIdentity")
 	@ResponseBody
-	public String dogetFirstIdentify(Model model,String identify_value)throws Exception{
+	public String dogetFirstIdentify(Model model,String identity_value)throws Exception{
 		
 		List<SelectItem> identifyItems=new ArrayList<SelectItem>();
 		List<TeacherDomain> teachers= teacherService.doGetFilterList();
 		List<StudentDomain> students= studentService.doGetFilterList();
-		if(identify_value.equals("0")){
+		if(identity_value.equals("0")){
 			for(TeacherDomain teacherDomain:teachers){
 				identifyItems.add(new SelectItem(teacherDomain.getId(),teacherDomain.getName()));
 			}

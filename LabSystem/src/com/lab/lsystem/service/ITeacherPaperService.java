@@ -29,7 +29,7 @@ public interface ITeacherPaperService{
 		 * @return
 		 * @throws Exception
 		 */
-		public boolean doSave(TeacherPaperDomain user) throws Exception;
+		public boolean doSave(TeacherPaperDomain teacherPaper) throws Exception;
 		
 		/**
 		 * 删除

@@ -44,8 +44,8 @@
 		<input type="hidden" id="firstIdentityId" name="firstIdentity" value=""/>
 		<input type="hidden" id="firstAuthorId" name="firstAuthor" value=""/>
 		<input type="hidden" id="secondAuthorId" name="secondAuthor" value=""/>
-		<input type="hidden" id="secondIdentifyId" name="secondIdentify" value=""/>
-		<input type="hidden" id="corrspondAuthorId" name="corrspondAuthor" value=""/>
+		<input type="hidden" id="secondIdentityId" name="secondIdentity" value=""/>
+		<input type="hidden" id="correspondAuthorId" name="correspondAuthor" value=""/>
 		<input type="hidden" id="journalLevelId" name="journalLevel" value=""/>
 		<input type="hidden" id="disciplineId" name="discipline" value=""/>
 	<table>	
@@ -67,7 +67,7 @@
 		<tr>
 			<td class="lesta-150">第一作者身份：</td>
 			<td class="lestb">
-			    <select id="firstIdentity_select_add_id" class="select_style" onchange="getFirstIdentify(this.value)">
+			    <select id="firstIdentity_select_add_id" class="select_style" onchange="getFirstIdentity(this.value)">
 					<option value="" selected="selected">选择</option>
 					<c:forEach items="${authorItem }" var="authorDomain">
 						<option value="${authorDomain.value }">${authorDomain.name}</option>
@@ -87,7 +87,7 @@
 		<tr>
 			<td class="lesta-150">第二作者身份：</td>
 			<td class="lestb">
-			    <select id="secondIdentity_select_add_id" class="select_style" onchange="getSecondIdentify(this.value)">
+			    <select id="secondIdentity_select_add_id" class="select_style" onchange="getSecondIdentity(this.value)">
 					<option value="" selected="selected">选择</option>
 					<c:forEach items="${authorItem }" var="authorDomain">
 						<option value="${authorDomain.value }">${authorDomain.name}</option>
@@ -107,7 +107,7 @@
 		<tr>
 			<td class="lesta-150">通信作者身份：</td>
 			<td class="lestb">
-			    <select id="correspondIdentity_select_add_id" class="select_style" onchange="getCorrspondIdentify(this.value)">
+			    <select id="correspondIdentity_select_add_id" class="select_style" onchange="getcorrespondIdentity(this.value)">
 					<option value="" selected="selected">选择</option>
 					<c:forEach items="${authorItem }" var="authorDomain">
 						<option value="${authorDomain.value }">${authorDomain.name}</option>
@@ -116,7 +116,7 @@
 			</td>
 			<td class="lesta-150">通信作者：</td>
 			<td class="lestb">
-				    <select id="corrspondAuthor_select_add_id" class="select_style">
+				    <select id="correspondAuthor_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>					
 					<c:forEach items="${teachers }" var="teacherDomain">
 						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
@@ -221,9 +221,9 @@ $("#saveButton").click(function(){
 		$("#secondIdentityId").val(secondIdentity_id);
 	});
 	//下拉框选择后给隐藏域赋值
-	$("#corrspondAuthor_select_add_id").change(function(){
-		var corrspondAuthor_id=$(this).children('option:selected').val();
-		$("#corrspondAuthorId").val(corrspondAuthor_id);
+	$("#correspondAuthor_select_add_id").change(function(){
+		var correspondAuthor_id=$(this).children('option:selected').val();
+		$("#correspondAuthorId").val(correspondAuthor_id);
 	});
 	//下拉框选择后给隐藏域赋值
 	$("#journalLevel_select_add_id").change(function(){
@@ -238,10 +238,10 @@ $("#saveButton").click(function(){
 	
 	
 	//选择第一作者身份，得到相应人选
-	function getFirstIdentify(identify_value)
+	function getFirstIdentity(identity_value)
 	{
     	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentify?identify_value='+identify_value,
+			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentity?identity_value='+identity_value,
 			type:"post",
 			error:function(e){
 			},
@@ -257,10 +257,10 @@ $("#saveButton").click(function(){
 		});
 	}
     	//选择第二作者身份，得到相应人选
-    	function getSecondIdentify(identify_value)
+    	function getSecondIdentity(identity_value)
     	{
         	$.ajax({
-    			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentify?identify_value='+identify_value,
+    			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentity?identity_value='+identity_value,
     			type:"post",
     			error:function(e){
     			},
@@ -276,10 +276,10 @@ $("#saveButton").click(function(){
     		});
     	}
         	//选择通信作者身份，得到相应人选
-        	function getCorrspondIdentify(identify_value)
+        	function getcorrespondIdentity(identity_value)
         	{
             	$.ajax({
-        			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentify?identify_value='+identify_value,
+        			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentity?identity_value='+identity_value,
         			type:"post",
         			error:function(e){
         			},

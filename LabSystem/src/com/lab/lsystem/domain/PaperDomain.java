@@ -23,12 +23,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class PaperDomain {
 	private String id;//id
 	private Integer type;//论文类型
-	private String tilte;//论文题目
+	private String title;//论文题目
 	private String firstAuthor;//第一作者
 	private Integer firstIdentity;//第一作者身份
 	private String secondAuthor;//第二作者
-	private Integer secondIdentify;//第二作者身份
-	private String corrspondAuthor;//通讯作者
+	private Integer secondIdentity;//第二作者身份
+	private String correspondAuthor;//通讯作者
 	private String otherAuthors;//其他作者
 	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date publishDate;//出版时间
@@ -57,11 +57,11 @@ public class PaperDomain {
 		this.type = type;
 	}
 	@Column(name = "TITLE",unique = true, nullable = true, length = 200)
-	public String getTilte() {
-		return tilte;
+	public String getTitle() {
+		return title;
 	}
-	public void setTilte(String tilte) {
-		this.tilte = tilte;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	@Column(name = "FIRSTAUTHOR",unique = true, nullable = true, length = 200)
 	public String getFirstAuthor() {
@@ -77,12 +77,12 @@ public class PaperDomain {
 	public void setSecondAuthor(String secondAuthor) {
 		this.secondAuthor = secondAuthor;
 	}
-	@Column(name = "CORRSPONDAUTHOR",unique = true, nullable = true, length = 200)
-	public String getCorrspondAuthor() {
-		return corrspondAuthor;
+	@Column(name = "correspondAUTHOR",unique = true, nullable = true, length = 200)
+	public String getcorrespondAuthor() {
+		return correspondAuthor;
 	}
-	public void setCorrspondAuthor(String corrspondAuthor) {
-		this.corrspondAuthor = corrspondAuthor;
+	public void setcorrespondAuthor(String correspondAuthor) {
+		this.correspondAuthor = correspondAuthor;
 	}
 	@Column(name = "OTHERAUTHORS",unique = true, nullable = true, length = 200)
 	public String getOtherAuthors() {
@@ -134,11 +134,11 @@ public class PaperDomain {
 		this.firstIdentity = firstIdentity;
 	}
 	@Column(name = "SECONDIDENTITY",unique = true, nullable = true, length = 11)
-	public Integer getSecondIdentify() {
-		return secondIdentify;
+	public Integer getSecondIdentity() {
+		return secondIdentity;
 	}
-	public void setSecondIdentify(Integer secondIdentify) {
-		this.secondIdentify = secondIdentify;
+	public void setSecondIdentity(Integer secondIdentity) {
+		this.secondIdentity = secondIdentity;
 	}
 
 	
