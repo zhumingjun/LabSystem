@@ -37,136 +37,129 @@
 	
 </style>
 
-<form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/student/save" method="post">
-	<input type="hidden" id="id" name="id" value="${studentDomain.id }"/>
-	<input type="hidden" id="stuCode" name="stuCode" value="${studentDomain.stuCode }"/>
-	<input type="hidden" id="gradeId" name="grade" value="${studentDomain.grade }"/>
-	<input type="hidden" id="tutorId" name="tutorDomain.id" value="${studentDomain.tutorDomain.id }"/>
-	<input type="hidden" id="resTutor" name="restutorDomain.id" value="${studentDomain.restutorDomain.id }"/>
+<form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/paper/save" method="post">
+	    <input type="hidden" id="typeId" name="type" value="${paperDomain.type}"/>
+		<input type="hidden" id="firstIdentityId" name="firstIdentity" value="${paperDomain.firstIdentity}"/>
+		<input type="hidden" id="firstAuthorId" name="firstAuthor" value="${paperDomain.firstAuthor}"/>
+		<input type="hidden" id="secondAuthorId" name="secondAuthor" value="${paperDomain.secondAuthor}"/>
+		<input type="hidden" id="secondIdentityId" name="secondIdentity" value="${paperDomain.secondIdentity}"/>
+		<input type="hidden" id="correspondAuthorId" name="correspondAuthor" value="${paperDomain.correspondIdentity}"/>
+		<input type="hidden" id="journalLevelId" name="journalLevel" value="${paperDomain.journalLevel}"/>
+		<input type="hidden" id="disciplineId" name="discipline" value="${paperDomain.discipline}"/>
 	<table>
 		<tr>
-			<td class="lesta-150">学号：</td>
+			<td class="lesta-150">论文题目：</td>
 			<td class="lestb">
-				${studentDomain.stuCode }
+				<input type="text" id="title" name="title" class="input_text_a" placeholder="请输入论文标题" value=${paperDomain.title}>
 			</td>
-			<td>
-				<input type="hidden" id="headImg" name="headImg" value="${studentDomain.headImg }"/>
-				<div id="filePicker" class="filePicker">选择图片</div>
-				<div class="add_pic" id="add_pic">
-					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
-						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
-					<c:if test="${studentDomain.headImg!=null&&studentDomain.headImg!='' }">
-						<img id="head_img" src="${headImgPath}/${studentDomain.stuCode }/${studentDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
-				</div>
+			<td class="lesta-150">论文类型：</td>
+			<td class="lestb">
+				 <select id="type_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${typeItem }" var="typeDomain">
+						<option value="${typeDomain.value }">${typeDomain.name}</option>
+					</c:forEach>
+				  </select>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">姓名：</td>
+			<td class="lesta-150">第一作者身份：</td>
 			<td class="lestb">
-				<input type="text" id="studentname" name="name" class="input_text_a" placeholder="请输入姓名" value="${studentDomain.name }">
-			</td>
-			<td class="lesta-150">是否毕业：</td>
-			<td class="lestb">
-				<c:if test="${studentDomain.isGraduate==0 }">
-					<input type="radio" name="isGraduate" value="0" checked="checked"/>未毕业
-					<input type="radio" name="isGraduate" value="1" />已毕业
-				</c:if>
-				<c:if test="${studentDomain.isGraduate==1 }">
-					<input type="radio" name="isGraduate" value="0" />未毕业
-					<input type="radio" name="isGraduate" value="1" checked="checked"/>已毕业
-				</c:if>
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">性别：</td>
-			<td class="lestb">
-				<c:if test="${studentDomain.sex==0 }">
-					<input type="radio" name="sex" value="0" checked="checked"/>男
-					<input type="radio" name="sex" value="1" />女
-				</c:if>
-				<c:if test="${studentDomain.sex==1 }">
-					<input type="radio" name="sex" value="0" />男
-					<input type="radio" name="sex" value="1" checked="checked"/>女
-				</c:if>
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">导师：</td>
-			<td class="lestb">
-				<select id="tutor_select_add_id" class="select_style">
+			    <select id="firstIdentity_select_add_id" class="select_style" onchange="getFirstIdentity(this.value)">
 					<option value="" selected="selected">选择</option>
-					<c:forEach items="${teachers }" var="teachersDomain">
-						<option value="${teachersDomain.id }">${teachersDomain.name}</option>
+					<c:forEach items="${authorItem }" var="authorDomain">
+						<option value="${authorDomain.value }">${authorDomain.name}</option>
 					</c:forEach>
 				</select>
 			</td>
-			<td class="lesta-150">责任导师：</td>
+			<td class="lesta-150">第一作者：</td>
 			<td class="lestb">
-				<select id="restutor_select_add_id" class="select_style">
+				    <select id="firstAuthor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${teachers }" var="teacherDomain">
+						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
+					</c:forEach>
+				    </select>
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">第二作者身份：</td>
+			<td class="lestb">
+			    <select id="secondIdentity_select_add_id" class="select_style" onchange="getSecondIdentity(this.value)">
 					<option value="" selected="selected">选择</option>
-					<c:forEach items="${teachers }" var="teachersDomain">
-						<option value="${teachersDomain.id }">${teachersDomain.name}</option>
+					<c:forEach items="${authorItem }" var="authorDomain">
+						<option value="${authorDomain.value }">${authorDomain.name}</option>
 					</c:forEach>
 				</select>
 			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">出生日期：</td>
+			<td class="lesta-150">第二作者：</td>
 			<td class="lestb">
-				<input type="text" name="birthday" class="Wdate" readonly="readonly"  value="<fmt:formatDate value="${studentDomain.birthday }" type="date"/>" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/>
+				    <select id="secondAuthor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${teachers }" var="teacherDomain">
+						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
+					</c:forEach>
+				    </select>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">学生年级：</td>
+			<td class="lesta-150">通信作者身份：</td>
 			<td class="lestb">
-				<select id="grade_select_edit_id" class="select_style">
+			    <select id="correspondIdentity_select_add_id" class="select_style" onchange="getcorrespondIdentity(this.value)">
 					<option value="" selected="selected">选择</option>
-					<c:forEach items="${grade }" var="grade">
-						<option value="${grade.value }">${grade.name}</option>
+					<c:forEach items="${authorItem }" var="authorDomain">
+						<option value="${authorDomain.value }">${authorDomain.name}</option>
 					</c:forEach>
 				</select>
 			</td>
-			<td class="lesta-150">手机号码：</td>
+			<td class="lesta-150">通信作者：</td>
 			<td class="lestb">
-				<input type="text" id="studentphoneNumber" name="phoneNumber" class="input_text_a" ignore="ignore" placeholder="请输入手机号码" value="${studentDomain.phoneNumber }"/>
+				    <select id="correspondAuthor_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${teachers }" var="teacherDomain">
+						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
+					</c:forEach>
+				    </select>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">银行卡号：</td>
+			<td class="lesta-150">其他作者：</td>
 			<td class="lestb">
-				<input type="text" id="bankCard" name="bankCard" class="input_text_a" ignore="ignore" placeholder="请输入银行卡号" value="${studentDomain.bankCard }"/>
+				<input type="text" id="otherAuthors" name="otherAuthors" class="input_text_a" placeholder="请输入其他作者" value="${paperDomain.otherAuthors }"/>
 			</td>
-			<td class="lesta-150">邮箱：</td>
+			<td class="lesta-150">发表日期：</td>
 			<td class="lestb">
-				<input type="text" id="studentemail" name="email" class="input_text_a" ignore="ignore" placeholder="请输入邮箱" value="${studentDomain.email }"/>
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">身份证：</td>
-			<td class="lestb">
-				<input type="text" id="studentidNumber" name="idNumber" class="input_text_a" placeholder="请输入身份证号" value="${studentDomain.idNumber }"/>
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">家庭住址：</td>
-			<td class="lestb">
-				<input type="text" id="studenthomeAddress" name="homeAddress" class="input_text_a" placeholder="请输入家庭住址" value="${studentDomain.homeAddress }"/>
-			</td>
-			<td class="lesta-150">入学年份：</td>
-			<td class="lestb">
-				<input type="text" id="entryYear" name="entryYear" class="input_text_a" placeholder="请输入入学年份" value="${studentDomain.entryYear }"/>
+				<input type="text" name="publishDate" class="Wdate" readonly="readonly" value="<fmt:formatDate value="${paperDomain.publishDate }" type="date"/>"  placeholder="发表日期" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
 			</td>
 		</tr> 
 		<tr>
-			<td class="lesta-150">家庭联系人：</td>
+			<td class="lesta-150">期刊名称：</td>
 			<td class="lestb">
-				<input type="text" id="contactPerson" name="contactPerson" class="input_text_a" placeholder="请输入家庭联系人" value="${studentDomain.contactPerson }"/>
+				<input type="text" id="journalTitle" name="journalTitle" class="input_text_a" placeholder="请输入期刊名称" value="${paperDomain.journalTitle }"/>
 			</td>
-			<td class="lesta-150">家庭联系方式：</td>
+			<td class="lesta-150">刊物级别：</td>
 			<td class="lestb">
-				<input type="text" id="familyContact" name="familyContact" class="input_text_a" placeholder="请输入家庭联系方式" value="${studentDomain.familyContact }"/>
+				 <select id="journalLevel_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${levelItem }" var="levelDomain">
+						<option value="${levelDomain.value }">${levelDomain.name}</option>
+					</c:forEach>
+				  </select>
+			</td>
+		</tr> 
+		<tr>
+			<td class="lesta-150">项目来源：</td>
+			<td class="lestb">
+				<input type="text" id="projectSource" name="projectSource" class="input_text_a" placeholder="请输入项目来源" value="${paperDomain.projectSource }"/>
+			</td>
+			<td class="lesta-150">一级学科：</td>
+			<td class="lestb">
+				 <select id="discipline_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>					
+					<c:forEach items="${disciplineItem }" var="disciplineDomain">
+						<option value="${disciplineDomain.value }">${disciplineDomain.name}</option>
+					</c:forEach>
+				  </select>
 			</td>
 		</tr> 
 	</table>
@@ -176,9 +169,15 @@
 <script>
 
 	$(function(){
-		$("#grade_select_edit_id option[value='${studentDomain.grade}']").attr("selected",true);
-		$("#tutor_select_add_id option[value='${studentDomain.tutorDomain.id}']").attr("selected",true);
-		$("#restutor_select_add_id option[value='${studentDomain.restutorDomain.id}']").attr("selected",true);
+		$("#type_select_add_id option[value='${paperDomain.type}']").attr("selected",true);
+		$("#firstIdentity_select_add_id option[value='${paperDomain.firstIdentity}']").attr("selected",true);
+		$("#firstAuthor_select_add_id option[value='${paperDomain.firstAuthor}']").attr("selected",true);
+		$("#secondIdentity_select_add_id option[value='${paperDomain.secondIdentity}']").attr("selected",true);
+		$("#secondAuthor_select_add_id option[value='${paperDomain.secondAuthor}']").attr("selected",true);
+		$("#correspondIdentity_select_add_id option[value='${paperDomain.correspondIdentity}']").attr("selected",true);
+		$("#correspondAuthor_select_add_id option[value='${paperDomain.correspondAuthor}']").attr("selected",true);
+		$("#journalLevel_select_add_id option[value='${paperDomain.journalLevel}']").attr("selected",true);
+		$("#discipline_select_add_id option[value='${paperDomain.discipline}']").attr("selected",true);
 	});
 	//下拉框选择后给隐藏域赋值
 	$("#grade_select_edit_id").change(function(){

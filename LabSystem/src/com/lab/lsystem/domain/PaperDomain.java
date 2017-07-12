@@ -24,9 +24,9 @@ public class PaperDomain {
 	private String id;//id
 	private Integer type;//论文类型
 	private String title;//论文题目
-	private String firstAuthor;//第一作者
+	private String firstAuthor;//第一作者Id
 	private Integer firstIdentity;//第一作者身份
-	private String secondAuthor;//第二作者
+	private String secondAuthor;//第二作者Id
 	private Integer secondIdentity;//第二作者身份
 	private String correspondAuthor;//通讯作者
 	private String otherAuthors;//其他作者
@@ -36,6 +36,9 @@ public class PaperDomain {
 	private String projectSource;//项目来源
 	private String journalLevel;//刊物级别
 	private String discipline;//一级学科
+	private String firstName;//第一作者名字
+	private String secondName;//第二作者名字
+	private String correspondIdentity;//通讯作者身份
 	public PaperDomain() {
 		super();
 	}
@@ -76,13 +79,6 @@ public class PaperDomain {
 	}
 	public void setSecondAuthor(String secondAuthor) {
 		this.secondAuthor = secondAuthor;
-	}
-	@Column(name = "correspondAUTHOR",unique = true, nullable = true, length = 200)
-	public String getcorrespondAuthor() {
-		return correspondAuthor;
-	}
-	public void setcorrespondAuthor(String correspondAuthor) {
-		this.correspondAuthor = correspondAuthor;
 	}
 	@Column(name = "OTHERAUTHORS",unique = true, nullable = true, length = 200)
 	public String getOtherAuthors() {
@@ -139,6 +135,34 @@ public class PaperDomain {
 	}
 	public void setSecondIdentity(Integer secondIdentity) {
 		this.secondIdentity = secondIdentity;
+	}
+	@Column(name = "CORRESPONDAUTHOR",unique = true, nullable = true, length = 100)
+	public String getCorrespondAuthor() {
+		return correspondAuthor;
+	}
+	public void setCorrespondAuthor(String correspondAuthor) {
+		this.correspondAuthor = correspondAuthor;
+	}
+	@Column(name = "FIRTSTNAME",unique = true, nullable = true, length = 100)
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	@Column(name = "SECONDNAME",unique = true, nullable = true, length = 100)
+	public String getSecondName() {
+		return secondName;
+	}
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
+	}
+	@Column(name = "CORRESPONDIDENTITY",unique = true, nullable = true, length = 11)
+	public String getCorrespondIdentity() {
+		return correspondIdentity;
+	}
+	public void setCorrespondIdentity(String correspondIdentity) {
+		this.correspondIdentity = correspondIdentity;
 	}
 
 	

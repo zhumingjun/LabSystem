@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lab.lsystem.dao.IPaperDao;
+import com.lab.lsystem.dao.IStudentDao;
 import com.lab.lsystem.dao.ITeacherDao;
 import com.lab.lsystem.domain.PaperDomain;
+import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.domain.UserDomain;
 import com.lab.lsystem.service.IPaperService;
@@ -26,8 +28,9 @@ import com.lab.system.util.ValidateUtil;
 @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
 public class PaperService implements IPaperService{
 
-	@Resource private IPaperDao PaperDao;
-	
+	@Resource private IPaperDao paperDao;
+	@Resource private IStudentDao studentDao;
+	@Resource private ITeacherDao teacherDao;
 	/**
 	 * @see ITeacherService#doGetFilterList()
 	 */
@@ -36,7 +39,7 @@ public class PaperService implements IPaperService{
 		// TODO Auto-generated method stub
 		
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(PaperDomain.class);
-		List<PaperDomain> PaperList=PaperDao.getFilterList(detachedCriteria);
+		List<PaperDomain> PaperList=paperDao.getFilterList(detachedCriteria);
 		
 		return PaperList;
 	}
@@ -49,9 +52,9 @@ public class PaperService implements IPaperService{
 		// TODO Auto-generated method stub
 
 		if(Paper.getId()==null){
-			return PaperDao.save(Paper);
+			return paperDao.save(Paper);
 		}else{
-			return PaperDao.update(Paper);
+			return paperDao.update(Paper);
 		}
 	}
 
@@ -62,7 +65,7 @@ public class PaperService implements IPaperService{
 	public PaperDomain doGetById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return PaperDao.getById(id);
+		return paperDao.getById(id);
 	}
 
 	/**
@@ -72,7 +75,7 @@ public class PaperService implements IPaperService{
 	public boolean doDeleteById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return PaperDao.deleteById(id);
+		return paperDao.deleteById(id);
 	}
 
 	
@@ -87,7 +90,7 @@ public class PaperService implements IPaperService{
 		
 		boolean b=false;
 		for(String id:ids){
-			b=PaperDao.deleteById(id);
+			b=paperDao.deleteById(id);
 			if(!b){
 				return false;
 			}
@@ -103,7 +106,7 @@ public class PaperService implements IPaperService{
 			throws Exception {
 		// TODO Auto-generated method stub
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(PaperDomain.class);
-		List<PaperDomain> PaperList=PaperDao.getPageList(detachedCriteria, pageInfo);
+		List<PaperDomain> PaperList=paperDao.getPageList(detachedCriteria, pageInfo);
 		
 		return PaperList;
 	}
@@ -122,7 +125,7 @@ public class PaperService implements IPaperService{
 			detachedCriteria.add(disjunction);  
 		}
 		
-		return PaperDao.getPageList(detachedCriteria, pageInfo);
+		return paperDao.getPageList(detachedCriteria, pageInfo);
 	}
 
 	@Override
@@ -131,7 +134,7 @@ public class PaperService implements IPaperService{
 				DetachedCriteria detachedCriteria=DetachedCriteria.forClass(PaperDomain.class);
 				detachedCriteria.add(Restrictions.eq("name", name.trim()));
 				
-				List<PaperDomain> PaperList=PaperDao.getFilterList(detachedCriteria);
+				List<PaperDomain> PaperList=paperDao.getFilterList(detachedCriteria);
 				
 				//如果有结果，username是唯一的
 				if(PaperList.size()==1){
@@ -140,5 +143,19 @@ public class PaperService implements IPaperService{
 				}
 				
 				return null;
+	}
+
+	@Override
+	public String doGetNameById(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		StudentDomain student=studentDao.getById(userId);
+		TeacherDomain teacher=teacherDao.getById(userId);
+		if(student!=null){
+			return student.getName();
+		}else if(teacher!=null){
+			return teacher.getName();
+		}else{
+			return null;
+		}
 	}
 }

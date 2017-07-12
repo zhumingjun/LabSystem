@@ -46,6 +46,7 @@
 		<input type="hidden" id="secondAuthorId" name="secondAuthor" value=""/>
 		<input type="hidden" id="secondIdentityId" name="secondIdentity" value=""/>
 		<input type="hidden" id="correspondAuthorId" name="correspondAuthor" value=""/>
+		<input type="hidden" id="correspondIdentityId" name="correspondIdentity" value=""/>
 		<input type="hidden" id="journalLevelId" name="journalLevel" value=""/>
 		<input type="hidden" id="disciplineId" name="discipline" value=""/>
 	<table>	
@@ -224,6 +225,11 @@ $("#saveButton").click(function(){
 	$("#correspondAuthor_select_add_id").change(function(){
 		var correspondAuthor_id=$(this).children('option:selected').val();
 		$("#correspondAuthorId").val(correspondAuthor_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#correspondIdentity_select_add_id").change(function(){
+		var correspondIdentity_id=$(this).children('option:selected').val();
+		$("#correspondIdentityId").val(correspondIdentity_id);
 	});
 	//下拉框选择后给隐藏域赋值
 	$("#journalLevel_select_add_id").change(function(){

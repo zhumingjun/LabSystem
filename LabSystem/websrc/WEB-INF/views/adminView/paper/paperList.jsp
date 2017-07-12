@@ -53,8 +53,8 @@
 						</td>
 						<td>${paperDomain.title }</td>
 						<td>${cusfun:getNameByValueAndType(paperDomain.type,"8102")}</td>
-						<td>${paperDomain.firstAuthor }</td>
-						<td><fmt:formatDate value="${studentDomain.birthday }" type="date"/></td>
+						<td>${paperDomain.firstName }</td>
+						<td><fmt:formatDate value="${paperDomain.publishDate }" type="date"/></td>
 						<td>${cusfun:getNameByValueAndType(paperDomain.discipline,"8104")}</td>
 						<td>${cusfun:getNameByValueAndType(paperDomain.journalLevel,"8103")}</td>
 						<td>

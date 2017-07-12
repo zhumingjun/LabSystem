@@ -30,99 +30,72 @@
 </style>
 
 	<table>
-		<tr>
-			<td class="lesta-150">学号：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.stuCode }
-			</td>
-			<td>
-				<div class="add_pic" id="add_pic">
-					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
-						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
-					<c:if test="${studentDomain.headImg!=null&&studentDomain.headImg!='' }">
-						<img id="head_img" src="${headImgPath}/${studentDomain.stuCode}/${studentDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
-					</c:if>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">姓名：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.name }
-			</td>
-			<td class="lesta-150">是否毕业：</td>
-			<td class="lestb" style="width:150px;">
-				${cusfun:getNameByValueAndType(studentDomain.isGraduate,"8101")}
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">性别：</td>
-			<td class="lestb" style="width:150px;">
-				${cusfun:getNameByValueAndType(studentDomain.sex,"8002")}
-			</td>
-		</tr>
-		<tr>
-			<td class="lesta-150">导师：</td>
+<tr>
+			<td class="lesta-150">论文题目：</td>
 			<td class="lestb">
-				${studentDomain.tutorDomain.name }
+				${paperDomain.title}
 			</td>
-			<td class="lesta-150">责任导师：</td>
+			<td class="lesta-150">论文类型：</td>
 			<td class="lestb">
-				${studentDomain.restutorDomain.name }
+				${cusfun:getNameByValueAndType(paperDomain.type,"8102")}
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">出生日期：</td>
-			<td class="lestb" style="width:150px;">
-				<fmt:formatDate value="${studentDomain.birthday }" type="date"/>
+			<td class="lesta-150">第一作者身份：</td>
+			<td class="lestb">
+			   ${cusfun:getNameByValueAndType(paperDomain.firstIdentity,"8105")}
+			</td>
+			<td class="lesta-150">第一作者：</td>
+			<td class="lestb">
+				   ${paperDomain.firstName}
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">研究生年级：</td>
-			<td class="lestb" style="width:150px;">
-				${cusfun:getNameByValueAndType(studentDomain.grade,"8100")}
+			<td class="lesta-150">第二作者身份：</td>
+			<td class="lestb">
+			    ${cusfun:getNameByValueAndType(paperDomain.secondIdentity,"8105")}
 			</td>
-			<td class="lesta-150">手机号码：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.phoneNumber }
-			</td>
-		</tr>
-		<tr>
- 			<td class="lesta-150">银行卡号：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.bankCard }
-			</td>
-			<td class="lesta-150">邮箱：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.email }
-			</td>
-		</tr>
-			<tr>
-			<td class="lesta-150">身份证：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.idNumber }
-			</td>
-		<tr>
-			<td class="lesta-150">家庭住址：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.homeAddress }
-			</td>
-			<td class="lesta-150">入学年份：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.entryYear }
+			<td class="lesta-150">第二作者：</td>
+			<td class="lestb">
+				   ${paperDomain.secondName}
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">家庭联系人：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.contactPerson }
-			</td>
-			<td class="lesta-150">家庭联系方式：</td>
-			<td class="lestb" style="width:150px;">
-				${studentDomain.familyContact }
+			<td class="lesta-150">通信作者：</td>
+			 <td class="lestb">
+				   ${correspondName}
 			</td>
 		</tr>
+		<tr>
+			<td class="lesta-150">其他作者：</td>
+			<td class="lestb">
+				${paperDomain.otherAuthors}
+			</td>
+			<td class="lesta-150">发表日期：</td>
+			<td class="lestb">
+					<fmt:formatDate value="${paperDomain.publishDate }" type="date"/>
+			</td>
+		</tr> 
+		<tr>
+			<td class="lesta-150">期刊名称：</td>
+			<td class="lestb">
+				${paperDomain.journalTitle}
+			</td>
+			<td class="lesta-150">刊物级别：</td>
+			<td class="lestb">
+				${cusfun:getNameByValueAndType(paperDomain.journalLevel,"8103")}
+			</td>
+		</tr> 
+		<tr>
+			<td class="lesta-150">项目来源：</td>
+			<td class="lestb">
+				${paperDomain.projectSource}
+			</td>
+			<td class="lesta-150">一级学科：</td>
+			<td class="lestb">
+				${cusfun:getNameByValueAndType(paperDomain.discipline,"8104")}
+			</td>
+		</tr> 
 	</table>
 
 	<input id="closeButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="关闭"/>

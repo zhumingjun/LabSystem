@@ -1,6 +1,5 @@
 package com.lab.lsystem.controller.admin;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +7,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import net.sf.json.JSONArray;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,10 +71,15 @@ public class PaperController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/paperList")
-	public String getUserList(@ModelAttribute("pageInfo") PageInfo pageInfo
+	public String getPaperList(@ModelAttribute("pageInfo") PageInfo pageInfo
 			,BindingResult bindingResult,Model model) throws Exception{
 		//采用分页方式获取
 		List<PaperDomain> paperList=paperService.doGetPageList(pageInfo);
+		
+		for(PaperDomain paper:paperList){
+			String firstName=paperService.doGetNameById(paper.getFirstAuthor());
+			paper.setFirstName(firstName);
+		}
 		
 		model.addAttribute("paperList", paperList);
 		
@@ -95,10 +97,16 @@ public class PaperController {
 		
 		//获取paper信息
 		PaperDomain paperDomain=paperService.doGetById(id);
+		String firstName=paperService.doGetNameById(paperDomain.getFirstAuthor());
+		String secondName=paperService.doGetNameById(paperDomain.getSecondAuthor());
+		String correspondName=paperService.doGetNameById(paperDomain.getCorrespondAuthor());
+		paperDomain.setFirstName(firstName);
+		paperDomain.setSecondName(secondName);
 		model.addAttribute("paperDomain", paperDomain);
+		model.addAttribute("correspondName", correspondName);
 		
 		
-		return "/adminView/paper/paperList";
+		return "/adminView/paper/paperView";
 	}
 	/**
 	 * 新增教师页面
@@ -136,16 +144,19 @@ public class PaperController {
 		
 		//获取paper信息
 		PaperDomain paperDomain=paperService.doGetById(id);
-		
-		List<CodeBookDomain> grade=CodeBookHelper.getCodeBookByType(CodeBookConstsType.GRADE_TYPE);
-		
-		model.addAttribute("grade", grade);
-		model.addAttribute("paperDomain", paperDomain);
-		
-	
-		
+		List<CodeBookDomain> disciplineItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.DISCIPLINE_TYPE);	
+		List<CodeBookDomain> levelItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOURNAL_LEVEL);
+		List<CodeBookDomain> typeItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PAPER_TYPE);
+		List<CodeBookDomain> authorItem=CodeBookHelper.getCodeBookByType(CodeBookConstsType.AUTHOR_TYPE);
+		model.addAttribute("disciplineItem", disciplineItem);
+		model.addAttribute("levelItem", levelItem);
+		model.addAttribute("typeItem", typeItem);
+		model.addAttribute("authorItem", authorItem);
 		List<TeacherDomain> teachers= teacherService.doGetFilterList();
+		List<StudentDomain> students= studentService.doGetFilterList();
 		model.addAttribute("teachers", teachers);
+		model.addAttribute("students", students);
+		model.addAttribute("paperDomain", paperDomain);
 		
 		return "/adminView/paper/paperEdit";
 	}

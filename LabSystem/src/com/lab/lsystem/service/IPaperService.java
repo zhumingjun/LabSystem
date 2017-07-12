@@ -66,5 +66,12 @@ public interface IPaperService{
 		 * 根据姓名查找学生信息
 		 */
 		public PaperDomain doGetUserByUsername(String name)throws Exception;
+		/**
+		 * 根据用户id获取用户姓名
+		 * @param userId
+		 * @return
+		 * @throws Exception
+		 */
+		public String doGetNameById(String userId)throws Exception;
 
 }
