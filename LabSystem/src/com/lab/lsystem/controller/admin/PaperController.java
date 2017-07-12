@@ -206,7 +206,51 @@ public class PaperController {
 		}
 		return Consts.ERROR;
 	}
-	
+	/**
+	 * 保存
+	 * @param domain
+	 * @param result
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/editSave")
+	@ResponseBody
+	public String doEditSave(@Valid @ModelAttribute("domain") PaperDomain domain,
+			BindingResult result)throws Exception{
+		if (result.hasErrors()) {// 如果校验失败,则返回
+			System.out.println(result);
+			return Consts.ERROR;
+		} else {
+			if(paperService.doSave(domain)){
+				String paperId=domain.getId();
+				if(domain.getFirstIdentity().toString().equals(CodeBookConsts.AUTHOR_TYPE_A)){
+					TeacherPaperDomain teacherPaperDomain=new TeacherPaperDomain();
+					teacherPaperDomain.setPaperId(paperId);
+					teacherPaperDomain.setTeacherId(domain.getFirstAuthor());
+					teacherpaperService.doSave(teacherPaperDomain);
+				}else{
+					StudentPaperDomain studentPaperDomain=new StudentPaperDomain();
+					studentPaperDomain.setPaperId(paperId);
+					studentPaperDomain.setStuId(domain.getFirstAuthor());
+					studentpaperService.doSave(studentPaperDomain);
+				}
+				if(domain.getSecondIdentity().toString().equals(CodeBookConsts.AUTHOR_TYPE_A)){
+					TeacherPaperDomain teacherPaperDomain=new TeacherPaperDomain();
+					teacherPaperDomain.setPaperId(paperId);
+					teacherPaperDomain.setTeacherId(domain.getSecondAuthor());
+					teacherpaperService.doSave(teacherPaperDomain);
+				}else{
+					StudentPaperDomain studentPaperDomain=new StudentPaperDomain();
+					studentPaperDomain.setPaperId(paperId);
+					studentPaperDomain.setStuId(domain.getSecondAuthor());
+					studentpaperService.doSave(studentPaperDomain);
+				}
+		
+				return Consts.SUCCESS;
+			}
+		}
+		return Consts.ERROR;
+	}
 	/**
 	 * 删除单条数据
 	 * @param id

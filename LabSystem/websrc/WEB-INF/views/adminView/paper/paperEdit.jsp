@@ -75,10 +75,17 @@
 			<td class="lesta-150">第一作者：</td>
 			<td class="lestb">
 				    <select id="firstAuthor_select_add_id" class="select_style">
-					<option value="" selected="selected">选择</option>					
+					<option value="" selected="selected">选择</option>
+					<c:if test="${paperDomain.firstIdentity==0 }">
 					<c:forEach items="${teachers }" var="teacherDomain">
 						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
 					</c:forEach>
+					</c:if>					
+					<c:if test="${paperDomain.firstIdentity==1 }">
+					<c:forEach items="${students }" var="studentDomain">
+						<option value="${studentDomain.id }">${studentDomain.name}</option>
+					</c:forEach>
+					</c:if>		
 				    </select>
 			</td>
 		</tr>
@@ -96,9 +103,16 @@
 			<td class="lestb">
 				    <select id="secondAuthor_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>					
+					<c:if test="${paperDomain.secondIdentity==0 }">
 					<c:forEach items="${teachers }" var="teacherDomain">
 						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
 					</c:forEach>
+					</c:if>					
+					<c:if test="${paperDomain.secondIdentity==1 }">
+					<c:forEach items="${students }" var="studentDomain">
+						<option value="${studentDomain.id }">${studentDomain.name}</option>
+					</c:forEach>
+					</c:if>		
 				    </select>
 			</td>
 		</tr>
@@ -116,9 +130,16 @@
 			<td class="lestb">
 				    <select id="correspondAuthor_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>					
+					<c:if test="${paperDomain.correspondIdentity==0 }">
 					<c:forEach items="${teachers }" var="teacherDomain">
 						<option value="${teacherDomain.id }">${teacherDomain.name}</option>
 					</c:forEach>
+					</c:if>					
+					<c:if test="${paperDomain.correspondIdentity==1 }">
+					<c:forEach items="${students }" var="studentDomain">
+						<option value="${studentDomain.id }">${studentDomain.name}</option>
+					</c:forEach>
+					</c:if>		
 				    </select>
 			</td>
 		</tr>
@@ -167,7 +188,6 @@
 </form>
 
 <script>
-
 	$(function(){
 		$("#type_select_add_id option[value='${paperDomain.type}']").attr("selected",true);
 		$("#firstIdentity_select_add_id option[value='${paperDomain.firstIdentity}']").attr("selected",true);
@@ -180,18 +200,115 @@
 		$("#discipline_select_add_id option[value='${paperDomain.discipline}']").attr("selected",true);
 	});
 	//下拉框选择后给隐藏域赋值
-	$("#grade_select_edit_id").change(function(){
-		var grade_id=$(this).children('option:selected').val();
-		$("#gradeId").val(grade_id);
+	$("#type_select_add_id").change(function(){
+		var type_id=$(this).children('option:selected').val();
+		$("#typeId").val(type_id);
 	});
-	$("#tutor_select_add_id").change(function(){
-		var tutor_id=$(this).children('option:selected').val();
-		$("#tutorId").val(tutor_id);
+	
+
+	//下拉框选择后给隐藏域赋值
+	$("#firstAuthor_select_add_id").change(function(){
+		var firstAuthor_id=$(this).children('option:selected').val();
+		$("#firstAuthorId").val(firstAuthor_id);
 	});
-	$("#restutor_select_add_id").change(function(){
-		var resTutor_id=$(this).children('option:selected').val();
-		$("#resTutor").val(resTutor_id);
+	
+
+	//下拉框选择后给隐藏域赋值
+	$("#firstIdentity_select_add_id").change(function(){
+		var firstIdentity_id=$(this).children('option:selected').val();
+		$("#firstIdentityId").val(firstIdentity_id);
 	});
+	//下拉框选择后给隐藏域赋值
+	$("#secondAuthor_select_add_id").change(function(){
+		var secondAuthor_id=$(this).children('option:selected').val();
+		$("#secondAuthorId").val(secondAuthor_id);
+	});
+	
+
+	//下拉框选择后给隐藏域赋值
+	$("#secondIdentity_select_add_id").change(function(){
+		var secondIdentity_id=$(this).children('option:selected').val();
+		$("#secondIdentityId").val(secondIdentity_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#correspondAuthor_select_add_id").change(function(){
+		var correspondAuthor_id=$(this).children('option:selected').val();
+		$("#correspondAuthorId").val(correspondAuthor_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#correspondIdentity_select_add_id").change(function(){
+		var correspondIdentity_id=$(this).children('option:selected').val();
+		$("#correspondIdentityId").val(correspondIdentity_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#journalLevel_select_add_id").change(function(){
+		var journalLevel_id=$(this).children('option:selected').val();
+		$("#journalLevelId").val(journalLevel_id);
+	});
+	//下拉框选择后给隐藏域赋值
+	$("#discipline_select_add_id").change(function(){
+		var discipline_id=$(this).children('option:selected').val();
+		$("#disciplineId").val(discipline_id);
+	});
+	
+	//选择第一作者身份，得到相应人选
+	function getFirstIdentity(identity_value)
+	{
+    	$.ajax({
+			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentity?identity_value='+identity_value,
+			type:"post",
+			error:function(e){
+			},
+			success:function(data){
+				var json = new Function("return" + data)();
+ 				var major_select=$("#firstAuthor_select_add_id");
+				major_select.empty();
+				major_select.append('<option value="">'+"选择"+'</option>');
+				for(var i=0;i<json.length;i++){
+					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
+				} 
+			}
+		});
+	}
+    	//选择第二作者身份，得到相应人选
+    	function getSecondIdentity(identity_value)
+    	{
+        	$.ajax({
+    			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentity?identity_value='+identity_value,
+    			type:"post",
+    			error:function(e){
+    			},
+    			success:function(data){
+    				var json = new Function("return" + data)();
+     				var major_select=$("#secondAuthor_select_add_id");
+    				major_select.empty();
+    				major_select.append('<option value="">'+"选择"+'</option>');
+    				for(var i=0;i<json.length;i++){
+    					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
+    				} 
+    			}
+    		});
+    	}
+        	//选择通信作者身份，得到相应人选
+        	function getcorrespondIdentity(identity_value)
+        	{
+            	$.ajax({
+        			url:'${pageContext.request.contextPath}/admin/paper/getFirstIdentity?identity_value='+identity_value,
+        			type:"post",
+        			error:function(e){
+        			},
+        			success:function(data){
+        				var json = new Function("return" + data)();
+         				var major_select=$("#correspondAuthor_select_add_id");
+        				major_select.empty();
+        				major_select.append('<option value="">'+"选择"+'</option>');
+        				for(var i=0;i<json.length;i++){
+        					major_select.append('<option value="'+json[i].selectText+'">'+json[i].selectValue+'</option>');
+        				} 
+        			}
+        	});
+        	}
+
 	
 	$("#saveButton").click(function(){
 		
