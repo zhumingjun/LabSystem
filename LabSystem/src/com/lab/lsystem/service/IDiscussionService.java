@@ -2,10 +2,10 @@ package com.lab.lsystem.service;
 
 import java.util.List;
 
-import com.lab.lsystem.domain.StudentPaperDomain;
+import com.lab.lsystem.domain.DiscussionDomain;
 import com.lab.system.util.PageInfo;
 
-public interface IStudentPaperService{
+public interface IDiscussionService{
 
 		/**
 		 * ͨ获取id
@@ -13,14 +13,14 @@ public interface IStudentPaperService{
 		 * @return
 		 * @throws Exception
 		 */
-		public StudentPaperDomain doGetById(String id)throws Exception;
+		public DiscussionDomain doGetById(String id)throws Exception;
 		
 		/**
 		 * 获取用户List
 		 * @return
 		 * @throws Exception
 		 */
-		public List<StudentPaperDomain> doGetFilterList() throws Exception;
+		public List<DiscussionDomain> doGetFilterList() throws Exception;
 		
 		
 		/**
@@ -29,7 +29,7 @@ public interface IStudentPaperService{
 		 * @return
 		 * @throws Exception
 		 */
-		public boolean doSave(StudentPaperDomain user) throws Exception;
+		public boolean doSave(DiscussionDomain user) throws Exception;
 		
 		/**
 		 * 删除
@@ -53,14 +53,18 @@ public interface IStudentPaperService{
 		 * @return
 		 * @throws Exception
 		 */
-		public List<StudentPaperDomain> doGetPageList(PageInfo pageInfo)throws Exception;
+		public List<DiscussionDomain> doGetPageList(PageInfo pageInfo)throws Exception;
 		/**
-		 * 根据论文ID查找学生论文实体
+		 * 搜索功能
 		 * @param pageInfo
 		 * @param searchText
 		 * @return
 		 */
-
-		public List<StudentPaperDomain> doGetByPaperId(String paperId)throws Exception;
+		public List<DiscussionDomain> doSearchDiscussionPageList(PageInfo pageInfo,
+				String searchText)throws Exception;
+		/*
+		 * 根据姓名查找学生信息
+		 */
+		public DiscussionDomain doGetUserByUsername(String name)throws Exception;
 
 }

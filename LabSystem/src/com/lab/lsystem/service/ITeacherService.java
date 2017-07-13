@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
-import com.lab.lsystem.domain.UserDomain;
 import com.lab.system.util.PageInfo;
 
 public interface ITeacherService{

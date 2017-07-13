@@ -55,10 +55,12 @@ public interface ITeacherPaperService{
 		 */
 		public List<TeacherPaperDomain> doGetPageList(PageInfo pageInfo)throws Exception;
 		/**
-		 * 搜索功能
+		 * 根据论文ID获取教师论文实体
 		 * @param pageInfo
 		 * @param searchText
 		 * @return
 		 */
+
+		public List<TeacherPaperDomain> doGetByPaperId(String paperId)throws Exception;
 
 }

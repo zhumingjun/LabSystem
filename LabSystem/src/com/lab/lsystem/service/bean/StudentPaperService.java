@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ import com.lab.system.util.PageInfo;
 @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
 public class StudentPaperService implements IStudentPaperService{
 
-	@Resource private IStudentPaperDao StudentPaperDao;
+	@Resource private IStudentPaperDao studentPaperDao;
 	
 	/**
 	 * @see ITeacherService#doGetFilterList()
@@ -30,7 +31,7 @@ public class StudentPaperService implements IStudentPaperService{
 		// TODO Auto-generated method stub
 		
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentPaperDomain.class);
-		List<StudentPaperDomain> StudentPaperList=StudentPaperDao.getFilterList(detachedCriteria);
+		List<StudentPaperDomain> StudentPaperList=studentPaperDao.getFilterList(detachedCriteria);
 		
 		return StudentPaperList;
 	}
@@ -43,9 +44,9 @@ public class StudentPaperService implements IStudentPaperService{
 		// TODO Auto-generated method stub
 
 		if(StudentPaper.getId()==null){
-			return StudentPaperDao.save(StudentPaper);
+			return studentPaperDao.save(StudentPaper);
 		}else{
-			return StudentPaperDao.update(StudentPaper);
+			return studentPaperDao.update(StudentPaper);
 		}
 	}
 
@@ -56,7 +57,7 @@ public class StudentPaperService implements IStudentPaperService{
 	public StudentPaperDomain doGetById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return StudentPaperDao.getById(id);
+		return studentPaperDao.getById(id);
 	}
 
 	/**
@@ -66,7 +67,7 @@ public class StudentPaperService implements IStudentPaperService{
 	public boolean doDeleteById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return StudentPaperDao.deleteById(id);
+		return studentPaperDao.deleteById(id);
 	}
 
 	
@@ -81,7 +82,7 @@ public class StudentPaperService implements IStudentPaperService{
 		
 		boolean b=false;
 		for(String id:ids){
-			b=StudentPaperDao.deleteById(id);
+			b=studentPaperDao.deleteById(id);
 			if(!b){
 				return false;
 			}
@@ -97,8 +98,18 @@ public class StudentPaperService implements IStudentPaperService{
 			throws Exception {
 		// TODO Auto-generated method stub
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentPaperDomain.class);
-		List<StudentPaperDomain> StudentPaperList=StudentPaperDao.getPageList(detachedCriteria, pageInfo);
+		List<StudentPaperDomain> StudentPaperList=studentPaperDao.getPageList(detachedCriteria, pageInfo);
 		
 		return StudentPaperList;
+	}
+
+	@Override
+	public List<StudentPaperDomain> doGetByPaperId(String paperId)
+			throws Exception {
+		// TODO Auto-generated method stub
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentPaperDomain.class);
+		detachedCriteria.add(Restrictions.eq("paperId", paperId.trim()));
+		List<StudentPaperDomain> studentPaperList=studentPaperDao.getFilterList(detachedCriteria);	
+		return studentPaperList;
 	}
 }

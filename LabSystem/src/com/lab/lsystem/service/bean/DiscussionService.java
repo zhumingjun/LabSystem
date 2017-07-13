@@ -11,44 +11,44 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.lab.lsystem.dao.IStudentDao;
-import com.lab.lsystem.domain.StudentDomain;
+import com.lab.lsystem.dao.IDiscussionDao;
+import com.lab.lsystem.domain.DiscussionDomain;
 import com.lab.lsystem.domain.TeacherDomain;
-import com.lab.lsystem.service.IStudentService;
+import com.lab.lsystem.service.IDiscussionService;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
 import com.lab.system.util.ValidateUtil;
 
 @Service
 @Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
-public class StudentService implements IStudentService{
+public class DiscussionService implements IDiscussionService{
 
-	@Resource private IStudentDao studentDao;
+	@Resource private IDiscussionDao discussionDao;
 	
 	/**
 	 * @see ITeacherService#doGetFilterList()
 	 */
 	@Override
-	public List<StudentDomain> doGetFilterList() throws Exception {
+	public List<DiscussionDomain> doGetFilterList() throws Exception {
 		// TODO Auto-generated method stub
 		
-		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
-		List<StudentDomain> StudentList=studentDao.getFilterList(detachedCriteria);
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(DiscussionDomain.class);
+		List<DiscussionDomain> DiscussionList=discussionDao.getFilterList(detachedCriteria);
 		
-		return StudentList;
+		return DiscussionList;
 	}
 
 	/**
 	 * @see ITeacherService#doSave(TeacherDomain)
 	 */
 	@Override
-	public boolean doSave(StudentDomain student) throws Exception {
+	public boolean doSave(DiscussionDomain Discussion) throws Exception {
 		// TODO Auto-generated method stub
 
-		if(student.getId()==null){
-			return studentDao.save(student);
+		if(Discussion.getId()==null){
+			return discussionDao.save(Discussion);
 		}else{
-			return studentDao.update(student);
+			return discussionDao.update(Discussion);
 		}
 	}
 
@@ -56,10 +56,10 @@ public class StudentService implements IStudentService{
 	 * @see ITeacherService#doGetById(String)
 	 */
 	@Override
-	public StudentDomain doGetById(String id) throws Exception {
+	public DiscussionDomain doGetById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return studentDao.getById(id);
+		return discussionDao.getById(id);
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class StudentService implements IStudentService{
 	public boolean doDeleteById(String id) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return studentDao.deleteById(id);
+		return discussionDao.deleteById(id);
 	}
 
 	
@@ -84,7 +84,7 @@ public class StudentService implements IStudentService{
 		
 		boolean b=false;
 		for(String id:ids){
-			b=studentDao.deleteById(id);
+			b=discussionDao.deleteById(id);
 			if(!b){
 				return false;
 			}
@@ -96,22 +96,22 @@ public class StudentService implements IStudentService{
 	 * @see ITeacherService#doGetPageList(DetachedCriteria, PageInfo)
 	 */
 	@Override
-	public List<StudentDomain> doGetPageList(PageInfo pageInfo)
+	public List<DiscussionDomain> doGetPageList(PageInfo pageInfo)
 			throws Exception {
 		// TODO Auto-generated method stub
-		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
-		List<StudentDomain> StudentList=studentDao.getPageList(detachedCriteria, pageInfo);
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(DiscussionDomain.class);
+		List<DiscussionDomain> DiscussionList=discussionDao.getPageList(detachedCriteria, pageInfo);
 		
-		return StudentList;
+		return DiscussionList;
 	}
 	/**
 	 * @see ITeacherService#doSearchteacherPageList(PageInfo pageInfo,String searchText);
 	 */
 	@Override
-	public List<StudentDomain> doSearchstudentPageList(PageInfo pageInfo,
+	public List<DiscussionDomain> doSearchDiscussionPageList(PageInfo pageInfo,
 			String searchText) throws Exception {
 		// TODO Auto-generated method stub
-		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(DiscussionDomain.class);
 		if(ValidateUtil.notEmpty(searchText)){
 			//多条件过滤，此处名字，宿舍，籍贯
 			Disjunction disjunction = Restrictions.disjunction();  
@@ -119,21 +119,21 @@ public class StudentService implements IStudentService{
 			detachedCriteria.add(disjunction);  
 		}
 		
-		return studentDao.getPageList(detachedCriteria, pageInfo);
+		return discussionDao.getPageList(detachedCriteria, pageInfo);
 	}
 
 	@Override
-	public StudentDomain doGetUserByUsername(String name) throws Exception {
+	public DiscussionDomain doGetUserByUsername(String name) throws Exception {
 		// TODO Auto-generated method stub
-				DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
+				DetachedCriteria detachedCriteria=DetachedCriteria.forClass(DiscussionDomain.class);
 				detachedCriteria.add(Restrictions.eq("name", name.trim()));
 				
-				List<StudentDomain> studentList=studentDao.getFilterList(detachedCriteria);
+				List<DiscussionDomain> DiscussionList=discussionDao.getFilterList(detachedCriteria);
 				
 				//如果有结果，username是唯一的
-				if(studentList.size()==1){
-					StudentDomain student=studentList.get(0);
-					return student;
+				if(DiscussionList.size()==1){
+					DiscussionDomain Discussion=DiscussionList.get(0);
+					return Discussion;
 				}
 				
 				return null;

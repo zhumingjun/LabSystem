@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.lab.lsystem.util.Consts;
 import com.lab.system.util.EndecryptUtils;
-import com.lab.system.util.ValidateUtil;
 import com.lab.lsystem.domain.RoleDomain;
 import com.lab.system.util.PageInfo;
 import com.lab.lsystem.domain.UserDomain;

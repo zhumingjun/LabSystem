@@ -37,7 +37,8 @@
 	
 </style>
 
-<form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/paper/save" method="post">
+<form id="paperEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/paper/editSave" method="post">
+		<input type="hidden" id="id" name="id" value="${paperDomain.id}"/>
 	    <input type="hidden" id="typeId" name="type" value="${paperDomain.type}"/>
 		<input type="hidden" id="firstIdentityId" name="firstIdentity" value="${paperDomain.firstIdentity}"/>
 		<input type="hidden" id="firstAuthorId" name="firstAuthor" value="${paperDomain.firstAuthor}"/>
@@ -312,7 +313,7 @@
 	
 	$("#saveButton").click(function(){
 		
-		var form = $("#studentFormId");
+		var form = $("#paperEditFormId");
 		form.ajaxSubmit(function(result){
 			if(result=='success'){
 

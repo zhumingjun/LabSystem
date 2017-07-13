@@ -18,7 +18,6 @@ import com.lab.lsystem.dao.ITeacherDao;
 import com.lab.lsystem.domain.PaperDomain;
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
-import com.lab.lsystem.domain.UserDomain;
 import com.lab.lsystem.service.IPaperService;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
