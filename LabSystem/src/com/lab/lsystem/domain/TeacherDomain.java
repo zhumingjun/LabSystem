@@ -47,84 +47,84 @@ public class TeacherDomain {
 	public void setId(String id) {
 		this.id = id;
 	}
-	@Column(name = "NAME",unique = true, nullable = false, length = 100)
+	@Column(name = "NAME",unique = true, nullable = true, length = 100)
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name = "WORKCODE",unique = true, nullable = false, length = 100)
+	@Column(name = "WORKCODE",unique = true, nullable = true, length = 100)
 	public String getWorkCode() {
 		return workCode;
 	}
 	public void setWorkCode(String workCode) {
 		this.workCode = workCode;
 	}
-	@Column(name = "SEX",unique = true, nullable = false, length =11)
+	@Column(name = "SEX",unique = true, nullable = true, length =11)
 	public int getSex() {
 		return sex;
 	}
 	public void setSex(int sex) {
 		this.sex = sex;
 	}
-	@Column(name = "FINACCOUNT",unique = true, nullable = false, length = 100)
+	@Column(name = "FINACCOUNT",unique = true, nullable = true, length = 100)
 	public String getFinAccount() {
 		return finAccount;
 	}
 	public void setFinAccount(String finAccount) {
 		this.finAccount = finAccount;
 	}
-	@Column(name = "IDNUMBER",unique = true, nullable = false, length = 100)
+	@Column(name = "IDNUMBER",unique = true, nullable = true, length = 100)
 	public String getIdNumber() {
 		return idNumber;
 	}
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
-	@Column(name = "JOBTITLE",unique = true, nullable = false, length = 11)
+	@Column(name = "JOBTITLE",unique = true, nullable = true, length = 11)
 	public int getJobTitle() {
 		return jobTitle;
 	}
 	public void setJobTitle(int jobTitle) {
 		this.jobTitle = jobTitle;
 	}
-	@Column(name = "BIRTHDAY",unique = true, nullable = false, length = 100)
+	@Column(name = "BIRTHDAY",unique = true, nullable = true, length = 100)
 	public Date getBirthday() {
 		return birthday;
 	}
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	@Column(name = "PHONENUMBER",unique = true, nullable = false, length = 100)
+	@Column(name = "PHONENUMBER",unique = true, nullable = true, length = 100)
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	@Column(name = "EMAIL",unique = true, nullable = false, length = 100)
+	@Column(name = "EMAIL",unique = true, nullable = true, length = 100)
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Column(name = "HOMEADDRESS",unique = true, nullable = false, length = 255)
+	@Column(name = "HOMEADDRESS",unique = true, nullable = true, length = 255)
 	public String getHomeAddress() {
 		return homeAddress;
 	}
 	public void setHomeAddress(String homeAddress) {
 		this.homeAddress = homeAddress;
 	}
-	@Column(name = "ENTRYYEAR",unique = true, nullable = false, length = 100)
+	@Column(name = "ENTRYYEAR",unique = true, nullable = true, length = 100)
 	public String getEntryYear() {
 		return entryYear;
 	}
 	public void setEntryYear(String entryYear) {
 		this.entryYear = entryYear;
 	}
-	@Column(name = "HEADIMG",unique = true, nullable = false, length = 200)
+	@Column(name = "HEADIMG",unique = true, nullable = true, length = 200)
 	public String getHeadImg() {
 		return headImg;
 	}

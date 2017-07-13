@@ -100,7 +100,7 @@ public class DiscussionController {
 		
 		//获取discussion信息
 		DiscussionDomain discussionDomain=discussionService.doGetById(id);
-		
+		model.addAttribute("discussionDomain", discussionDomain);
 		
 		return "/adminView/discussion/discussionEdit";
 	}

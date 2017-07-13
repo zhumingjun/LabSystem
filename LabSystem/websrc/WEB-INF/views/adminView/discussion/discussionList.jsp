@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 
-<!-- 学生列表页面 -->
+<!-- 研讨列表页面 -->
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -83,7 +83,7 @@
 	$("#discussionAddButton").click(function(){
 	    parent.layer.open({
 	        type: 2,
-	        title: '新增学生',
+	        title: '新增研讨',
 	        shadeClose: true, //点击遮罩关闭层
 	        area : ['900px' , '600px'],
 	        offset: ['60px'],
@@ -102,7 +102,7 @@
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '查看学生',
+	        title: '查看研讨',
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],
@@ -115,7 +115,7 @@
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '修改学生',
+	        title: '修改研讨',
 	        shadeClose: true,
 	        area : ['900px' , '560px'],
 	        offset: ['100px'],

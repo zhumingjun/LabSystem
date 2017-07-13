@@ -120,7 +120,7 @@ public class PaperService implements IPaperService{
 		if(ValidateUtil.notEmpty(searchText)){
 			//多条件过滤，此处名字，宿舍，籍贯
 			Disjunction disjunction = Restrictions.disjunction();  
-			disjunction.add(Restrictions.like("name", searchText,MatchMode.ANYWHERE).ignoreCase());  	              
+			disjunction.add(Restrictions.like("title", searchText,MatchMode.ANYWHERE).ignoreCase());  	              
 			detachedCriteria.add(disjunction);  
 		}
 		

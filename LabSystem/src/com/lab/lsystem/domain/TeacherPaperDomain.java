@@ -27,14 +27,14 @@ public class TeacherPaperDomain {
 	public void setId(String id) {
 		this.id = id;
 	}
-	@Column(name = "TEACHERID",unique = true, nullable = false, length = 100)
+	@Column(name = "TEACHERID",unique = true, nullable = true, length = 100)
 	public String getTeacherId() {
 		return teacherId;
 	}
 	public void setTeacherId(String teacherId) {
 		this.teacherId = teacherId;
 	}
-	@Column(name = "PAPERID",unique = true, nullable = false, length = 100)
+	@Column(name = "PAPERID",unique = true, nullable = true, length = 100)
 	public String getPaperId() {
 		return paperId;
 	}
