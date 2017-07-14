@@ -75,5 +75,11 @@ public interface ITeacherService{
 		 * @return
 		 */
 		public List<StudentDomain> doGetStudentPagedListByTutorId(PageInfo pageInfo,
-				String teacherId)throws Exception;;
+				String teacherId)throws Exception;
+		/**
+		 * 根据工号查找老师
+		 * @param workCode
+		 * @return
+		 */
+		public TeacherDomain doGetTeacherByWorkcode(String workCode)throws Exception;
 }

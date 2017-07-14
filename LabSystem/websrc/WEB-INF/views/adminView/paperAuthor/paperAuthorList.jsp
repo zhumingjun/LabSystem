@@ -35,32 +35,29 @@
 					<th class="center" style="width: 60px;">
 						<label> <input id="theadCheckbox" type="checkbox" class="ace" /> <span class="lbl"></span></label>
 					</th>
-					<th >论文题目</th>
-					<th >论文类型</th>
-					<th >第一作者</th>
-					<th>发表/出版时间</th>
-					<th>刊物级别</th>
-					<th >学科类型</th>
+					<th >作者顺序</th>
+					<th >作者姓名</th>
+					<th >作者编号</th>
+					<th >贡献率</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 	
 			<tbody>
-				<c:forEach items="${paperList }" var="paperDomain">
+				<c:forEach items="${paperAuthorList }" var="paperAuthorDomain">
 					<tr>
 						<td class="center">
-						<label> <input type="checkbox" class="ace" value="${paperDomain.id }"/> <span class="lbl"></span></label>
+						<label> <input type="checkbox" class="ace" value="${paperAuthorDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td>${paperDomain.title }</td>
-						<td>${cusfun:getNameByValueAndType(paperDomain.type,"8102")}</td>
-						<td>${paperDomain.firstName }</td>
-						<td><fmt:formatDate value="${paperDomain.publishDate }" type="date"/></td>
-						<td>${cusfun:getNameByValueAndType(paperDomain.discipline,"8104")}</td>
-						<td>${cusfun:getNameByValueAndType(paperDomain.journalLevel,"8103")}</td>
+						<td>${paperAuthorDomain.authorOrder }</td>
+						<td>${paperAuthorDomain.authorName }</td>
+						<td>${paperAuthorDomain.authorCode }</td>
+						<td>${paperAuthorDomain.contributionRate }</td>
+						
 						<td>
 							<input type="button" class="btn_list_view" value="查看" onclick="viewpaper('${paperDomain.id }')"/> 
 							<input type="button" class="btn_list_update" value="修改" onclick="updatepaper('${paperDomain.id }')"/>  
-							<input type="button" class="btn_list_delete" value="编辑" onclick="editpaper('${paperDomain.id }')"/>
+							<input type="button" class="btn_list_delete" value="编辑" onclick="deletepaper('${paperDomain.id }')"/>
 						</td>
 					</tr>
 				</c:forEach>
@@ -130,17 +127,24 @@
 	    });
 	}
 	
-	//编辑
-	function editpaper(paperId)
+	//删除
+	function deletepaper(paperId)
 	{
-		parent.layer.open({
-	        type: 2,
-	        title: '编辑作者',
-	        shadeClose: true,
-	        area : ['700px' , '560px'],
-	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorList/'+paperId
-	    });
+	 		//默认加载学生列表
+			$.post("${pageContext.request.contextPath}/admin/paper/paperAuthorList/"+paperId, function(result){
+				if(result=='success'){
+					//默认加载学生列表
+		        	$("#formId").ajaxSubmit(function(data){
+		        	 	$("#content_page").html(data);
+		    		});
+					parent.layer.msg('删除成功', {
+						offset: ['260px'],
+	     		        time: 1500//1.5s后自动关闭
+	     		    });
+				}else{
+					layer.msg('删除失败');
+				}
+			});
 	}
 	
 	

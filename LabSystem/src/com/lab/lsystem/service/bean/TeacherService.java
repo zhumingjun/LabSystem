@@ -151,4 +151,22 @@ public class TeacherService implements ITeacherService{
 		List<StudentDomain> studentList=studentDao.getPageList(detachedCriteria, pageInfo);
 		return studentList;
 	}
+
+	@Override
+	public TeacherDomain doGetTeacherByWorkcode(String workCode)
+			throws Exception {
+		// TODO Auto-generated method stub
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(TeacherDomain.class);
+		detachedCriteria.add(Restrictions.eq("workCode", workCode.trim()));
+		
+		List<TeacherDomain> teacherList=teacherDao.getFilterList(detachedCriteria);
+		
+		//如果有结果，username是唯一的
+		if(teacherList.size()==1){
+			TeacherDomain teacher=teacherList.get(0);
+			return teacher;
+		}
+		
+		return null;
+	}
 }

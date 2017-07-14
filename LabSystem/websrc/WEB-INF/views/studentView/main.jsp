@@ -86,7 +86,13 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text"> 学生个人信息</span>
 							</a>
-						</li>					
+						</li>	
+						<li id="paper_manage" class="active">
+							<a href="javascript:void(0);">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text">学生论文管理</span>
+							</a>
+						</li>				
 					</ul>
 					<div class="sidebar-collapse" id="sidebar-collapse">
 						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
@@ -143,7 +149,13 @@
 			});
 		});
 		
-	
+		//论文管理
+		$("#paper_manage").click(function(){
+			$.post("${pageContext.request.contextPath}/student/paper/paperList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
 	</script>
 	
 </html>

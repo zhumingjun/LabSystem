@@ -54,9 +54,9 @@ public class StudentInfoController {
 	public String dostudentIndex(@ModelAttribute("pageInfo") PageInfo pageInfo
 			,BindingResult bindingResult,Model model,HttpSession session) throws Exception{
 		//获取当前登录用户名
-		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		String stuCode=(String)session.getAttribute(Consts.CURRENT_USER);
 		//获取student信息
-		StudentDomain studentDomain=studentService.doGetUserByUsername(username);
+		StudentDomain studentDomain=studentService.doGetStudentByStuCode(stuCode);
 		model.addAttribute("studentDomain", studentDomain);
 		//头像路径
 		String headImgPath=shareupload+headImageDir;

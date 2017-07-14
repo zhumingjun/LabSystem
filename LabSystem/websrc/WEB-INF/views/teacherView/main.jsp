@@ -92,7 +92,13 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text">学生管理</span>
 							</a>
-						</li>						
+						</li>	
+						<li id="paper_manage" class="active">
+							<a href="javascript:void(0);">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text">论文管理</span>
+							</a>
+						</li>					
 					</ul>
 					<div class="sidebar-collapse" id="sidebar-collapse">
 						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
@@ -141,17 +147,25 @@
 			window.location.href="${pageContext.request.contextPath}/logout";
 		});
 
-		//教师管理
+		//学生管理
 		$("#student_manage").click(function(){
-			$.post("${pageContext.request.contextPath}/teacher/teacherinfo/studentManage", function(result){
+			$.post("${pageContext.request.contextPath}/teacher/student/studentList", function(result){
 				$("#content_page").empty();
 				$("#content_page").html(result);
 			});
 		});
 		
-		//学生管理
+		//教师管理
 		$("#teacher_manage").click(function(){
 			$.post("${pageContext.request.contextPath}/teacher/teacherinfo/teacherIndex", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
+		
+		//论文管理
+		$("#paper_manage").click(function(){
+			$.post("${pageContext.request.contextPath}/teacher/paper/paperList", function(result){
 				$("#content_page").empty();
 				$("#content_page").html(result);
 			});

@@ -60,7 +60,7 @@
 						<td>
 							<input type="button" class="btn_list_view" value="查看" onclick="viewpaper('${paperDomain.id }')"/> 
 							<input type="button" class="btn_list_update" value="修改" onclick="updatepaper('${paperDomain.id }')"/>  
-							<input type="button" class="btn_list_delete" value="编辑" onclick="editpaper('${paperDomain.id }')"/>
+							<input type="button" class="btn_list_delete" value="删除" onclick="deletepaper('${paperDomain.id }')"/>
 						</td>
 					</tr>
 				</c:forEach>
@@ -130,17 +130,33 @@
 	    });
 	}
 	
-	//编辑
-	function editpaper(paperId)
+	//删除
+	function deletepaper(paperId)
 	{
-		parent.layer.open({
-	        type: 2,
-	        title: '编辑作者',
-	        shadeClose: true,
-	        area : ['700px' , '560px'],
-	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorList/'+paperId
-	    });
+		//询问框
+		layer.confirm('是否确定删除？', {
+			offset: ['260px'],
+		    btn: ['确定','取消'] //按钮
+		}, function(){
+	 		//默认加载学生列表
+			$.post("${pageContext.request.contextPath}/admin/paper/delete/"+paperId, function(result){
+				if(result=='success'){
+					//默认加载学生列表
+		        	$("#formId").ajaxSubmit(function(data){
+		        	 	$("#content_page").html(data);
+		    		});
+					parent.layer.msg('删除成功', {
+						offset: ['260px'],
+	     		        time: 1500//1.5s后自动关闭
+	     		    });
+				}else{
+					layer.msg('删除失败');
+				}
+			});
+		}, function(){
+			
+		});
+		
 	}
 	
 	

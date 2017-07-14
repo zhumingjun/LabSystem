@@ -62,5 +62,14 @@ public interface ITeacherPaperService{
 		 */
 
 		public List<TeacherPaperDomain> doGetByPaperId(String paperId)throws Exception;
+		/**
+		 *根据教师Id获取教师的论文
+		 * @param pageInfo
+		 * @param teacherId
+		 * @return
+		 * @throws Exception
+		 */
+		public List<TeacherPaperDomain> doGetPageListByTeacherId(
+				PageInfo pageInfo, String teacherId)throws Exception;
 
 }

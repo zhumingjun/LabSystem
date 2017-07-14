@@ -111,4 +111,13 @@ public class TeacherPaperService implements ITeacherPaperService{
 		List<TeacherPaperDomain> teacherPaperList=teacherPaperDao.getFilterList(detachedCriteria);				
 		return teacherPaperList;
 	}
+
+	@Override
+	public List<TeacherPaperDomain> doGetPageListByTeacherId(PageInfo pageInfo,
+			String teacherId) throws Exception {
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(TeacherPaperDomain.class);
+		detachedCriteria.add(Restrictions.eq("teacherId", teacherId.trim()));
+		List<TeacherPaperDomain> teacherPaperList=teacherPaperDao.getPageList(detachedCriteria,pageInfo);	
+		return teacherPaperList;
+	}
 }

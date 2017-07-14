@@ -62,5 +62,13 @@ public interface IStudentPaperService{
 		 */
 
 		public List<StudentPaperDomain> doGetByPaperId(String paperId)throws Exception;
+		/**
+		 * 根据学生Id获得学生论文信息
+		 * @param pageInfo
+		 * @param stuId
+		 * @return
+		 */
+		public List<StudentPaperDomain> doGetPageListByStuId(PageInfo pageInfo,
+				String stuId)throws Exception;
 
 }

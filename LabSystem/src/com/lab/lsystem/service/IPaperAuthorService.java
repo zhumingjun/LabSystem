@@ -2,10 +2,10 @@ package com.lab.lsystem.service;
 
 import java.util.List;
 
-import com.lab.lsystem.domain.StudentDomain;
+import com.lab.lsystem.domain.PaperAuthorDomain;
 import com.lab.system.util.PageInfo;
 
-public interface IStudentService{
+public interface IPaperAuthorService{
 
 		/**
 		 * ͨ获取id
@@ -13,14 +13,14 @@ public interface IStudentService{
 		 * @return
 		 * @throws Exception
 		 */
-		public StudentDomain doGetById(String id)throws Exception;
+		public PaperAuthorDomain doGetById(String id)throws Exception;
 		
 		/**
 		 * 获取用户List
 		 * @return
 		 * @throws Exception
 		 */
-		public List<StudentDomain> doGetFilterList() throws Exception;
+		public List<PaperAuthorDomain> doGetFilterList() throws Exception;
 		
 		
 		/**
@@ -29,7 +29,7 @@ public interface IStudentService{
 		 * @return
 		 * @throws Exception
 		 */
-		public boolean doSave(StudentDomain user) throws Exception;
+		public boolean doSave(PaperAuthorDomain PaperAuthor) throws Exception;
 		
 		/**
 		 * 删除
@@ -53,24 +53,33 @@ public interface IStudentService{
 		 * @return
 		 * @throws Exception
 		 */
-		public List<StudentDomain> doGetPageList(PageInfo pageInfo)throws Exception;
+		public List<PaperAuthorDomain> doGetPageList(PageInfo pageInfo)throws Exception;
 		/**
 		 * 搜索功能
 		 * @param pageInfo
 		 * @param searchText
 		 * @return
 		 */
-		public List<StudentDomain> doSearchstudentPageList(PageInfo pageInfo,
+		public List<PaperAuthorDomain> doSearchPaperAuthorPageList(PageInfo pageInfo,
 				String searchText)throws Exception;
 		/*
 		 * 根据姓名查找学生信息
 		 */
-		public StudentDomain doGetUserByUsername(String name)throws Exception;
+		public PaperAuthorDomain doGetUserByUsername(String name)throws Exception;
 		/**
-		 * 根据学生学号获取学生信息
-		 * @param stuId
+		 * 根据用户id获取用户姓名
+		 * @param userId
+		 * @return
+		 * @throws Exception
+		 */
+		public String doGetNameById(String userId)throws Exception;
+		/**
+		 * 根据论文id获取论文作者信息
+		 * @param pageInfo
+		 * @param id
 		 * @return
 		 */
-		public StudentDomain doGetStudentByStuCode(String stuCode)throws Exception;
+		public List<PaperAuthorDomain> doGetPageListByPaperId(
+				PageInfo pageInfo, String id)throws Exception;
 
 }

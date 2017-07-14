@@ -112,4 +112,14 @@ public class StudentPaperService implements IStudentPaperService{
 		List<StudentPaperDomain> studentPaperList=studentPaperDao.getFilterList(detachedCriteria);	
 		return studentPaperList;
 	}
+
+	@Override
+	public List<StudentPaperDomain> doGetPageListByStuId(PageInfo pageInfo,
+			String stuId) throws Exception {
+		// TODO Auto-generated method stub
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentPaperDomain.class);
+		detachedCriteria.add(Restrictions.eq("stuId", stuId.trim()));
+		List<StudentPaperDomain> studentPaperList=studentPaperDao.getFilterList(detachedCriteria);	
+		return studentPaperList;
+	}
 }

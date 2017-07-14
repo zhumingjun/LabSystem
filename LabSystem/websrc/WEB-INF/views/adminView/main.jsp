@@ -113,7 +113,12 @@
 								<span class="menu-text"> 论文管理 </span>
 							</a>
 						</li>
-						
+						 <li id="research_manage">
+							<a href="javascript:void(0);">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 科研管理 </span>
+							</a>
+						</li>
 					   <li id="discussion_manage">
 							<a href="javascript:void(0);">
 								<i class="icon-dashboard"></i>

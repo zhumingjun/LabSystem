@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.lab.lsystem.dao.IStudentDao;
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
@@ -137,5 +138,22 @@ public class StudentService implements IStudentService{
 				}
 				
 				return null;
+	}
+
+	@Override
+	public StudentDomain doGetStudentByStuCode(String stuCode) throws Exception {
+		// TODO Auto-generated method stub
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(StudentDomain.class);
+		detachedCriteria.add(Restrictions.eq("stuCode", stuCode.trim()));
+		
+		List<StudentDomain> studentList=studentDao.getFilterList(detachedCriteria);
+		
+		//如果有结果，username是唯一的
+		if(studentList.size()==1){
+			StudentDomain student=studentList.get(0);
+			return student;
+		}
+		
+		return null;
 	}
 }
