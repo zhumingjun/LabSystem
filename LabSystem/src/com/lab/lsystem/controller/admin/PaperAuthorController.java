@@ -89,8 +89,28 @@ public class PaperAuthorController {
 			BindingResult bindingResult, Model model,@PathVariable String id) throws Exception {
 		//根据论文id获取论文作者信息
 		List<PaperAuthorDomain> paperAuthorList=paperAuthorService.doGetPageListByPaperId(pageInfo,id);
+		List<SelectItem> authors=new ArrayList<SelectItem>();
+		List<TeacherDomain> teachers=teacherService.doGetFilterList();
+		List<StudentDomain> students=studentService.doGetFilterList();
+		if(teachers.size()>0){
+			for(TeacherDomain teacher:teachers){
+				SelectItem st=new SelectItem();
+				st.setSelectText(teacher.getName());
+				st.setSelectValue(teacher.getWorkCode());
+				authors.add(st);
+			}
+		}
+		if(students.size()>0){
+			for(StudentDomain student:students){
+				SelectItem st=new SelectItem();
+				st.setSelectText(student.getName());
+				st.setSelectValue(student.getStuCode());
+				authors.add(st);
+			}
+		}
+		model.addAttribute("authors", authors);
 		model.addAttribute("paperAuthorList",paperAuthorList);
-
+		model.addAttribute("paperId", id);
 		return "/adminView/paperAuthor/paperAuthorList";
 	}
 
@@ -129,26 +149,11 @@ public class PaperAuthorController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/paperAdd")
-	public String doteacherAdd(Model model) throws Exception {
+	@RequestMapping("/paperAuthorAdd/{paperId}")
+	public String doteacherAdd(Model model,@PathVariable String paperId) throws Exception {
 
-		List<CodeBookDomain> disciplineItem = CodeBookHelper
-				.getCodeBookByType(CodeBookConstsType.DISCIPLINE_TYPE);
-		List<CodeBookDomain> levelItem = CodeBookHelper
-				.getCodeBookByType(CodeBookConstsType.JOURNAL_LEVEL);
-		List<CodeBookDomain> typeItem = CodeBookHelper
-				.getCodeBookByType(CodeBookConstsType.PAPER_TYPE);
-		List<CodeBookDomain> authorItem = CodeBookHelper
-				.getCodeBookByType(CodeBookConstsType.AUTHOR_TYPE);
-		model.addAttribute("disciplineItem", disciplineItem);
-		model.addAttribute("levelItem", levelItem);
-		model.addAttribute("typeItem", typeItem);
-		model.addAttribute("authorItem", authorItem);
-		List<TeacherDomain> teachers = teacherService.doGetFilterList();
-		List<StudentDomain> students = studentService.doGetFilterList();
-		model.addAttribute("teachers", teachers);
-		model.addAttribute("students", students);
-		return "/adminView/paper/paperAdd";
+		model.addAttribute("paperId", paperId);
+		return "/adminView/paperAuthor/paperAuthorAdd";
 	}
 
 	/**

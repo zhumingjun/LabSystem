@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 
-<!-- 论文列表页面 -->
+<!-- 论文作者列表页面 -->
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -11,18 +11,18 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 <div>
-<form id="formId" action="${pageContext.request.contextPath}/admin/paper/paperSearchList" method="post">
-	
-	<div class="breadcrumbs" id="paperListToolbar">
+<form id="formId" action="${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorSearchList" method="post">
+	<input type="hidden" id="paperId" value="${paperId }"/>
+	<div class="breadcrumbs" id="paperAuthorListToolbar">
 	
 		<span class="input-icon" style="margin: 5px;">
 			<input type="text" id="nav-search-input" name="searchText" placeholder="Search ..." class="nav-search-input" autocomplete="off" value="${searchText }"/> 
 			<i class="icon-search nav-search-icon"></i>
 		</span>
 	
-		<input id="paperDeleteButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="删除"/>
-		<input id="paperAddButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="新增"/>
-		<input id="paperQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="查询"/>
+		<input id="paperAuthorDeleteButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="删除"/>
+		<input id="paperAuthorAddButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="新增"/>
+		<input id="paperAuthorQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="查询"/>
 	</div>
 	<div class="breadcrumbs">
 	
@@ -44,20 +44,20 @@
 			</thead>
 	
 			<tbody>
-				<c:forEach items="${paperAuthorList }" var="paperAuthorDomain">
+				<c:forEach items="${paperAuthorAuthorList }" var="paperAuthorAuthorDomain">
 					<tr>
 						<td class="center">
-						<label> <input type="checkbox" class="ace" value="${paperAuthorDomain.id }"/> <span class="lbl"></span></label>
+						<label> <input type="checkbox" class="ace" value="${paperAuthorAuthorDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td>${paperAuthorDomain.authorOrder }</td>
-						<td>${paperAuthorDomain.authorName }</td>
-						<td>${paperAuthorDomain.authorCode }</td>
-						<td>${paperAuthorDomain.contributionRate }</td>
+						<td>${paperAuthorAuthorDomain.authorOrder }</td>
+						<td>${paperAuthorAuthorDomain.authorName }</td>
+						<td>${paperAuthorAuthorDomain.authorCode }</td>
+						<td>${paperAuthorAuthorDomain.contributionRate }</td>
 						
 						<td>
-							<input type="button" class="btn_list_view" value="查看" onclick="viewpaper('${paperDomain.id }')"/> 
-							<input type="button" class="btn_list_update" value="修改" onclick="updatepaper('${paperDomain.id }')"/>  
-							<input type="button" class="btn_list_delete" value="编辑" onclick="deletepaper('${paperDomain.id }')"/>
+							<input type="button" class="btn_list_view" value="查看" onclick="viewpaperAuthor('${paperAuthorDomain.id }')"/> 
+							<input type="button" class="btn_list_update" value="修改" onclick="updatepaperAuthor('${paperAuthorDomain.id }')"/>  
+							<input type="button" class="btn_list_delete" value="编辑" onclick="deletepaperAuthor('${paperAuthorDomain.id }')"/>
 						</td>
 					</tr>
 				</c:forEach>
@@ -71,21 +71,22 @@
 <script type="text/javascript">
 
 	//查询
-	$("#paperQueryButton").click(function(){
+	$("#paperAuthorQueryButton").click(function(){
 		$("#formId").ajaxSubmit(function(data){
 		 	$("#content_page").html(data);
 		});
 	});
 
 	//新增学生按钮
-	$("#paperAddButton").click(function(){
+	$("#paperAuthorAddButton").click(function(){
+		var paperId=$("#paperId").val;
 	    parent.layer.open({
 	        type: 2,
-	        title: '新增论文',
+	        title: '新增论文作者',
 	        shadeClose: true, //点击遮罩关闭层
 	        area : ['750px' , '500px'],
 	        offset: ['60px'],
-	        content: '${pageContext.request.contextPath}/admin/paper/paperAdd',
+	        content: '${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorAdd/'+paperId,
 	        end: function(){
 				//默认加载教师列表
 	    		$("#formId").ajaxSubmit(function(data){
@@ -96,28 +97,28 @@
 	});
 	
 	//list中查看学生按钮
-	function viewpaper(paperId)
+	function viewpaperAuthor(paperAuthorId)
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '查看论文',
+	        title: '查看论文作者',
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/paper/paperView/'+paperId
+	        content: '${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorView/'+paperAuthorId
 	    });
 	}
 
 	//list中修改用户按钮
-	function updatepaper(paperId)
+	function updatepaperAuthor(paperAuthorId)
 	{
 	    parent.layer.open({
 	        type: 2,
-	        title: '修改论文',
+	        title: '修改论文作者',
 	        shadeClose: true,
 	        area : ['900px' , '560px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/paper/paperEdit/'+paperId,
+	        content: '${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorEdit/'+paperAuthorId,
 	        end: function(){
 	        	//默认加载用户列表
 	        	$("#formId").ajaxSubmit(function(data){
@@ -128,10 +129,10 @@
 	}
 	
 	//删除
-	function deletepaper(paperId)
+	function deletepaperAuthor(paperAuthorId)
 	{
 	 		//默认加载学生列表
-			$.post("${pageContext.request.contextPath}/admin/paper/paperAuthorList/"+paperId, function(result){
+			$.post("${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorAuthorList/"+paperAuthorId, function(result){
 				if(result=='success'){
 					//默认加载学生列表
 		        	$("#formId").ajaxSubmit(function(data){
@@ -149,17 +150,17 @@
 	
 	
 	//多选删除
-	$("#paperDeleteButton").click(function(){
+	$("#paperAuthorDeleteButton").click(function(){
 		var checkBoxs=$("table tbody input:checkbox");
-		var paperIds=new Array();
+		var paperAuthorIds=new Array();
 		for(var i=0;i<checkBoxs.length;i++)
 		{
 			var checkBox=checkBoxs[i];
 			if(checkBox.checked){
-				paperIds.push(checkBox.value);
+				paperAuthorIds.push(checkBox.value);
 			}
 		}
-		if(paperIds.length=='0'){
+		if(paperAuthorIds.length=='0'){
 			layer.msg('请至少选择一个',{
 				offset: ['260px']
 			});
@@ -172,10 +173,10 @@
 		    btn: ['确定','取消'] //按钮
 		}, function(){
 			$.ajax({
-				url : "${pageContext.request.contextPath}/admin/paper/deletepapers",
+				url : "${pageContext.request.contextPath}/admin/paperAuthor/deletepaperAuthors",
 				async: false,
 				data : {
-					"paperIds" : paperIds
+					"paperAuthorIds" : paperAuthorIds
 				},
 				dataType : "text",
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
