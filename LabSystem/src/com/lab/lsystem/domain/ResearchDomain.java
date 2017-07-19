@@ -92,48 +92,56 @@ public class ResearchDomain {
 	public void setState(Integer state) {
 		this.state = state;
 	}
+	@Column(name = "PROJECTDATE",unique = true, nullable = true, length = 200)
 	public Date getProjectDate() {
 		return projectDate;
 	}
 	public void setProjectDate(Date projectDate) {
 		this.projectDate = projectDate;
 	}
+	@Column(name = "PLANDATE",unique = true, nullable = true, length = 200)
 	public Date getPlanDate() {
 		return planDate;
 	}
 	public void setPlanDate(Date planDate) {
 		this.planDate = planDate;
 	}
+	@Column(name = "STARTDATE",unique = true, nullable = true, length = 200)
 	public Date getStartDate() {
 		return startDate;
 	}
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	@Column(name = "ENDDATE",unique = true, nullable = true, length = 200)
 	public Date getEndDate() {
 		return endDate;
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+	@Column(name = "ALLFUND",unique = true, nullable = true, length = 200)
 	public String getAllFund() {
 		return allFund;
 	}
 	public void setAllFund(String allFund) {
 		this.allFund = allFund;
 	}
+	@Column(name = "GIVEFUND",unique = true, nullable = true, length = 200)
 	public String getGiveFund() {
 		return giveFund;
 	}
 	public void setGiveFund(String giveFund) {
 		this.giveFund = giveFund;
 	}
+	@Column(name = "FINACCOUNT",unique = true, nullable = true, length = 200)
 	public String getFinaAccount() {
 		return finaAccount;
 	}
 	public void setFinaAccount(String finaAccount) {
 		this.finaAccount = finaAccount;
 	}
+	@Column(name = "PROJECTSOURCE",unique = true, nullable = true, length = 200)
 	public String getProjectSource() {
 		return projectSource;
 	}

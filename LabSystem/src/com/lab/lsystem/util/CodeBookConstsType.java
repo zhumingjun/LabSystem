@@ -40,5 +40,13 @@ public class CodeBookConstsType {
 	 * 作者身份：8105
 	 */
 	public static final String AUTHOR_TYPE="8105";
+	/**
+	 * 项目状态：8106
+	 */
+	public static final String PROJECT_STATE="8106";
+	/**
+	 * 项目级别：8107
+	 */
+	public static final String PROJECT_LEVEL="8107";
 
 }

@@ -53,13 +53,13 @@
 			</td>
 		</tr>
 			<tr>
-			<td class="lesta-150">作者顺序：</td>
+			<td class="lesta-150">作者编号：</td>
 			<td class="lestb">
-				<input type="text" id="authorOrder" name="authorOrder" class="input_text_a" placeholder="请输入作者顺序">
+				<input type="text" id="authorCode" name="authorCode" class="input_text_a" placeholder="请输入作者编号">
 			</td>
-			<td class="lesta-150">贡献率：</td>
+			<td class="lesta-150">作者姓名：</td>
 			<td class="lestb">
-				<input type="text" id="contributionRate" name="contributionRate" class="input_text_a" placeholder="请输入贡献率"/>
+				<input type="text" id="authorName" name="authorName" class="input_text_a" placeholder="请输入作者姓名"/>
 			</td>
 		</tr>
 	</table>

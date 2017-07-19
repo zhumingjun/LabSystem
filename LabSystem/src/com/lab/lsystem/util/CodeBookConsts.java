@@ -109,4 +109,40 @@ public class CodeBookConsts {
 	 * 作者身份：8105  0-教师  1-学生
 	 */
 	public static final String AUTHOR_TYPE_B="0";
+	/**
+	 * 项目状态：8106  0-进行 1-完成 2-终止 3-撤销 4-中止 5-延期
+	 */
+	public static final String PROJECT_STATE_A="0";
+	/**
+	 * 项目状态：8106  0-进行 1-完成 2-终止 3-撤销 4-中止 5-延期
+	 */
+	public static final String PROJECT_STATE_B="1";
+	/**
+	 * 项目状态：8106  0-进行 1-完成 2-终止 3-撤销 4-中止 5-延期
+	 */
+	public static final String PROJECT_STATE_C="2";
+	/**
+	 * 项目状态：8106  0-进行 1-完成 2-终止 3-撤销 4-中止 5-延期
+	 */
+	public static final String PROJECT_STATE_D="3";
+	/**
+	 * 项目状态：8106  0-进行 1-完成 2-终止 3-撤销 4-中止 5-延期
+	 */
+	public static final String PROJECT_STATE_E="4";
+	/**
+	 * 项目状态：8106  0-进行 1-完成 2-终止 3-撤销 4-中止 5-延期
+	 */
+	public static final String PROJECT_STATE_F="5";
+	/**
+	 * 项目级别：8107 0-国家级 1-省部级 2-厅局级
+	 */
+	public static final String PROJECT_LEVEL_A="0";
+	/**
+	 * 项目级别：8107 0-国家级 1-省部级 2-厅局级
+	 */
+	public static final String PROJECT_LEVEL_B="1";
+	/**
+	 * 项目级别：8107 0-国家级 1-省部级 2-厅局级
+	 */
+	public static final String PROJECT_LEVEL_C="2";
 }

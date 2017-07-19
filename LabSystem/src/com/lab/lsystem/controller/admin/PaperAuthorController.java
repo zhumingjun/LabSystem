@@ -21,20 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.PaperAuthorDomain;
-import com.lab.lsystem.domain.PaperDomain;
+import com.lab.lsystem.domain.PaperAuthorDomain;
 import com.lab.lsystem.domain.StudentDomain;
-import com.lab.lsystem.domain.StudentPaperDomain;
 import com.lab.lsystem.domain.TeacherDomain;
-import com.lab.lsystem.domain.TeacherPaperDomain;
 import com.lab.lsystem.util.CodeBookConsts;
 import com.lab.lsystem.util.CodeBookConstsType;
 import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.service.IPaperAuthorService;
-import com.lab.lsystem.service.IPaperService;
-import com.lab.lsystem.service.IStudentPaperService;
 import com.lab.lsystem.service.IStudentService;
-import com.lab.lsystem.service.ITeacherPaperService;
 import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
 import com.lab.system.util.SelectItem;
@@ -55,15 +50,9 @@ public class PaperAuthorController {
 	@Resource
 	private IPaperAuthorService paperAuthorService;
 	@Resource
-	private IPaperService paperService;
-	@Resource
 	private ITeacherService teacherService;
 	@Resource
 	private IStudentService studentService;
-	@Resource
-	private IStudentPaperService studentpaperService;
-	@Resource
-	private ITeacherPaperService teacherpaperService;
 	
 
 	/**
@@ -126,18 +115,18 @@ public class PaperAuthorController {
 	public String dopaperView(Model model, @PathVariable String id)
 			throws Exception {
 
-		// 获取paper信息
-		PaperDomain paperDomain = paperService.doGetById(id);
-		String firstName = paperService.doGetNameById(paperDomain
-				.getFirstAuthor());
-		String secondName = paperService.doGetNameById(paperDomain
-				.getSecondAuthor());
-		String correspondName = paperService.doGetNameById(paperDomain
-				.getCorrespondAuthor());
-		paperDomain.setFirstName(firstName);
-		paperDomain.setSecondName(secondName);
-		model.addAttribute("paperDomain", paperDomain);
-		model.addAttribute("correspondName", correspondName);
+//		// 获取paper信息
+//		PaperAuthorDomain PaperAuthorDomain = paperAuthorService.doGetById(id);
+//		String firstName = paperAuthorService.doGetNameById(PaperAuthorDomain
+//				.getFirstAuthor());
+//		String secondName = paperAuthorService.doGetNameById(PaperAuthorDomain
+//				.getSecondAuthor());
+//		String correspondName = paperAuthorService.doGetNameById(PaperAuthorDomain
+//				.getCorrespondAuthor());
+//		PaperAuthorDomain.setFirstName(firstName);
+//		PaperAuthorDomain.setSecondName(secondName);
+//		model.addAttribute("PaperAuthorDomain", PaperAuthorDomain);
+//		model.addAttribute("correspondName", correspondName);
 
 		return "/adminView/paper/paperView";
 	}
@@ -150,7 +139,7 @@ public class PaperAuthorController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/paperAuthorAdd/{paperId}")
-	public String doteacherAdd(Model model,@PathVariable String paperId) throws Exception {
+	public String doPaperAuthorAdd(Model model,@PathVariable String paperId) throws Exception {
 
 		model.addAttribute("paperId", paperId);
 		return "/adminView/paperAuthor/paperAuthorAdd";
@@ -169,7 +158,7 @@ public class PaperAuthorController {
 			throws Exception {
 
 		// 获取paper信息
-		PaperDomain paperDomain = paperService.doGetById(id);
+		PaperAuthorDomain PaperAuthorDomain = paperAuthorService.doGetById(id);
 		List<CodeBookDomain> disciplineItem = CodeBookHelper
 				.getCodeBookByType(CodeBookConstsType.DISCIPLINE_TYPE);
 		List<CodeBookDomain> levelItem = CodeBookHelper
@@ -186,7 +175,7 @@ public class PaperAuthorController {
 		List<StudentDomain> students = studentService.doGetFilterList();
 		model.addAttribute("teachers", teachers);
 		model.addAttribute("students", students);
-		model.addAttribute("paperDomain", paperDomain);
+		model.addAttribute("PaperAuthorDomain", PaperAuthorDomain);
 
 		return "/adminView/paper/paperEdit";
 	}
@@ -201,39 +190,13 @@ public class PaperAuthorController {
 	 */
 	@RequestMapping("/save")
 	@ResponseBody
-	public String doSave(@Valid @ModelAttribute("domain") PaperDomain domain,
+	public String doSave(@Valid @ModelAttribute("domain") PaperAuthorDomain domain,
 			BindingResult result) throws Exception {
 		if (result.hasErrors()) {// 如果校验失败,则返回
 			System.out.println(result);
 			return Consts.ERROR;
 		} else {
-			if (paperService.doSave(domain)) {
-				String paperId = domain.getId();
-				if (domain.getFirstIdentity().toString()
-						.equals(CodeBookConsts.AUTHOR_TYPE_A)) {
-					TeacherPaperDomain teacherPaperDomain = new TeacherPaperDomain();
-					teacherPaperDomain.setPaperId(paperId);
-					teacherPaperDomain.setTeacherId(domain.getFirstAuthor());
-					teacherpaperService.doSave(teacherPaperDomain);
-				} else {
-					StudentPaperDomain studentPaperDomain = new StudentPaperDomain();
-					studentPaperDomain.setPaperId(paperId);
-					studentPaperDomain.setStuId(domain.getFirstAuthor());
-					studentpaperService.doSave(studentPaperDomain);
-				}
-				if (domain.getSecondIdentity().toString()
-						.equals(CodeBookConsts.AUTHOR_TYPE_A)) {
-					TeacherPaperDomain teacherPaperDomain = new TeacherPaperDomain();
-					teacherPaperDomain.setPaperId(paperId);
-					teacherPaperDomain.setTeacherId(domain.getSecondAuthor());
-					teacherpaperService.doSave(teacherPaperDomain);
-				} else {
-					StudentPaperDomain studentPaperDomain = new StudentPaperDomain();
-					studentPaperDomain.setPaperId(paperId);
-					studentPaperDomain.setStuId(domain.getSecondAuthor());
-					studentpaperService.doSave(studentPaperDomain);
-				}
-
+			if(paperAuthorService.doSave(domain)){
 				return Consts.SUCCESS;
 			}
 		}
@@ -251,54 +214,54 @@ public class PaperAuthorController {
 	@RequestMapping("/editSave")
 	@ResponseBody
 	public String doEditSave(
-			@Valid @ModelAttribute("domain") PaperDomain domain,
+			@Valid @ModelAttribute("domain") PaperAuthorDomain domain,
 			BindingResult result) throws Exception {
-		if (result.hasErrors()) {// 如果校验失败,则返回
-			System.out.println(result);
-			return Consts.ERROR;
-		} else {
-			if (paperService.doSave(domain)) {
-				String paperId = domain.getId();
-				// 首先根据论文ID删除原来学生论文以及教师论文里的数据
-				List<TeacherPaperDomain> teacherpapers = teacherpaperService
-						.doGetByPaperId(paperId);
-				List<StudentPaperDomain> studentpapers = studentpaperService
-						.doGetByPaperId(paperId);
-				for (TeacherPaperDomain teacherpaper : teacherpapers) {
-					teacherpaperService.doDeleteById(teacherpaper.getId());
-				}
-				for (StudentPaperDomain studentpaper : studentpapers) {
-					studentpaperService.doDeleteById(studentpaper.getId());
-				}
-				// 然后对修改后的数据进行重新存储
-				if (domain.getFirstIdentity().toString()
-						.equals(CodeBookConsts.AUTHOR_TYPE_A)) {
-					TeacherPaperDomain teacherPaperDomain = new TeacherPaperDomain();
-					teacherPaperDomain.setPaperId(paperId);
-					teacherPaperDomain.setTeacherId(domain.getFirstAuthor());
-					teacherpaperService.doSave(teacherPaperDomain);
-				} else {
-					StudentPaperDomain studentPaperDomain = new StudentPaperDomain();
-					studentPaperDomain.setPaperId(paperId);
-					studentPaperDomain.setStuId(domain.getFirstAuthor());
-					studentpaperService.doSave(studentPaperDomain);
-				}
-				if (domain.getSecondIdentity().toString()
-						.equals(CodeBookConsts.AUTHOR_TYPE_A)) {
-					TeacherPaperDomain teacherPaperDomain = new TeacherPaperDomain();
-					teacherPaperDomain.setPaperId(paperId);
-					teacherPaperDomain.setTeacherId(domain.getSecondAuthor());
-					teacherpaperService.doSave(teacherPaperDomain);
-				} else {
-					StudentPaperDomain studentPaperDomain = new StudentPaperDomain();
-					studentPaperDomain.setPaperId(paperId);
-					studentPaperDomain.setStuId(domain.getSecondAuthor());
-					studentpaperService.doSave(studentPaperDomain);
-				}
-
-				return Consts.SUCCESS;
-			}
-		}
+//		if (result.hasErrors()) {// 如果校验失败,则返回
+//			System.out.println(result);
+//			return Consts.ERROR;
+//		} else {
+//			if (paperAuthorService.doSave(domain)) {
+//				String paperId = domain.getId();
+//				// 首先根据论文ID删除原来学生论文以及教师论文里的数据
+//				List<TeacherPaperAuthorDomain> teacherpapers = teacherpaperAuthorService
+//						.doGetByPaperId(paperId);
+//				List<StudentPaperAuthorDomain> studentpapers = studentpaperAuthorService
+//						.doGetByPaperId(paperId);
+//				for (TeacherPaperAuthorDomain teacherpaper : teacherpapers) {
+//					teacherpaperAuthorService.doDeleteById(teacherpaper.getId());
+//				}
+//				for (StudentPaperAuthorDomain studentpaper : studentpapers) {
+//					studentpaperAuthorService.doDeleteById(studentpaper.getId());
+//				}
+//				// 然后对修改后的数据进行重新存储
+//				if (domain.getFirstIdentity().toString()
+//						.equals(CodeBookConsts.AUTHOR_TYPE_A)) {
+//					TeacherPaperAuthorDomain teacherPaperAuthorDomain = new TeacherPaperAuthorDomain();
+//					teacherPaperAuthorDomain.setPaperId(paperId);
+//					teacherPaperAuthorDomain.setTeacherId(domain.getFirstAuthor());
+//					teacherpaperAuthorService.doSave(teacherPaperAuthorDomain);
+//				} else {
+//					StudentPaperAuthorDomain studentPaperAuthorDomain = new StudentPaperAuthorDomain();
+//					studentPaperAuthorDomain.setPaperId(paperId);
+//					studentPaperAuthorDomain.setStuId(domain.getFirstAuthor());
+//					studentpaperAuthorService.doSave(studentPaperAuthorDomain);
+//				}
+//				if (domain.getSecondIdentity().toString()
+//						.equals(CodeBookConsts.AUTHOR_TYPE_A)) {
+//					TeacherPaperAuthorDomain teacherPaperAuthorDomain = new TeacherPaperAuthorDomain();
+//					teacherPaperAuthorDomain.setPaperId(paperId);
+//					teacherPaperAuthorDomain.setTeacherId(domain.getSecondAuthor());
+//					teacherpaperAuthorService.doSave(teacherPaperAuthorDomain);
+//				} else {
+//					StudentPaperAuthorDomain studentPaperAuthorDomain = new StudentPaperAuthorDomain();
+//					studentPaperAuthorDomain.setPaperId(paperId);
+//					studentPaperAuthorDomain.setStuId(domain.getSecondAuthor());
+//					studentpaperAuthorService.doSave(studentPaperAuthorDomain);
+//				}
+//
+//				return Consts.SUCCESS;
+//			}
+//		}
 		return Consts.ERROR;
 	}
 
@@ -313,24 +276,24 @@ public class PaperAuthorController {
 	@ResponseBody
 	public String doDelete(@PathVariable String id) throws Exception {
 
-		if (paperService.doDeleteById(id)) {
-			// 删除论文时，把学生论文及及教师论文的实体也要删除
-			List<TeacherPaperDomain> teacherpapers = teacherpaperService
-					.doGetByPaperId(id);
-			List<StudentPaperDomain> studentpapers = studentpaperService
-					.doGetByPaperId(id);
-			if (teacherpapers.size() > 0) {
-				for (TeacherPaperDomain teacherpaper : teacherpapers) {
-					teacherpaperService.doDeleteById(teacherpaper.getId());
-				}
-			}
-			if (studentpapers.size() > 0) {
-				for (StudentPaperDomain studentpaper : studentpapers) {
-					studentpaperService.doDeleteById(studentpaper.getId());
-				}
-			}
-			return Consts.SUCCESS;
-		}
+//		if (paperAuthorService.doDeleteById(id)) {
+//			// 删除论文时，把学生论文及及教师论文的实体也要删除
+//			List<TeacherPaperAuthorDomain> teacherpapers = teacherpaperAuthorService
+//					.doGetByPaperId(id);
+//			List<StudentPaperAuthorDomain> studentpapers = studentpaperAuthorService
+//					.doGetByPaperId(id);
+//			if (teacherpapers.size() > 0) {
+//				for (TeacherPaperAuthorDomain teacherpaper : teacherpapers) {
+//					teacherpaperAuthorService.doDeleteById(teacherpaper.getId());
+//				}
+//			}
+//			if (studentpapers.size() > 0) {
+//				for (StudentPaperAuthorDomain studentpaper : studentpapers) {
+//					studentpaperAuthorService.doDeleteById(studentpaper.getId());
+//				}
+//			}
+//			return Consts.SUCCESS;
+//		}
 
 		return Consts.ERROR;
 	}
@@ -348,26 +311,26 @@ public class PaperAuthorController {
 			@RequestParam(value = "paperIds[]") String[] paperIds)
 			throws Exception {
 
-		if (paperService.doDeleteByIds(paperIds)) {
-			//将关联的学生论文以及教师论文删除干净
-			for(String id:paperIds){
-				List<TeacherPaperDomain> teacherpapers = teacherpaperService
-						.doGetByPaperId(id);
-				List<StudentPaperDomain> studentpapers = studentpaperService
-						.doGetByPaperId(id);
-				if (teacherpapers.size() > 0) {
-					for (TeacherPaperDomain teacherpaper : teacherpapers) {
-						teacherpaperService.doDeleteById(teacherpaper.getId());
-					}
-				}
-				if (studentpapers.size() > 0) {
-					for (StudentPaperDomain studentpaper : studentpapers) {
-						studentpaperService.doDeleteById(studentpaper.getId());
-					}
-				}
-			}
-			return Consts.SUCCESS;
-		}
+//		if (paperAuthorService.doDeleteByIds(paperIds)) {
+//			//将关联的学生论文以及教师论文删除干净
+//			for(String id:paperIds){
+//				List<TeacherPaperAuthorDomain> teacherpapers = teacherpaperAuthorService
+//						.doGetByPaperId(id);
+//				List<StudentPaperAuthorDomain> studentpapers = studentpaperAuthorService
+//						.doGetByPaperId(id);
+//				if (teacherpapers.size() > 0) {
+//					for (TeacherPaperAuthorDomain teacherpaper : teacherpapers) {
+//						teacherpaperAuthorService.doDeleteById(teacherpaper.getId());
+//					}
+//				}
+//				if (studentpapers.size() > 0) {
+//					for (StudentPaperAuthorDomain studentpaper : studentpapers) {
+//						studentpaperAuthorService.doDeleteById(studentpaper.getId());
+//					}
+//				}
+//			}
+//			return Consts.SUCCESS;
+//		}
 
 		return Consts.ERROR;
 	}
@@ -388,7 +351,7 @@ public class PaperAuthorController {
 			BindingResult bindingResult, Model model, String searchText)
 			throws Exception {
 
-		List<PaperDomain> paperList = paperService.doSearchPaperPageList(
+		List<PaperAuthorDomain> paperList = paperAuthorService.doSearchPaperAuthorPageList(
 				pageInfo, searchText);
 		model.addAttribute("paperList", paperList);
 		return "/adminView/paper/paperList";

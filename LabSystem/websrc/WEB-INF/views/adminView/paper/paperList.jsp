@@ -137,7 +137,7 @@
 	        type: 2,
 	        title: '编辑作者',
 	        shadeClose: true,
-	        area : ['700px' , '560px'],
+	        area : ['1200px' , '600px'],
 	        offset: ['100px'],
 	        content: '${pageContext.request.contextPath}/admin/paperAuthor/paperAuthorList/'+paperId
 	    });
