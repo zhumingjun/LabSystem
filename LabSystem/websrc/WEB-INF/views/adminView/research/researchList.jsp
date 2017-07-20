@@ -63,7 +63,7 @@
 							<td><fmt:formatDate value="${researchDomain.projectDate }"
 									type="date" /></td>
 							<td>${researchDomain.allFund }</td>
-							<td>${researchDomain.finaAccount }</td>
+							<td>${researchDomain.finAccount }</td>
 							<td>${researchDomain.giveFund }</td>
 							<td>${cusfun:getNameByValueAndType(researchDomain.projectType,"8106")}</td>
 							<td>
@@ -100,7 +100,7 @@
 	        type: 2,
 	        title: '新增科研项目',
 	        shadeClose: true, //点击遮罩关闭层
-	        area : ['900px' , '600px'],
+	        area : ['800px' , '600px'],
 	        offset: ['60px'],
 	        content: '${pageContext.request.contextPath}/admin/research/researchAdd',
 	        end: function(){

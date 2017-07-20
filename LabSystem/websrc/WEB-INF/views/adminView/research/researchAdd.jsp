@@ -40,7 +40,10 @@
 </style>
 
 <form id="researchFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/research/save" method="post">
-		<input type="hidden" id="principalId" name="principal" value=""/>
+		<input type="hidden" id="principalId" name="principal.id" value=""/>
+		<input type="hidden" id="projectLevelId" name="projectLevel" value=""/>
+		<input type="hidden" id="projectStateId" name="state" value=""/>
+		<input type="hidden" id="projectTypeId" name="projectType" value=""/>
 	<table>	
 		<tr>
 			<td class="lesta-150">项目流水编号：</td>
@@ -98,25 +101,49 @@
 			<tr>
 			<td class="lesta-150">开始日期：</td>
 			<td class="lestb">
-				<input type="text" name="projectDate" class="Wdate" readonly="readonly" placeholder="立项日期" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
+				<input type="text" name="startDate" class="Wdate" readonly="readonly" placeholder="开始日期" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
 			</td>
 			<tr>
 			<td class="lesta-150">结项日期：</td>
 			<td class="lestb">
-				<input type="text" name="planDate" class="Wdate" readonly="readonly" placeholder="计划完成日期" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
+				<input type="text" name="endDate" class="Wdate" readonly="readonly" placeholder="结项日期" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
 			</td>
 			</tr>
 		<tr>
-			<td class="lesta-150">研讨内容：</td>
+			<td class="lesta-150">立项总金费：</td>
 			<td class="lestb">
-				<textarea rows="10" cols="50" name="content" placeholder="请输入研讨内容"></textarea>
+				<input type="text" id="allFund" name="allFund" class="input_text_a" ignore="ignore" placeholder="请输入立项总经费" />
+			</td>
+			<td class="lesta-150">拨款经费：</td>
+			<td class="lestb">
+				<input type="text" id="giveFund" name="giveFund" class="input_text_a" ignore="ignore" placeholder="请输入拨款经费" />
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">参会人员：</td>
+			<td class="lesta-150">财务账号：</td>
 			<td class="lestb">
-				<textarea rows="3" cols="50" name="participant" placeholder="请输入参会人员"></textarea>
-			</td>		
+				<input type="text" id="finAccount" name="finAccount" class="input_text_a" ignore="ignore" placeholder="请输入财务账号" />
+			</td>	
+				<td class="lesta-150">项目状态：</td>
+			<td class="lestb">
+				<select id="projectState_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${stateList }" var="stateDomain">
+						<option value="${stateDomain.value }">${stateDomain.name}</option>
+					</c:forEach>
+				</select>
+			</td>	
+		</tr>
+		<tr>
+			<td class="lesta-150">项目级别：</td>
+			<td class="lestb">
+				<select id="projectType_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${typeList }" var="typeDomain">
+						<option value="${typeDomain.value }">${typeDomain.name}</option>
+					</c:forEach>
+				</select>
+			</td>	
 		</tr>
 	</table>
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 300px;" value="确定"/>
@@ -142,9 +169,24 @@ $("#saveButton").click(function(){
 	
 });
 
+//下拉框选择后给隐藏域赋值
+$("#principal_select_add_id").change(function(){
+	var principal_id=$(this).children('option:selected').val();
+	$("#principalId").val(principal_id);
+});
 
+$("#projectLevel_select_add_id").change(function(){
+	var projectLevel_id=$(this).children('option:selected').val();
+	$("#projectLevelId").val(projectLevel_id);
+});
+$("#projectState_select_add_id").change(function(){
+	var projectState_id=$(this).children('option:selected').val();
+	$("#projectStateId").val(projectState_id);
+});
 
-
-	
+$("#projectType_select_add_id").change(function(){
+	var projectType_id=$(this).children('option:selected').val();
+	$("#projectTypeId").val(projectType_id);
+});
 
 </script>

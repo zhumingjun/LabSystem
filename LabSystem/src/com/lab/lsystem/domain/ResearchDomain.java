@@ -35,9 +35,8 @@ public class ResearchDomain {
 	private Date endDate;//结项日期
 	private String allFund;//立项总经费
 	private String giveFund;//拨款经费
-	private String finaAccount;//财务账号
-	private String projectSource;//项目来源
-	private String projectType;//项目类别
+	private String finAccount;//财务账号
+	private String projectType;//项目类型
 	public ResearchDomain() {
 		super();
 	}
@@ -144,18 +143,11 @@ public class ResearchDomain {
 		this.giveFund = giveFund;
 	}
 	@Column(name = "FINACCOUNT",unique = true, nullable = true, length = 200)
-	public String getFinaAccount() {
-		return finaAccount;
+	public String getFinAccount() {
+		return finAccount;
 	}
-	public void setFinaAccount(String finaAccount) {
-		this.finaAccount = finaAccount;
-	}
-	@Column(name = "PROJECTSOURCE",unique = true, nullable = true, length = 200)
-	public String getProjectSource() {
-		return projectSource;
-	}
-	public void setProjectSource(String projectSource) {
-		this.projectSource = projectSource;
+	public void setFinAccount(String finAccount) {
+		this.finAccount = finAccount;
 	}
 	@Column(name = "PROJECTTYPE",unique = true, nullable = true, length = 11)
 	public String getProjectType() {
