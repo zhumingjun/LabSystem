@@ -35,35 +35,50 @@
 					<th class="center" style="width: 60px;">
 						<label> <input id="theadCheckbox" type="checkbox" class="ace" /> <span class="lbl"></span></label>
 					</th>
-					<th >研讨时间</th>
-					<th >研讨地点</th>
-					<th >研讨内容</th>
-					<th >参与人员</th>
+					<th >项目流水编号</th>
+					<th >项目名称</th>
+					<th >负责人</th>
+					<th >项目分类</th>
+					<th >项目级别</th>
+					<th >立项日期</th>
+					<th >拨款经费</th>
+					<th >财务账号</th>
+					<th >到账经费</th>
+					<th >项目状态</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 	
 			<tbody>
-				<c:forEach items="${researchList }" var="researchDomain">
-					<tr>
-						<td class="center">
-						<label> <input type="checkbox" class="ace" value="${researchDomain.id }"/> <span class="lbl"></span></label>
-						</td>
-						<td>
-						<fmt:formatDate value="${researchDomain.researchDate }" type="date"/>
-						</td>
-						<td>${researchDomain.location }</td>
-						
-						<td>${researchDomain.content }</td>	
-						<td>${researchDomain.participant }</td>
-						<td>
-							<input type="button" class="btn_list_view" value="查看" onclick="viewresearch('${researchDomain.id }')"/> 
-							<input type="button" class="btn_list_update" value="修改" onclick="updateresearch('${researchDomain.id }')"/>  
-							<input type="button" class="btn_list_delete" value="删除" onclick="deleteresearch('${researchDomain.id }')"/>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
+					<c:forEach items="${researchList }" var="researchDomain">
+						<tr>
+							<td class="center"><label> <input type="checkbox"
+									class="ace" value="${researchDomain.id }" /> <span class="lbl"></span></label>
+							</td>
+							<td>${researchDomain.projectNumber }</td>
+							<td>${researchDomain.projectName }</td>
+							<td>${researchDomain.principal.name }</td>
+							<td>${cusfun:getNameByValueAndType(researchDomain.projectType,"8108")}</td>
+							<td>${cusfun:getNameByValueAndType(researchDomain.projectType,"8107")}</td>
+							<td><fmt:formatDate value="${researchDomain.projectDate }"
+									type="date" /></td>
+							<td>${researchDomain.allFund }</td>
+							<td>${researchDomain.finaAccount }</td>
+							<td>${researchDomain.giveFund }</td>
+							<td>${cusfun:getNameByValueAndType(researchDomain.projectType,"8106")}</td>
+							<td>
+							<input type="button" class="btn_list_view" value="查看"
+								onclick="viewresearch('${researchDomain.id }')" /> 
+							<input
+								type="button" class="btn_list_update" value="修改"
+								onclick="updateresearch('${researchDomain.id }')" /> 
+							<input
+								type="button" class="btn_list_delete" value="删除"
+								onclick="deleteresearch('${researchDomain.id }')" />
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 		</table>
 		<div id="pageId"><tags:paged /></div>
 	</div>
@@ -83,7 +98,7 @@
 	$("#researchAddButton").click(function(){
 	    parent.layer.open({
 	        type: 2,
-	        title: '新增研讨',
+	        title: '新增科研项目',
 	        shadeClose: true, //点击遮罩关闭层
 	        area : ['900px' , '600px'],
 	        offset: ['60px'],

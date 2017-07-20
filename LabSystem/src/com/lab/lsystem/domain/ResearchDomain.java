@@ -18,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="RESEARCH")
 public class ResearchDomain {
 	private String id;//id
+	private String projectName;//项目名称
 	private TeacherDomain principal;//负责人
 	private String phone;//负责人联系方式
 	private String projectNumber;//项目流水编号
@@ -36,6 +37,7 @@ public class ResearchDomain {
 	private String giveFund;//拨款经费
 	private String finaAccount;//财务账号
 	private String projectSource;//项目来源
+	private String projectType;//项目类别
 	public ResearchDomain() {
 		super();
 	}
@@ -48,6 +50,13 @@ public class ResearchDomain {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	@Column(name = "PROJECTNAME",unique = true, nullable = true, length = 100)
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "TEACHERID")
@@ -147,6 +156,13 @@ public class ResearchDomain {
 	}
 	public void setProjectSource(String projectSource) {
 		this.projectSource = projectSource;
+	}
+	@Column(name = "PROJECTTYPE",unique = true, nullable = true, length = 11)
+	public String getProjectType() {
+		return projectType;
+	}
+	public void setProjectType(String projectType) {
+		this.projectType = projectType;
 	}
 	
 	

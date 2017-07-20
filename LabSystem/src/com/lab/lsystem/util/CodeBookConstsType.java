@@ -48,5 +48,9 @@ public class CodeBookConstsType {
 	 * 项目级别：8107
 	 */
 	public static final String PROJECT_LEVEL="8107";
+	/**
+	 * 项目分类：8108
+	 */
+	public static final String PROJECT_TYPE="8108";
 
 }

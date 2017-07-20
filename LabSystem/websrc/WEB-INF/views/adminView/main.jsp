@@ -208,6 +208,13 @@
 				$("#content_page").html(result);
 			});
 		});
+   		$("#research_manage").click(function(){
+			
+			$.post("${pageContext.request.contextPath}/admin/research/researchList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
 	    
         $("#discussion_manage").click(function(){
 			

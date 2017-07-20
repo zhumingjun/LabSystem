@@ -145,4 +145,16 @@ public class CodeBookConsts {
 	 * 项目级别：8107 0-国家级 1-省部级 2-厅局级
 	 */
 	public static final String PROJECT_LEVEL_C="2";
+	/**
+	 * 项目分类：8108 0-973计划  1-863计划  2-自然科学基金
+	 */
+	public static final String PROJECT_TYPE_A="0";
+	/**
+	 * 项目分类：8108 0-973计划  1-863计划  2-自然科学基金
+	 */
+	public static final String PROJECT_TYPE_B="1";
+	/**
+	 * 项目分类：8108 0-973计划  1-863计划  2-自然科学基金
+	 */
+	public static final String PROJECT_TYPE_C="2";
 }

@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lab.lsystem.domain.CodeBookDomain;
 import com.lab.lsystem.domain.ResearchDomain;
+import com.lab.lsystem.domain.TeacherDomain;
+import com.lab.lsystem.util.CodeBookConstsType;
+import com.lab.lsystem.util.CodeBookHelper;
 import com.lab.lsystem.util.Consts;
 import com.lab.lsystem.service.IResearchService;
+import com.lab.lsystem.service.ITeacherService;
 import com.lab.system.util.PageInfo;
 
 /*
@@ -34,6 +39,7 @@ public class ResearchController {
 	 * @throws Exception
 	 */
 	@Resource private IResearchService researchService;
+	@Resource private ITeacherService teacherService;
 	
 	/**
 	 * 过滤起前台pageInfo
@@ -85,7 +91,14 @@ public class ResearchController {
 	 */
 	@RequestMapping("/researchAdd")
 	public String doteacherAdd(Model model)throws Exception{
-		
+		List<TeacherDomain> teachers=teacherService.doGetFilterList();
+		List<CodeBookDomain> stateList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_STATE);	
+		List<CodeBookDomain> typeList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_TYPE);
+		List<CodeBookDomain> levelList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_LEVEL);
+		model.addAttribute("teachers", teachers);
+		model.addAttribute("stateList", stateList);
+		model.addAttribute("typeList", typeList);
+		model.addAttribute("levelList", levelList);
 		return "/adminView/research/researchAdd";
 	}
 	
