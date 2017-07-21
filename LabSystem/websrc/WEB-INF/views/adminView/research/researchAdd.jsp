@@ -135,7 +135,7 @@
 			</td>	
 		</tr>
 		<tr>
-			<td class="lesta-150">项目级别：</td>
+			<td class="lesta-150">项目类型：</td>
 			<td class="lestb">
 				<select id="projectType_select_add_id" class="select_style">
 					<option value="" selected="selected">选择</option>
