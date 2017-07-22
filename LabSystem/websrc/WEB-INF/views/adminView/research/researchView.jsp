@@ -33,31 +33,31 @@
 		<tr>
 			<td class="lesta-150">项目流水编号：</td>
 			<td class="lestb">
-				<input type="text" id="projectNumber" name="projectNumber" class="input_text_a" ignore="ignore" value="${research.projectNumber }"/>
+				<input type="text" id="projectNumber" name="projectNumber" class="input_text_a" ignore="ignore" value="${researchDomain.projectNumber }"/>
 			</td>
 			<td class="lesta-150">项目名称：</td>
 			<td class="lestb">
-				<input type="text" id="projectName" name="projectName" class="input_text_a" ignore="ignore" value="${research.projectName }" />
+				<input type="text" id="projectName" name="projectName" class="input_text_a" ignore="ignore" value="${researchDomain.projectName }" />
 			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">负责人：</td>
 			<td class="lestb">
-			${research.principal.name }
+			${researchDomain.principal.name }
 			</td>
 			<td class="lesta-150">负责人联系方式：</td>
 			<td class="lestb">
-				<input type="text" id="phone" name="phone" class="input_text_a" ignore="ignore" value="${research.phone }"  />
+				<input type="text" id="phone" name="phone" class="input_text_a" ignore="ignore" value="${researchDomain.phone }"  />
 			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">负责人邮箱：</td>
 			<td class="lestb">
-				<input type="text" id="email" name="email" class="input_text_a" ignore="ignore" value="${research.email }"  />
+				<input type="text" id="email" name="email" class="input_text_a" ignore="ignore" value="${researchDomain.email }"  />
 			</td>
 			<td class="lesta-150">项目级别：</td>
 			<td class="lestb">
-				${research.projectLevel }
+				${cusfun:getNameByValueAndType(researchDomain.projectType,"8107")}
 			</td>
 		</tr>
 			<tr>
@@ -76,7 +76,7 @@
 			<tr>
 			<td class="lesta-150">开始日期：</td>
 			<td class="lestb">
-				<fmt:formatDate value="${researchDomain.stateDate }" type="date"/>
+				<fmt:formatDate value="${researchDomain.startDate }" type="date"/>
 			</td>
 			<tr>
 			<td class="lesta-150">结项日期：</td>
@@ -101,13 +101,13 @@
 			</td>	
 				<td class="lesta-150">项目状态：</td>
 			<td class="lestb">
-				${researchDomain.state }
+				${cusfun:getNameByValueAndType(researchDomain.state,"8106")}
 			</td>	
 		</tr>
 		<tr>
 			<td class="lesta-150">项目类型：</td>
 			<td class="lestb">
-				value="${researchDomain.projectType }"
+				${cusfun:getNameByValueAndType(researchDomain.projectType,"8108")}
 			</td>	
 		</tr>
 	</table>

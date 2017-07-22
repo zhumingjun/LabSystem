@@ -115,7 +115,14 @@ public class ResearchController {
 		//获取research信息
 		ResearchDomain researchDomain=researchService.doGetById(id);
 		model.addAttribute("researchDomain", researchDomain);
-		
+		List<TeacherDomain> teachers=teacherService.doGetFilterList();
+		List<CodeBookDomain> stateList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_STATE);	
+		List<CodeBookDomain> typeList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_TYPE);
+		List<CodeBookDomain> levelList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_LEVEL);
+		model.addAttribute("teachers", teachers);
+		model.addAttribute("stateList", stateList);
+		model.addAttribute("typeList", typeList);
+		model.addAttribute("levelList", levelList);
 		return "/adminView/research/researchEdit";
 	}
 	

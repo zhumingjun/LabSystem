@@ -59,13 +59,13 @@
 							<td>${researchDomain.projectName }</td>
 							<td>${researchDomain.principal.name }</td>
 							<td>${cusfun:getNameByValueAndType(researchDomain.projectType,"8108")}</td>
-							<td>${cusfun:getNameByValueAndType(researchDomain.projectType,"8107")}</td>
+							<td>${cusfun:getNameByValueAndType(researchDomain.projectLevel,"8107")}</td>
 							<td><fmt:formatDate value="${researchDomain.projectDate }"
 									type="date" /></td>
 							<td>${researchDomain.allFund }</td>
 							<td>${researchDomain.finAccount }</td>
 							<td>${researchDomain.giveFund }</td>
-							<td>${cusfun:getNameByValueAndType(researchDomain.projectType,"8106")}</td>
+							<td>${cusfun:getNameByValueAndType(researchDomain.state,"8106")}</td>
 							<td>
 							<input type="button" class="btn_list_view" value="查看"
 								onclick="viewresearch('${researchDomain.id }')" /> 

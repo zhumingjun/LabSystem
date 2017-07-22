@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>		
 
-<!-- 修改教师界面 -->
+<!-- 修改科研界面 -->
 
 <script>
 	var BASE_URL='${pageContext.request.contextPath}/admin/';
@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/button.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/editEditView.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/addEditView.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/webuploader/webuploader.css" />
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -66,7 +66,7 @@
 			</td>
 			<td class="lesta-150">负责人联系方式：</td>
 			<td class="lestb">
-				<input type="text" id="phone" name="phone" class="input_text_a" ignore="ignore" value="${researchDomain.projectName }" />
+				<input type="text" id="phone" name="phone" class="input_text_a" ignore="ignore" value="${researchDomain.phone }" />
 			</td>
 		</tr>
 		<tr>
@@ -97,7 +97,7 @@
 		<tr>
 			<td class="lesta-150">开始日期：</td>
 			<td class="lestb">
-				<input type="text" name="startDate" class="Wdate" readonly="readonly" value="<fmt:formatDate value="${researchDomain.stateDate }" type="date"/>" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
+				<input type="text" name="startDate" class="Wdate" readonly="readonly" value="<fmt:formatDate value="${researchDomain.startDate }" type="date"/>" onfocus="WdatePicker({maxDate:'%y-%M-%d'})" style="width: 150px;height: 30px;cursor: pointer;"/> 
 			</td>
 			<tr>
 			<td class="lesta-150">结项日期：</td>
