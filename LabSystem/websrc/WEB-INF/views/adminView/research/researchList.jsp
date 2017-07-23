@@ -73,8 +73,8 @@
 								type="button" class="btn_list_update" value="修改"
 								onclick="updateresearch('${researchDomain.id }')" /> 
 							<input
-								type="button" class="btn_list_delete" value="删除"
-								onclick="deleteresearch('${researchDomain.id }')" />
+								type="button" class="btn_list_update" value="编辑"
+								onclick="editProjectPerson('${researchDomain.id }')" />
 							</td>
 						</tr>
 					</c:forEach>
@@ -144,32 +144,17 @@
 	    });
 	}
 	
-	//删除
-	function deleteresearch(researchId)
+	//编辑参与人员
+	function editProjectPerson(researchId)
 	{
-		//询问框
-		layer.confirm('是否确定删除？', {
-			offset: ['260px'],
-		    btn: ['确定','取消'] //按钮
-		}, function(){
-	 		//默认加载学生列表
-			$.post("${pageContext.request.contextPath}/admin/research/delete/"+researchId, function(result){
-				if(result=='success'){
-					//默认加载学生列表
-		        	$("#formId").ajaxSubmit(function(data){
-		        	 	$("#content_page").html(data);
-		    		});
-					parent.layer.msg('删除成功', {
-						offset: ['260px'],
-	     		        time: 1500//1.5s后自动关闭
-	     		    });
-				}else{
-					layer.msg('删除失败');
-				}
-			});
-		}, function(){
-			
-		});
+		parent.layer.open({
+	        type: 2,
+	        title: '编辑参与人员',
+	        shadeClose: true,
+	        area : ['1200px' , '600px'],
+	        offset: ['100px'],
+	        content: '${pageContext.request.contextPath}/admin/projectPerson/projectPersonList/'+researchId
+	    });
 		
 	}
 	

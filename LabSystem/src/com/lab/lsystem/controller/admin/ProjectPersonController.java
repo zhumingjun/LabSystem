@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lab.lsystem.domain.CodeBookDomain;
+import com.lab.lsystem.domain.PaperAuthorDomain;
 import com.lab.lsystem.domain.ProjectPersonDomain;
 import com.lab.lsystem.domain.TeacherDomain;
 import com.lab.lsystem.util.CodeBookConstsType;
@@ -56,14 +57,13 @@ public class ProjectPersonController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/projectPersonList")
+	@RequestMapping("/projectPersonList/{id}")
 	public String getUserList(@ModelAttribute("pageInfo") PageInfo pageInfo
-			,BindingResult bindingResult,Model model) throws Exception{
-		//采用分页方式获取
-		List<ProjectPersonDomain> projectPersonList=projectPersonService.doGetPageList(pageInfo);
-		
+			,BindingResult bindingResult,Model model,@PathVariable String id) throws Exception{
+		//根据科研项目id获取参与人员
+		List<ProjectPersonDomain> projectPersonList=projectPersonService.doGetPageListByResearchId(pageInfo,id);
 		model.addAttribute("projectPersonList", projectPersonList);
-		
+		model.addAttribute("projectId", id);
 		return "/adminView/projectPerson/projectPersonList";
 	}
 	/**
@@ -89,16 +89,9 @@ public class ProjectPersonController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/projectPersonAdd")
-	public String doteacherAdd(Model model)throws Exception{
-		List<TeacherDomain> teachers=teacherService.doGetFilterList();
-		List<CodeBookDomain> stateList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_STATE);	
-		List<CodeBookDomain> typeList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_TYPE);
-		List<CodeBookDomain> levelList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROJECT_LEVEL);
-		model.addAttribute("teachers", teachers);
-		model.addAttribute("stateList", stateList);
-		model.addAttribute("typeList", typeList);
-		model.addAttribute("levelList", levelList);
+	@RequestMapping("/projectPersonAdd/{projectId}")
+	public String doteacherAdd(Model model,@PathVariable String projectId)throws Exception{
+		model.addAttribute("projectId", projectId);
 		return "/adminView/projectPerson/projectPersonAdd";
 	}
 	

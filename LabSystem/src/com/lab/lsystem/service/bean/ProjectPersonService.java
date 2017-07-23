@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lab.lsystem.dao.IProjectPersonDao;
 import com.lab.lsystem.dao.IStudentDao;
 import com.lab.lsystem.dao.ITeacherDao;
+import com.lab.lsystem.domain.PaperAuthorDomain;
 import com.lab.lsystem.domain.ProjectPersonDomain;
 import com.lab.lsystem.domain.StudentDomain;
 import com.lab.lsystem.domain.TeacherDomain;
@@ -156,5 +157,17 @@ public class ProjectPersonService implements IProjectPersonService{
 		}else{
 			return null;
 		}
+	}
+
+	@Override
+	public List<ProjectPersonDomain> doGetPageListByResearchId(
+			PageInfo pageInfo, String id) throws Exception {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(ProjectPersonDomain.class);
+		detachedCriteria.add(Restrictions.eq("projectId", id.trim()));
+
+		List<ProjectPersonDomain> projectPersonList = projectPersonDao
+				.getFilterList(detachedCriteria);
+		return projectPersonList;
 	}
 }

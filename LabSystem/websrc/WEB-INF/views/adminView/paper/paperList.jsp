@@ -60,7 +60,7 @@
 						<td>
 							<input type="button" class="btn_list_view" value="查看" onclick="viewpaper('${paperDomain.id }')"/> 
 							<input type="button" class="btn_list_update" value="修改" onclick="updatepaper('${paperDomain.id }')"/>  
-							<input type="button" class="btn_list_delete" value="编辑" onclick="editpaper('${paperDomain.id }')"/>
+							<input type="button" class="btn_list_update" value="编辑" onclick="editpaper('${paperDomain.id }')"/>
 						</td>
 					</tr>
 				</c:forEach>

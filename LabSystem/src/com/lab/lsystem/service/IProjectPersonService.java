@@ -73,5 +73,13 @@ public interface IProjectPersonService{
 		 * @throws Exception
 		 */
 		public String doGetNameById(String userId)throws Exception;
+		/**
+		 * 根据科研项目ID获取参与人员
+		 * @param pageInfo
+		 * @param id
+		 * @return
+		 */
+		public List<ProjectPersonDomain> doGetPageListByResearchId(
+				PageInfo pageInfo, String id)throws Exception;
 
 }
