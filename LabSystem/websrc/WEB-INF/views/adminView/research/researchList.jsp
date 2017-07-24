@@ -153,7 +153,13 @@
 	        shadeClose: true,
 	        area : ['1200px' , '600px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/projectPerson/projectPersonList/'+researchId
+	        content: '${pageContext.request.contextPath}/admin/projectPerson/projectPersonList/'+researchId,
+	        end: function(){
+	        	//默认加载用户列表
+	        	$("#formId").ajaxSubmit(function(data){
+	        	 	$("#content_page").html(data);
+	    		});
+	        }
 	    });
 		
 	}

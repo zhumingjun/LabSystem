@@ -55,7 +55,6 @@
 						<td>
 							<input type="button" class="btn_list_view" value="查看" onclick="viewprojectPerson('${projectPersonDomain.id }')"/> 
 							<input type="button" class="btn_list_update" value="修改" onclick="updateprojectPerson('${projectPersonDomain.id }')"/>  
-							<input type="button" class="btn_list_delete" value="编辑" onclick="editprojectPerson('${projectPersonDomain.id }')"/>
 						</td>
 					</tr>
 				</c:forEach>
@@ -135,7 +134,10 @@
 	        shadeClose: true,
 	        area : ['1200px' , '600px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/projectPersonAuthor/projectPersonAuthorList/'+projectPersonId
+	        content: '${pageContext.request.contextPath}/admin/projectPersonAuthor/projectPersonAuthorList/'+projectPersonId,
+	        end: function () {
+                location.reload();
+            }
 	    });
 	}
 	

@@ -73,6 +73,7 @@ $("#saveButton").click(function(){
 
 			parent.layer.msg('添加成功', {
  		        time: 1500//1.5s后自动关闭
+ 		        
  		    });
 			//关闭当前新增页面页
 			var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
