@@ -157,4 +157,16 @@ public class CodeBookConsts {
 	 * 项目分类：8108 0-973计划  1-863计划  2-自然科学基金
 	 */
 	public static final String PROJECT_TYPE_C="2";
+	/**
+	 * 导师身份：8109 0-硕导  1-博导  2-无
+	 */
+	public static final String MENTOR_STATUS_A="0";
+	/**
+	 * 导师身份：8109 0-硕导  1-博导  2-无
+	 */
+	public static final String MENTOR_STATUS_B="1";
+	/**
+	 * 导师身份：8109 0-硕导  1-博导  2-无
+	 */
+	public static final String MENTOR_STATUS_C="2";
 }

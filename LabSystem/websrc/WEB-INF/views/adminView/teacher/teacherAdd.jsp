@@ -39,6 +39,7 @@
 
 <form id="teacherFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/teacher/save" method="post">
 	<input type="hidden" id="jobTitleId" name="jobTitle" value=""/>
+	<input type="hidden" id="mentorStatusId" name="mentorStatus" value=""/>
 	<table>	
 		<tr>
 			<td class="lesta-150">工号：</td>
@@ -99,15 +100,24 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">身份证：</td>
+			<td class="lesta-150">身份证号：</td>
 			<td class="lestb">
 				<input type="text" id="teacheridNumber" name="idNumber" class="input_text_a" placeholder="请输入身份证号" />
 			</td>
+			<td class="lesta-150">导师身份：</td>
+			<td class="lestb">
+				<select id="mentorStatus_select_add_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${mentorStatusList }" var="mentorStatusDomain">
+						<option value="${mentorStatusDomain.value }">${mentorStatusDomain.name}</option>
+					</c:forEach>
+				</select>
+			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">家庭住址：</td>
+			<td class="lesta-150">办公地址：</td>
 			<td class="lestb">
-				<input type="text" id="teacherhomeAddress" name="homeAddress" class="input_text_a" placeholder="请输入家庭住址" />
+				<input type="text" id="teacherhomeAddress" name="homeAddress" class="input_text_a" placeholder="请输入办公地址" />
 			</td>
 			<td class="lesta-150">入职年份：</td>
 			<td class="lestb">
@@ -165,5 +175,9 @@
 		var jobTitle_id=$(this).children('option:selected').val();
 		$("#jobTitleId").val(jobTitle_id);
 	});
-	
+	//下拉框选择后给隐藏域赋值
+	$("#mentorStatus_select_add_id").change(function(){
+		var mentorStatus_id=$(this).children('option:selected').val();
+		$("#mentorStatusId").val(mentorStatus_id);
+	});
 </script>

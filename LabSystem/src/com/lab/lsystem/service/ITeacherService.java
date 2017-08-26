@@ -59,10 +59,13 @@ public interface ITeacherService{
 		 * 搜索功能
 		 * @param pageInfo
 		 * @param searchText
+		 * @param mentorStatus 
+		 * @param jobTitle 
+		 * @param sex 
 		 * @return
 		 */
 		public List<TeacherDomain> doSearchteacherPageList(PageInfo pageInfo,
-				String searchText)throws Exception;
+				String searchText, Integer sex, Integer jobTitle, Integer mentorStatus)throws Exception;
 		/**
 		 * 根据姓名查信息
 		 * @param name

@@ -12,6 +12,9 @@
 
 <div>
 <form id="formId" action="${pageContext.request.contextPath}/admin/teacher/teacherSearchList" method="post">
+	<input type="hidden" id="sex" name="sex" value="" />
+	<input type="hidden" id="jobTitle" name="jobTitle" value="" />
+	<input type="hidden" id="mentorStatus" name="mentorStatus" value="" />
 	
 	<div class="breadcrumbs" id="studentListToolbar">
 	
@@ -25,8 +28,29 @@
 		<input id="teacherQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="查询"/>
 	</div>
 	<div class="breadcrumbs">
+		<label style="margin-left: 20px;">性别：</label>
+		<select id="sex_select_id" style="width: 100px;">
+			<option value="" selected="selected">全部</option>
+			<c:forEach items="${sexList }" var="sexDomain">
+				<option value="${sexDomain.value }" >${sexDomain.name}</option>
+			</c:forEach>
+		</select>
 	
+		<label style="margin-left: 20px;">职称：</label>
+		<select id="jobTitle_select_id" style="width: 100px;" onchange="getMajor(this.value)">
+			<option value="" selected="selected">全部</option>
+			<c:forEach items="${jobTitleList }" var="jobTitleDomain">
+				<option value="${jobTitleDomain.value }">${jobTitleDomain.name}</option>
+			</c:forEach>
+		</select>
 		
+		<label style="margin-left: 20px;">导师身份：</label>
+		<select id="mentorStatus_select_id" style="width: 100px;" onchange="getClass(this.value)">
+			<option value="" selected="selected">全部</option>
+			<c:forEach items="${mentorStatusList }" var="mentorStatusDomain">
+				<option value="${mentorStatusDomain.value }">${mentorStatusDomain.name}</option>
+			</c:forEach>
+		</select>
 	</div>
 	<div class="table-responsive">
 		<table id="sample-table-2" class="table table-striped table-bordered table-hover" style="table-layout:fixed;">
@@ -39,6 +63,7 @@
 					<th >姓名</th>
 					<th >性别</th>
 					<th>职称</th>
+					<th>导师身份</th>
 					<th >入职年份</th>
 					<th>操作</th>
 				</tr>
@@ -54,6 +79,7 @@
 						<td>${teacherDomain.name }</td>
 						<td>${cusfun:getNameByValueAndType(teacherDomain.sex,"8002")}</td>
 						<td>${cusfun:getNameByValueAndType(teacherDomain.jobTitle,"8001")}</td>
+						<td>${cusfun:getNameByValueAndType(teacherDomain.mentorStatus,"8109")}</td>
 						<td>${teacherDomain.entryYear }</td>	
 						<td>
 							<input type="button" class="btn_list_view" value="查看" onclick="viewteacher('${teacherDomain.id }')"/> 
@@ -70,7 +96,30 @@
 </div>
 
 <script type="text/javascript">
+//使下拉框默认选择
+$(function(){
+	$("#sex_select_id option[value='${sex}']").attr("selected",true);
+	$("#jobTitle_select_id option[value='${jobTitle}']").attr("selected",true);
+	$("#mentorStatus_select_id option[value='${mentorStatus}']").attr("selected",true);
+});
 
+	//下拉框选择后给隐藏域赋值
+	$("#class_select_id").change(function(){
+	var classIdVal=$(this).children('option:selected').val();
+	$("#classId").val(classIdVal);
+});
+$("#sex_select_id").change(function(){
+	var sexIdVal=$(this).children('option:selected').val();
+	$("#sex").val(sexIdVal);
+});
+$("#jobTitle_select_id").change(function(){
+	var jobTitleIdVal=$(this).children('option:selected').val();
+	$("#jobTitle").val(jobTitleIdVal);
+});
+$("#mentorStatus_select_id").change(function(){
+	var mentorIdVal=$(this).children('option:selected').val();
+	$("#mentorStatus").val(mentorIdVal);
+});
 	//查询
 	$("#teacherQueryButton").click(function(){
 		$("#formId").ajaxSubmit(function(data){

@@ -39,19 +39,24 @@
 
 <form id="teacherFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/teacher/save" method="post">
 	<input type="hidden" id="id" name="id" value="${teacherDomain.id }"/>
-	<input type="hidden" id="workCode" name="workCode" value="${teacherDomain.workCode }"/>
 	<input type="hidden" id="jobTitleId" name="jobTitle" value="${teacherDomain.jobTitle }"/>
+	<input type="hidden" id="mentorStatusId" name="mentorStatus" value="${teacherDomain.mentorStatus }"/>
 	<table>
 		<tr>
 			<td class="lesta-150">工号：</td>
 			<td class="lestb">
-				${teacherDomain.workCode }
+				<input type="text" id="workCode" name="workCode" class="input_text_a" placeholder="请输入工号" value="${teacherDomain.workCode }">
 			</td>
 			<td rowspan="4" colspan="2">
 				<input type="hidden" id="headImg" name="headImg" />
 				<div id="filePicker" class="filePicker">选择图片</div>
 				<div class="add_pic" id="add_pic">
+					<c:if test="${teacherDomain.headImg==null||teacherDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
+					</c:if>
+					<c:if test="${teacherDomain.headImg!=null&&teacherDomain.headImg!='' }">
+						<img id="head_img" src="${headImgPath}/${teacherDomain.workCode }/${teacherDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
+					</c:if>
 				</div>
 			</td>
 		</tr>
@@ -106,13 +111,22 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">身份证：</td>
+			<td class="lesta-150">身份证号：</td>
 			<td class="lestb">
 				<input type="text" id="teacheridNumber" name="idNumber" class="input_text_a" placeholder="请输入身份证号" value="${teacherDomain.idNumber }"/>
 			</td>
+			<td class="lesta-150">导师身份：</td>
+			<td class="lestb">
+				<select id="mentorStatus_select_edit_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${mentorStatus }" var="mentorStatusDomain">
+						<option value="${mentorStatusDomain.value }">${mentorStatusDomain.name}</option>
+					</c:forEach>
+				</select>
+			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">家庭住址：</td>
+			<td class="lesta-150">办公地址：</td>
 			<td class="lestb">
 				<input type="text" id="teacherhomeAddress" name="homeAddress" class="input_text_a" placeholder="请输入家庭住址" value="${teacherDomain.homeAddress }"/>
 			</td>
@@ -129,6 +143,7 @@
 
 	$(function(){
 		$("#jobTitle_select_edit_id option[value='${teacherDomain.jobTitle}']").attr("selected",true);
+		$("#mentorStatus_select_edit_id option[value='${teacherDomain.mentorStatus}']").attr("selected",true);
 	});
 
 	//下拉框选择后给隐藏域赋值
@@ -136,7 +151,11 @@
 		var jobTitle_id=$(this).children('option:selected').val();
 		$("#jobTitleId").val(jobTitle_id);
 	});
-	
+	//下拉框选择后给隐藏域赋值
+	$("#mentorStatus_select_edit_id").change(function(){
+		var mentorStatus_id=$(this).children('option:selected').val();
+		$("#mentorStatusId").val(mentorStatus_id);
+	});
 	$("#saveButton").click(function(){
 		
 		var form = $("#teacherFormId");

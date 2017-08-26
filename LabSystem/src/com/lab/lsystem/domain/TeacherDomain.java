@@ -22,6 +22,7 @@ public class TeacherDomain {
 	private String name;//教师姓名
 	private String workCode;//教师工号
 	private int sex;//教师性别
+	private int mentorStatus;//导师身份
 	private String finAccount;//财务账号
 	private String idNumber;//身份证号
 	private int jobTitle;//职称
@@ -29,7 +30,7 @@ public class TeacherDomain {
 	private Date birthday;//生日
 	private String phoneNumber;//手机号
 	private String email;//邮箱
-	private String homeAddress;//家庭住址
+	private String homeAddress;//家庭住址（修改为办公室地址）
 	private String entryYear;//入职年份
 	private String headImg;//头像
 	private Set<StudentDomain> students=new HashSet<StudentDomain>();
@@ -144,6 +145,13 @@ public class TeacherDomain {
 	}
 	public void setResStudents(Set<StudentDomain> resStudents) {
 		this.resStudents = resStudents;
+	}
+	@Column(name = "MENTORSTATUS",unique = true, nullable = true, length = 11)
+	public int getMentorStatus() {
+		return mentorStatus;
+	}
+	public void setMentorStatus(int mentorStatus) {
+		this.mentorStatus = mentorStatus;
 	}
 	
 }

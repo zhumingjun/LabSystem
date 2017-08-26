@@ -69,7 +69,12 @@ public class TeacherController {
 			,BindingResult bindingResult,Model model) throws Exception{
 		//采用分页方式获取
 		List<TeacherDomain> teacherList=teacherService.doGetPageList(pageInfo);
-		
+		List<CodeBookDomain> jobTitleList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOBTITLE_TYPE);	
+		List<CodeBookDomain> mentorStatusList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.MENTOR_STATUS);
+		List<CodeBookDomain> sexList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.SEX_TYPE);
+		model.addAttribute("jobTitleList", jobTitleList);
+		model.addAttribute("mentorStatusList", mentorStatusList);
+		model.addAttribute("sexList", sexList);
 		model.addAttribute("teacherList", teacherList);
 		
 		return "/adminView/teacher/teacherList";
@@ -104,7 +109,9 @@ public class TeacherController {
 	public String doteacherAdd(Model model)throws Exception{
 		
 		List<CodeBookDomain> jobTitleList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOBTITLE_TYPE);	
+		List<CodeBookDomain> mentorStatusList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.MENTOR_STATUS);
 		model.addAttribute("jobTitleList", jobTitleList);
+		model.addAttribute("mentorStatusList", mentorStatusList);
 		
 		return "/adminView/teacher/teacherAdd";
 	}
@@ -123,8 +130,9 @@ public class TeacherController {
 		TeacherDomain teacherDomain=teacherService.doGetById(id);
 		
 		List<CodeBookDomain> jobTitle=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOBTITLE_TYPE);
-		
+		List<CodeBookDomain> mentorStatus=CodeBookHelper.getCodeBookByType(CodeBookConstsType.MENTOR_STATUS);
 		model.addAttribute("jobTitle", jobTitle);
+		model.addAttribute("mentorStatus", mentorStatus);
 		model.addAttribute("teacherDomain", teacherDomain);
 		
 		//头像路径
@@ -200,10 +208,19 @@ public class TeacherController {
 	 */
 	@RequestMapping("/teacherSearchList")
 	public String dostudentSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
-			,BindingResult bindingResult,Model model,String searchText)throws Exception{
-		
-		List<TeacherDomain> teacherList=teacherService.doSearchteacherPageList(pageInfo,searchText);
+			,BindingResult bindingResult,Model model,String searchText,Integer sex,Integer jobTitle,Integer mentorStatus)throws Exception{	
+		List<TeacherDomain> teacherList=teacherService.doSearchteacherPageList(pageInfo,searchText,sex,jobTitle,mentorStatus);
 		model.addAttribute("teacherList", teacherList);
+		List<CodeBookDomain> jobTitleList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.JOBTITLE_TYPE);	
+		List<CodeBookDomain> mentorStatusList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.MENTOR_STATUS);
+		List<CodeBookDomain> sexList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.SEX_TYPE);
+		model.addAttribute("jobTitleList", jobTitleList);
+		model.addAttribute("mentorStatusList", mentorStatusList);
+		model.addAttribute("sexList", sexList);
+		
+//		model.addAttribute("sexDomain", )
+//		model.addAttribute("teacherList", teacherList);
+		
 		return "/adminView/teacher/teacherList";
 	}
 	/**

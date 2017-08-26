@@ -111,13 +111,24 @@ public class TeacherService implements ITeacherService{
 	 */
 	@Override
 	public List<TeacherDomain> doSearchteacherPageList(PageInfo pageInfo,
-			String searchText) throws Exception {
+			String searchText,Integer sex,Integer jobTitle,Integer mentorStatus ) throws Exception {
 		// TODO Auto-generated method stub
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(TeacherDomain.class);
+		if(sex!=null&&ValidateUtil.notEmpty(sex.toString())){
+			detachedCriteria.add(Restrictions.eq("sex", Integer.valueOf(sex))); 
+		}
+		if(jobTitle!=null&&ValidateUtil.notEmpty(jobTitle.toString())){
+			detachedCriteria.add(Restrictions.eq("jobTitle", Integer.valueOf(jobTitle)));
+		}
+		if(mentorStatus!=null&&ValidateUtil.notEmpty(mentorStatus.toString())){
+			detachedCriteria.add(Restrictions.eq("mentorStatus", Integer.valueOf(mentorStatus)));
+		}
 		if(ValidateUtil.notEmpty(searchText)){
 			//多条件过滤，此处名字，宿舍，籍贯
 			Disjunction disjunction = Restrictions.disjunction();  
-			disjunction.add(Restrictions.like("name", searchText,MatchMode.ANYWHERE).ignoreCase());  	              
+			disjunction.add(Restrictions.like("name", searchText,MatchMode.ANYWHERE).ignoreCase());  	
+			disjunction.add(Restrictions.like("workCode", searchText,MatchMode.ANYWHERE).ignoreCase());  
+			disjunction.add(Restrictions.like("entryYear", searchText,MatchMode.ANYWHERE).ignoreCase()); 
 			detachedCriteria.add(disjunction);  
 		}
 		

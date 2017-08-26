@@ -83,12 +83,16 @@
 			</td>
 		</tr>
 			<tr>
-			<td class="lesta-150">身份证：</td>
+			<td class="lesta-150">身份证号：</td>
 			<td class="lestb" style="width:150px;">
 				${teacherDomain.idNumber }
 			</td>
+			<td class="lesta-150">导师身份：</td>
+			<td class="lestb" style="width:150px;">
+				${cusfun:getNameByValueAndType(teacherDomain.mentorStatus,"8109")}
+			</td>
 		<tr>
-			<td class="lesta-150">家庭住址：</td>
+			<td class="lesta-150">办公地址：</td>
 			<td class="lestb" style="width:150px;">
 				${teacherDomain.homeAddress }
 			</td>
